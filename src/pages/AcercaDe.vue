@@ -1,10 +1,10 @@
 <template>
   <q-page class="flex flex-center">
-    <img 
+    <img
       alt="Lets Study logo"
       src="~assets/logo_letsstudy.png"
     >
-    <h3>¡ ESTUDIA !</h3>
+    <h3>Proyecto realizado en el Hackton 19/20 del CEEDCV</h3>
   </q-page>
 </template>
 
