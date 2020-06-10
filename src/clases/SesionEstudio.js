@@ -20,6 +20,7 @@ let tiempoTar=estudioTar.getTiempo();
 console.log("El tiempo de estudio de la manyana es "+tiempoMan);
 console.log("El tiempo de estudio de la tarde es "+tiempoTar);
 */
+//scsdc
 
 // Para que se posible importar la clase
 export default SesionEstudio;
