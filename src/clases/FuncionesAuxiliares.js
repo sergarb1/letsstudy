@@ -34,9 +34,26 @@ class FuncionesAuxiliares {
       
       }
 
+      //calcula los minutos que han pasado entre dos fechas, redondeando.
+      static minutosEntreFechas(fechaA,fechaB){
+        let dateA = new Date(fechaA).getTime();
+        let dateB = new Date(fechaB).getTime();
+        let difS = Math.abs(dateA-dateB);
+        let toMin = difS/60000;
+        return Math.round(toMin);
+      }
+      //Calcula los segundos que han pasado entre dos fechas, redondeando
+      static segundosEntreFechas(fechaA,fechaB){
+        let dateA = new Date(fechaA).getTime();
+        let dateB = new Date(fechaB).getTime();
+        let difS = Math.abs(dateA-dateB);
+        let toSecs = difS/1000;
+        return Math.round(toSecs);
+    }
+
 }
 
-export default FuncionesAuxiliares
+//export default FuncionesAuxiliares
 
 // Para test: comentar la línea del export y descomentar la siguientes líneas
 /*
@@ -52,3 +69,14 @@ console.log(tiempoEnTexto3)
 console.log(tiempoEnTexto4)
 console.log(tiempoEnTexto5)
 */
+/**Tests funcion minutosEntreFechas
+console.log(FuncionesAuxiliares.minutosEntreFechas("2020-6-15","2021-6-15"));
+console.log(FuncionesAuxiliares.minutosEntreFechas("November 12 2020 17:51","November 12 2020 17:52:55 "));
+console.log(FuncionesAuxiliares.minutosEntreFechas("November 12 2020 17:51","November 12 2020 18:52"));
+console.log ("introduciendo ms: "+ FuncionesAuxiliares.minutosEntreFechas(1000,5000));
+ */
+/**Tests funcion segundosEntreFechas
+console.log(FuncionesAuxiliares.segundosEntreFechas("2000-01-02 00:00:00","January 1 2000 00:00:00"));
+console.log(FuncionesAuxiliares.minutosEntreFechas("January 2 2000 00:00:00","January 1 2000 00:00:00"));
+console.log ("introduciendo ms: "+ FuncionesAuxiliares.segundosEntreFechas(1600,5000));
+ //*/
