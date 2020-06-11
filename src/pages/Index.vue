@@ -1,8 +1,9 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="flex flex-center column">
     <img
+      class="shadow-24"
       alt="Lets Study logo"
-      src="~assets/logo_letsstudy.png"
+      src="~assets/LETSSTUDY.png"
     >
     <h1>¡ ESTUDIA !</h1>
   </q-page>
