@@ -33,6 +33,17 @@
         >
           Opciones
         </q-item-label>
+
+        <q-item clickable to="Resumen" >
+          <q-item-section avatar >
+            <q-icon name="assessment"  />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Estadísticas del usuario</q-item-label>
+            <q-item-label caption>Tiempo de estudio</q-item-label>
+          </q-item-section>
+        </q-item>
         
         <q-item clickable to="AcercaDe" >
           <q-item-section avatar >
