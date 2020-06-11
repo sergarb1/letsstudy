@@ -42,7 +42,7 @@ class FuncionesAuxiliares {
         let toMin = difS/60000;
         return Math.round(toMin);
       }
-      //Calcula los segundos que han pasado entre dos fechas, redondeando
+      //Calcula los segundos que han pasado entre dos fechas,redondeando
       static segundosEntreFechas(fechaA,fechaB){
         let dateA = new Date(fechaA).getTime();
         let dateB = new Date(fechaB).getTime();
