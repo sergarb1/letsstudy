@@ -69,6 +69,7 @@ export default {
   su valor cambia automaticamente en cualquier valor de la interfaz que las use. */
   data: function() {
     return {
+      fechaInicio: null, // Fecha en la que se inicio el cronometro
       tiempo: 0, // Segundos de la sesion
       textoCrono: "Empezar", // Texto del cronometro, por defecto empezar
       tiempoMostrar: "00 : 00 : 00", // Tiempo que vemos dentro del circulo, valor por defecto
@@ -86,6 +87,9 @@ export default {
         this.estadoCrono = true;
         // Cambio el texto del cronometro
         this.textoCrono = "Parar";
+        // Establecemos fecha inicio (se usara para calcular diferencia entre fechas)
+        // al construirla toma como valor la fecha del sistema
+        this.fechaInicio=new Date();
 
         // setInterval es una funcion Javascript para que una funcion que se indica dentro
         // se ejecute cada X milisegundos (segundo parametro)
@@ -96,8 +100,12 @@ export default {
         this.valorInterval = setInterval(
           // Funcion anonima que se ejecuta cada intervalo
           function() {
-            // Suma 1 al tiempo
-            this.tiempo++;
+            //Obtenemos fecha actual. Al construir un objeto Date, este toma la fecha actual
+            let fechaActual=new Date();
+            // Calculamos los segundos que han trascurrido restando la fecha de inicio del crono
+            // con la fecha actual. Esto se hace para no depender de la precision de setInterval
+            // y dar un resultado mas preciso
+            this.tiempo=FuncionesAuxiliares.segundosEntreFechas(this.fechaInicio,fechaActual);
             // Transforma los segundo transcurridos en formato HH : MM : SS
             this.tiempoMostrar = FuncionesAuxiliares.segundosToText(
               this.tiempo
