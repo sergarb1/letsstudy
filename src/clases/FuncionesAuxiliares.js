@@ -14,13 +14,13 @@ class FuncionesAuxiliares {
       
         segundos = ('0' + s % 60).slice(-2)
       
-        if (s > 60) {
+        if (s >= 60) {
       
           s = parseInt(s / 60)
       
           minutos = ('0' + s % 60).slice(-2)
       
-          if (s > 60) {
+          if (s >= 60) {
       
             s = parseInt(s / 60)
       
@@ -58,8 +58,8 @@ export default FuncionesAuxiliares
 
 // Para test: comentar la línea del export y descomentar la siguientes líneas
 /*
-let tiempoEnTexto1 = FuncionesAuxiliares.segundosToText(0)
-let tiempoEnTexto2 = FuncionesAuxiliares.segundosToText(3665)
+let tiempoEnTexto1 = FuncionesAuxiliares.segundosToText(1)
+let tiempoEnTexto2 = FuncionesAuxiliares.segundosToText(3600)
 let tiempoEnTexto3 = FuncionesAuxiliares.segundosToText(86399)
 let tiempoEnTexto4 = FuncionesAuxiliares.segundosToText(88000)
 let tiempoEnTexto5 = FuncionesAuxiliares.segundosToText(-153)
