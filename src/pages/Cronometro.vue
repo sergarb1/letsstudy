@@ -30,11 +30,11 @@ personalizaciones de estilo
       <!-- Usamos el componente https://quasar.dev/vue-components/circular-progress
        Indicamos distintos valores, entre ellos que su dibujo represente los rangos de 1 a 60 y que
        el valor para calcular en donde se esta, utilize la variable reactiva "tiempo" y obtenga
-      su modulo 60 (operacion %)-->
+      su modulo 61 (operacion %)-->
       <q-circular-progress
         show-value
         class="text-light-blue justify-center"
-        :value="tiempo%60"
+        :value="tiempo%61"
         :min="1"
         :max="60"
         size="150px"
@@ -49,7 +49,7 @@ personalizaciones de estilo
       <!-- Usamos el componente https://quasar.dev/vue-components/button
       Asociamos al evento click que llame a "cambiarEstadoCrono" y asociamos que el contenido
       de la propiedad label se asocie a la variable reactiva "textoCrono"-->
-      <q-btn color="primary" v-bind:label="textoCrono" @click="cambiarEstadoCrono()" />
+      <q-btn color="primary" :label="textoCrono" @click="cambiarEstadoCrono()" />
     </div>
   </q-page>
 </template>
@@ -107,9 +107,7 @@ export default {
             // y dar un resultado mas preciso
             this.tiempo=FuncionesAuxiliares.segundosEntreFechas(this.fechaInicio,fechaActual);
             // Transforma los segundo transcurridos en formato HH : MM : SS
-            this.tiempoMostrar = FuncionesAuxiliares.segundosToText(
-              this.tiempo
-            );
+            this.tiempoMostrar = FuncionesAuxiliares.segundosToText(this.tiempo);
           }.bind(this),
           1000
         );
