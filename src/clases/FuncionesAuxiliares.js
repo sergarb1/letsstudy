@@ -53,7 +53,8 @@ class FuncionesAuxiliares {
 
 }
 
-//export default FuncionesAuxiliares
+// Esto si lo comentais para probar, luego des-comentarlo
+export default FuncionesAuxiliares
 
 // Para test: comentar la línea del export y descomentar la siguientes líneas
 /*

@@ -21,27 +21,27 @@
       <q-list>
         <q-item-label header class="text-grey-8">Opciones</q-item-label>
 
+        <!-- Item Resumen -->
         <q-item clickable to="Resumen">
           <q-item-section avatar>
             <q-icon name="assessment" />
           </q-item-section>
-
-          <!-- Item Cronometro. La propiedad "to" indica que informacion mandara a router
-          para poder localizar el destino de este click-->
-          <q-item clickable to="Cronometro">
-            <q-item-section avatar>
-              <q-icon name="timer" />
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label>Acerca de nosotros</q-item-label>
-              <q-item-label caption>Hackaton CEEDCV</q-item-label>
-            </q-item-section>
-          </q-item>
-
           <q-item-section>
             <q-item-label>Estadísticas del usuario</q-item-label>
             <q-item-label caption>Tiempo de estudio</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <!-- Item Cronometro. La propiedad "to" indica que informacion mandara a router
+        para poder localizar el destino de este click-->
+        <q-item clickable to="Cronometro">
+          <q-item-section avatar>
+            <q-icon name="timer" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Cronometro</q-item-label>
+            <q-item-label caption>Comienza a estudiar</q-item-label>
           </q-item-section>
         </q-item>
 

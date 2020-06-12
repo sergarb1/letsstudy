@@ -17,42 +17,39 @@ personalizaciones de estilo
 <template>
   <!-- Usamos el componente Quasar para paginas q-page.
   Usaremos flex para definir el posicionamiento.
-  https://quasar.dev/layout/grid/introduction-to-flexbox -->
+  https://quasar.dev/layout/grid/introduction-to-flexbox-->
   <q-page class="flex flex-center">
     <!-- Indicamos que este DIV y sus elementos hijos seguiran en flex una columna
-    y que se alineran horizontalmente al centro -->
-     <div class="column justify-center">
-       
-       <!-- Indicamos mediante una clase el tamanyo y tipo de texto. 
+    y que se alineran horizontalmente al centro-->
+    <div class="column justify-center">
+      <!-- Indicamos mediante una clase el tamanyo y tipo de texto. 
        Ademas, ponemos text-center, ya que flex nos centra el "elemento",
-       pero el texto si no indicamos nada dentro del elemento se alinea a la izquierda -->
-       <p class="text-b1 text-center">¡Hora de estudiar!</p>
-       
+      pero el texto si no indicamos nada dentro del elemento se alinea a la izquierda-->
+      <p class="text-b1 text-center">¡Hora de estudiar!</p>
 
-       <!-- Usamos el componente https://quasar.dev/vue-components/circular-progress
+      <!-- Usamos el componente https://quasar.dev/vue-components/circular-progress
        Indicamos distintos valores, entre ellos que su dibujo represente los rangos de 1 a 60 y que
        el valor para calcular en donde se esta, utilize la variable reactiva "tiempo" y obtenga
-       su modulo 60 (operacion %) -->
-       <q-circular-progress
+      su modulo 60 (operacion %)-->
+      <q-circular-progress
         show-value
-        class="text-light-blue  justify-center"
+        class="text-light-blue justify-center"
         :value="tiempo%60"
         :min="1"
         :max="60"
         size="150px"
         color="light-blue"
         track-color="grey-3"
-        >
-          <!-- Dentro de la etiqueta q-circular-progress metemos el texto que se mostrara.
-          Este texto se asocia a la variable reactica "tiempoMostrar" -->
-          <p class=" text-body2 justify-center">{{ tiempoMostrar }}</p>
+      >
+        <!-- Dentro de la etiqueta q-circular-progress metemos el texto que se mostrara.
+        Este texto se asocia a la variable reactica "tiempoMostrar"-->
+        <p class="text-body2 justify-center">{{ tiempoMostrar }}</p>
       </q-circular-progress>
-      
+
       <!-- Usamos el componente https://quasar.dev/vue-components/button
       Asociamos al evento click que llame a "cambiarEstadoCrono" y asociamos que el contenido
-      de la propiedad label se asocie a la variable reactiva "textoCrono" -->
+      de la propiedad label se asocie a la variable reactiva "textoCrono"-->
       <q-btn color="primary" v-bind:label="textoCrono" @click="cambiarEstadoCrono()" />
-      
     </div>
   </q-page>
 </template>
@@ -60,62 +57,64 @@ personalizaciones de estilo
 
 
 <script>
-
 // Importo la clase FuncionesAuxiliares
-import FuncionesAuxiliares  from "../clases/FuncionesAuxiliares.js"
+import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
 
 // Estructura general necesaria para utilizar variables reactivas en componentes VUE
 export default {
-  name: 'Cronometro',
+  name: "Cronometro",
   /* Data es una funcion... porque si, porque los componetes Vue van asi.a1
   Basicamente, en data definiremos aquellas variables que son reactivas.
   Podriamos decir, que las variables reactivas son aquellas que si se cambian en algun lugar del codigo,
   su valor cambia automaticamente en cualquier valor de la interfaz que las use. */
-  data: function () {
+  data: function() {
     return {
-      
       tiempo: 0, // Segundos de la sesion
-      textoCrono:"Empezar", // Texto del cronometro, por defecto empezar
-      tiempoMostrar:"00 : 00 : 00", // Tiempo que vemos dentro del circulo, valor por defecto
+      textoCrono: "Empezar", // Texto del cronometro, por defecto empezar
+      tiempoMostrar: "00 : 00 : 00", // Tiempo que vemos dentro del circulo, valor por defecto
       estadoCrono: false, // true, crono funcionando, false, parado
-      valorInterval: null, // variable utilizada para parar el "setInterval"
-    }
+      valorInterval: null // variable utilizada para parar el "setInterval"
+    };
   },
   // Definimos metodos del componente
-  methods:{
+  methods: {
     // Metodo que al llamarse cambia el esto del cronometro de parado a en marcha o viceversa
-    cambiarEstadoCrono(){
+    cambiarEstadoCrono() {
       // Si el cronometro estaba parado
-      if(this.estadoCrono===false){
+      if (this.estadoCrono === false) {
         // Indico que el cronometro esta encendido
-        this.estadoCrono=true;  
+        this.estadoCrono = true;
         // Cambio el texto del cronometro
-        this.textoCrono="Parar";
-        
+        this.textoCrono = "Parar";
+
         // setInterval es una funcion Javascript para que una funcion que se indica dentro
         // se ejecute cada X milisegundos (segundo parametro)
         // para poder ser usada en componentes, se anyade el .bind(this) al final
-        // Por ultimo comentar que se guarda en "valorInterval" la referencia al intervalo, 
+        // Por ultimo comentar que se guarda en "valorInterval" la referencia al intervalo,
         // para poder pararlo mas adelante
-        
-        this.valorInterval=setInterval(
+
+        this.valorInterval = setInterval(
           // Funcion anonima que se ejecuta cada intervalo
-          function (){
+          function() {
             // Suma 1 al tiempo
             this.tiempo++;
             // Transforma los segundo transcurridos en formato HH : MM : SS
-            this.tiempoMostrar=FuncionesAuxiliares.segundosToText(this.tiempo);
-          }.bind(this), 1000)
+            this.tiempoMostrar = FuncionesAuxiliares.segundosToText(
+              this.tiempo
+            );
+          }.bind(this),
+          1000
+        );
       }
       // Si el cronometro estaba encendido
-      else{
+      else {
         // Indico que el cronometro esta parado y cambio texto
-        this.estadoCrono=false;   
-        this.textoCrono="Empezar";
+        this.estadoCrono = false;
+        this.textoCrono = "Empezar";
         // Con clearInterval y la referencia al interval, cancelamos el hilo que se ejecuta a intervalos
-        clearInterval(this.valorInterval)
+        clearInterval(this.valorInterval);
       }
-    },
+    }
   }
-}
+};
 </script>
