@@ -1,6 +1,4 @@
 // Definimos la clase ColeccionSesiones que almacena cada unidad de estudio
-// Importo las funciones auxiliares para usarlas dentro de la clase
-import FuncionesAuxiliares from './FuncionesAuxiliares';
 
 class ColeccionSesiones {
     // Constructor que genera un array para almacenar objetos SesionEstudio
