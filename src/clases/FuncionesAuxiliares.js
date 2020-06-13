@@ -53,6 +53,9 @@ class FuncionesAuxiliares {
 
 }
 
+// Para testear con Mocha hace falta descomentar esta línea y comentar la de abajo
+//module.exports = FuncionesAuxiliares;
+
 // Esto si lo comentais para probar, luego des-comentarlo
 export default FuncionesAuxiliares
 
