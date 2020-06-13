@@ -9,7 +9,8 @@ const routes = [
       // segun la ruta que se le proporcione
       { path: 'Cronometro', component: () => import('pages/Cronometro.vue') }, 
       { path: 'AcercaDe', component: () => import('pages/AcercaDe.vue') },
-      { path: 'Resumen', component: () => import('pages/Resumen.vue') }
+      { path: 'Resumen', component: () => import('pages/Resumen.vue') },
+      { path: 'Historico', component: () => import('pages/Historico.vue')}
     ]
   }
 ]

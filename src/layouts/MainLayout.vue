@@ -44,7 +44,16 @@
             <q-item-label caption>Comienza a estudiar</q-item-label>
           </q-item-section>
         </q-item>
+        <q-item clickable to="Historico">
+          <q-item-section avatar>
+            <q-icon name="date_range" />
+          </q-item-section>
 
+          <q-item-section>
+            <q-item-label>Histórico</q-item-label>
+            <q-item-label caption>Compara tu progreso</q-item-label>
+          </q-item-section>
+        </q-item>
         <q-item clickable to="AcercaDe">
           <q-item-section avatar>
             <q-icon name="info" />
