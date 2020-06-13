@@ -1,26 +1,26 @@
-// Definimos la clase SesionEstudio que almacena cada unidad de estudio
-class SesionEstudio{
-    // Constructor de la clase que recibe el parametro t que es el tiempo de estudio
-    constructor(t){
-        this.tiempo=t;
-        //console.log("Clase creada construida");
+// Clase para almacenar las sesiones de estudio
+class SesionEstudio {
+    // Se crea el objeto pasandole el objeto Date de inicio de la sesión
+    constructor(inicio) {
+        this.inicioSesion = inicio;
+        //Establecemos como vacio el fín de la sesión
+        this.finSesion = null;
     }
 
-    // Metodo que devuelve el tiempo de estudio
-    getTiempo(){
-        return this.tiempo;
+    // Devuelve el inicio de la sesión. Será tipo Date
+    getInicioSesion(){
+        return this.inicioSesion;
+    }
+
+    // Devuelve el fin de la sesión. Será tipo Date
+    getFinSesion(){
+        return this.finSesion;
+    }
+
+    // Establece el fín de la sesión, pasandole por parámetro un objeto tipo Date
+    setFinSesion(fin){
+        this.finSesion = fin;
     }
 }
 
-/* PARA TEST
-let estudioMan=new SesionEstudio(100);
-let estudioTar=new SesionEstudio(1000);
-let tiempoMan=estudioMan.getTiempo();
-let tiempoTar=estudioTar.getTiempo();
-console.log("El tiempo de estudio de la manyana es "+tiempoMan);
-console.log("El tiempo de estudio de la tarde es "+tiempoTar);
-*/
-//scsdc
-
-// Para que se posible importar la clase
 export default SesionEstudio;
