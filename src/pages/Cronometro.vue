@@ -21,7 +21,7 @@ personalizaciones de estilo
   <q-page class="flex flex-center">
     <!-- Indicamos que este DIV y sus elementos hijos seguiran en flex una columna
     y que se alineran horizontalmente al centro-->
-    <div class="column justify-center">
+    <div class="column justify-center q-gutter-md">
       <!-- Indicamos mediante una clase el tamanyo y tipo de texto. 
        Ademas, ponemos text-center, ya que flex nos centra el "elemento",
       pero el texto si no indicamos nada dentro del elemento se alinea a la izquierda-->
@@ -49,7 +49,7 @@ personalizaciones de estilo
       <!-- Usamos el componente https://quasar.dev/vue-components/button
       Asociamos al evento click que llame a "cambiarEstadoCrono" y asociamos que el contenido
       de la propiedad label se asocie a la variable reactiva "textoCrono"-->
-      <q-btn color="primary" :label="textoCrono" @click="cambiarEstadoCrono()" />
+      <q-btn color="light-blue" :label="textoCrono" @click="cambiarEstadoCrono()" />
     </div>
   </q-page>
 </template>
