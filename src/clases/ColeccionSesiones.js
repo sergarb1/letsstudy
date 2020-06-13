@@ -30,16 +30,20 @@ class ColeccionSesiones {
     getSesionesDia(fecha) {
         // Creo un array que iré rellenando con las sesiones de ese día
         let sesionesDia = []
+        // Clono la fecha y le pongo las horas, minutos, segundos y milisegundos a 0
+        let inicioDia=new Date(fecha.getTime());
+        inicioDia.setHours(0,0,0,0);
+
+        // Clono la fecha y le pongo las horas, minutos, segundos y milisegundos al final del dia
+        let finDia=new Date(fecha.getTime());
+        finDia.setHours(23,59,59,999);
 
         // Bucle foreach
         // Recorre todo el arraySesionesEstudio. forEach (por cada elemento) lo llamamos sesion
         // hace lo siguiente:
         this.arraySesionesEstudio.forEach(sesion => {
-            // Comprobación si la sesión empieza en el mismo día del mes, 
-            // mes y año que la fecha pasada por parametro
-            if(sesion.getInicioSesion().getDate() == fecha.getDate() &&
-                sesion.getInicioSesion().getMonth() == fecha.getMonth() &&
-                sesion.getInicioSesion().getFullYear() == fecha.getFullYear()){
+            // Comprobación si la sesion inicia entre inicioDia y finDia
+            if(sesion.getInicioSesion().getTime()>=inicioDia.getTime() && sesion.getInicioSesion().getTime()<=finDia.getTime() ){
                     //Si es el mismo día, introducimos en el array la sesión
                     sesionesDia.push(sesion);
             }
@@ -47,6 +51,34 @@ class ColeccionSesiones {
 
         // Devolvemos el array
         return sesionesDia;
+    }
+
+    
+    // Devuelve sesiones entre dos fechas que se le pasan como parametro
+    getSesionesEntreFechas(fechaA,fechaB) {
+        // Creo un array que iré rellenando con las sesiones de ese día
+        let sesiones = []
+
+        // Comprobamos que fechaA es anterior a fechaB y sino las invertimos
+        if(fechaA.getTime()>fechaB.getTime){
+            let aux=fechaA;
+            fechaA=fechaB;
+            fechaB=aux;
+        }
+
+        // Bucle foreach
+        // Recorre todo el arraySesionesEstudio. forEach (por cada elemento) lo llamamos sesion
+        // hace lo siguiente:
+        this.arraySesionesEstudio.forEach(sesion => {
+            // Comprobación si la sesion inicia entre fechaA y fechaB
+            if(sesion.getInicioSesion().getTime()>=fechaA.getTime() && sesion.getInicioSesion().getTime()<=fechaB.getTime()){
+                    //Si esta entre las dos fechas, introducimos en el array la sesión
+                    sesiones.push(sesion);
+            }
+        });
+
+        // Devolvemos el array
+        return sesiones;
     }
 
     //Devuelve el tiempo total de estudio en segundos
