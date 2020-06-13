@@ -1,6 +1,6 @@
 var assert = require('assert');
-//var fa = require('../src/clases/FuncionesAuxiliares');
-const fa = require('../src/clases/FuncionesAuxiliares');
+var fa = require('../src/clases/FuncionesAuxiliares');
+//const fa = require('../src/clases/FuncionesAuxiliares');
 
 // Tests de la clase FuncionesAuxiliares
 describe('FuncionesAuxiliares', function () {
@@ -11,8 +11,14 @@ describe('FuncionesAuxiliares', function () {
     describe('segundosToText()', function () {
         it('Entre 0 y 86400 segundos', function () {
             assert.equal(fa.segundosToText(0), "00:00:00");
-            assert.equal(fa.segundosToText(0), "00:00:00");
             assert.equal(fa.segundosToText(1), "00:00:01");
+            assert.equal(fa.segundosToText(59), "00:00:59");
+            assert.equal(fa.segundosToText(60), "00:01:00");
+            assert.equal(fa.segundosToText(61), "00:01:01");
+            assert.equal(fa.segundosToText(120), "00:01:00");
+            assert.equal(fa.segundosToText(121), "00:01:01");
+            assert.equal(fa.segundosToText(3540), "00:59:00");
+            assert.equal(fa.segundosToText(3541), "00:59:01");
             assert.equal(fa.segundosToText(86399), "23:59:59");
             assert.equal(fa.segundosToText(86400), "24:00:00");
         });
