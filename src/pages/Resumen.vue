@@ -7,25 +7,33 @@ estadísticas de tiempo de estudio del usuario -->
     </div>
     <!-- Aquí hacemos uso del componente de Quasar para crear
     tarjetas-->
-    <q-btn align="between" class="btn-fixed-width" color="yellow-14" label="PROGRESO" icon="history" />
-    <q-card class="my-card bg-light-blue text-white text-center">
-      <q-card-section>
-        <div class="text-h5">Estudiado hoy:</div>
-        <div class="text-h6">{{ hoy }}</div>
-      </q-card-section>
-    </q-card>
-    <q-card class="my-card bg-light-green-14 text-white text-center">
-      <q-card-section>
-        <div class="text-h5">Estudiado semana:</div>
-        <div class="text-h6">{{ semana }}</div>
-      </q-card-section>
-    </q-card>
-    <q-card class="my-card bg-purple text-white text-center">
-      <q-card-section>
-        <div class="text-h5">Total estudio:</div>
-        <div class="text-h6">{{ total }}</div>
-      </q-card-section>
-    </q-card>
+    <q-btn
+      align="between"
+      class="btn-fixed-width"
+      color="yellow-14"
+      label="PROGRESO"
+      icon="history"
+    />
+    <q-intersection transition="fade">
+      <q-card class="my-card q-mb-sm .shadow-3 bg-light-blue text-white text-center">
+        <q-card-section>
+          <div class="text-h5">Estudiado hoy:</div>
+          <div class="text-h6">{{ hoy }}</div>
+        </q-card-section>
+      </q-card>
+      <q-card class="my-card q-mb-sm .shadow-3 bg-light-green-14 text-white text-center">
+        <q-card-section>
+          <div class="text-h5">Estudiado semana:</div>
+          <div class="text-h6">{{ semana }}</div>
+        </q-card-section>
+      </q-card>
+      <q-card class="my-card q-mb-sm .shadow-3 bg-purple text-white text-center">
+        <q-card-section>
+          <div class="text-h5">Total estudio:</div>
+          <div class="text-h6">{{ total }}</div>
+        </q-card-section>
+      </q-card>
+    </q-intersection>
   </div>
 </template>
 

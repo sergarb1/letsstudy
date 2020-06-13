@@ -59,6 +59,9 @@ personalizaciones de estilo
 <script>
 // Importo la clase FuncionesAuxiliares
 import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
+import SesionEstudio from "../clases/SesionEstudio.js";
+// Importamos la clase Usuario para poder hacer la prueba de funcionamiento
+import Usuario from "../clases/Usuario.js";
 
 // Estructura general necesaria para utilizar variables reactivas en componentes VUE
 export default {
@@ -70,11 +73,15 @@ export default {
   data: function() {
     return {
       fechaInicio: null, // Fecha en la que se inicio el cronometro
+      fechaFin: null, // Fecha en la que se paro el cronometro
       tiempo: 0, // Segundos de la sesion
       textoCrono: "Empezar", // Texto del cronometro, por defecto empezar
       tiempoMostrar: "00 : 00 : 00", // Tiempo que vemos dentro del circulo, valor por defecto
       estadoCrono: false, // true, crono funcionando, false, parado
-      valorInterval: null // variable utilizada para parar el "setInterval"
+      valorInterval: null, // variable utilizada para parar el "setInterval"
+      sesion: null, // variable usada para registrar las distintas sesiones
+      // Creamos un usuario para pruebas, el usuario real se le pasará al componente como 'props'
+      usuario: new Usuario("Usuario de prueba")
     };
   },
   // Definimos metodos del componente
@@ -85,11 +92,15 @@ export default {
       if (this.estadoCrono === false) {
         // Indico que el cronometro esta encendido
         this.estadoCrono = true;
+        // Se muestra la notificación de inicio de registro de sesión
+        this.showNotifInicio();
         // Cambio el texto del cronometro
         this.textoCrono = "Parar";
-        // Establecemos fecha inicio (se usara para calcular diferencia entre fechas)
-        // al construirla toma como valor la fecha del sistema
-        this.fechaInicio=new Date();
+        // Establecemos fecha inicio (se usara para calcular diferencia entre fechas y para inicio
+        // sesion de estudio) al construirla toma como valor la fecha del sistema
+        this.fechaInicio = new Date();
+        // Instanciamos una nueva SesionEstudio para almacenar el inicio del crono
+        this.sesion = new SesionEstudio(this.fechaInicio);
 
         // setInterval es una funcion Javascript para que una funcion que se indica dentro
         // se ejecute cada X milisegundos (segundo parametro)
@@ -101,13 +112,18 @@ export default {
           // Funcion anonima que se ejecuta cada intervalo
           function() {
             //Obtenemos fecha actual. Al construir un objeto Date, este toma la fecha actual
-            let fechaActual=new Date();
+            let fechaActual = new Date();
             // Calculamos los segundos que han trascurrido restando la fecha de inicio del crono
             // con la fecha actual. Esto se hace para no depender de la precision de setInterval
             // y dar un resultado mas preciso
-            this.tiempo=FuncionesAuxiliares.segundosEntreFechas(this.fechaInicio,fechaActual);
+            this.tiempo = FuncionesAuxiliares.segundosEntreFechas(
+              this.fechaInicio,
+              fechaActual
+            );
             // Transforma los segundo transcurridos en formato HH : MM : SS
-            this.tiempoMostrar = FuncionesAuxiliares.segundosToText(this.tiempo);
+            this.tiempoMostrar = FuncionesAuxiliares.segundosToText(
+              this.tiempo
+            );
           }.bind(this),
           1000
         );
@@ -116,10 +132,40 @@ export default {
       else {
         // Indico que el cronometro esta parado y cambio texto
         this.estadoCrono = false;
+        // Si el crono estaba en marcha anteriormente y lo hemos parado, se muestra notificación
+        // de fin de registro de sesión y grabamos la sesión finalizada
+        if (this.textoCrono == "Parar") {
+          this.showNotifFin();
+          // Establecemos feha de fin del crono para el registro de sesion
+          this.fechaFin = new Date();
+          // Registramos la fecha de fin en la sesion
+          this.sesion.setFinSesion(this.fechaFin);
+          // Añadimos la sesión a la coleccion de sesiones del usuario
+          this.usuario.getColeccionSesiones().addSesion(this.sesion);
+          // Enviamos a consola los datos para comprobacion (eliminar cuando confirmemos buen funcionamiento)
+          console.log(this.usuario.getNombre());
+          console.log(this.usuario.getColeccionSesiones().getUltimaSesion());
+          // Reseteamos la sesión para proximos registros
+          this.sesion = null;
+        }
         this.textoCrono = "Empezar";
         // Con clearInterval y la referencia al interval, cancelamos el hilo que se ejecuta a intervalos
         clearInterval(this.valorInterval);
       }
+    },
+    showNotifInicio() {
+      this.$q.notify({
+        message: "Iniciada nueva sesión de estudio",
+        caption: "Sumando tiempo conseguirás tus objetivos!",
+        color: "primary"
+      });
+    },
+    showNotifFin() {
+      this.$q.notify({
+        message: "Sesión de estudio registrada",
+        caption: "Pudes consultarla en el histórico",
+        color: "secondary"
+      });
     }
   }
 };
