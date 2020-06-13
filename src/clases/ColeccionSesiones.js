@@ -58,7 +58,7 @@ class ColeccionSesiones {
         let sesiones = []
 
         // Comprobamos que fechaA es anterior a fechaB y sino las invertimos
-        if(fechaA.getTime()>fechaB.getTime){
+        if(fechaA.getTime()>fechaB.getTime()){
             let aux=fechaA;
             fechaA=fechaB;
             fechaB=aux;
