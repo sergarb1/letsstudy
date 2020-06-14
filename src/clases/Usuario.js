@@ -6,8 +6,11 @@ class Usuario {
     //Constructor de la clase que recibe el parametro nombre que es el nombre del usuario
     //Se declara una colección de objetos ColeccionSesiones, pero que no es necesario pasarlo como argumento
     constructor(nombre) {
+        // Establecemos nombre de usuario
         this.nombre = nombre;
-        this.inicioSesion = new Date.now();
+        // La variable sesionEstudioIniciada valdra null si no esta iniciada una sesion de estudio
+        // o tendra una fecha si si hay una sesion de estudio iniciada
+        this.sesionEstudioIniciada = null;
         this.coleccionSesiones = new ColeccionSesiones();
     }
     // Getters
@@ -15,8 +18,9 @@ class Usuario {
         return this.nombre;
     }
 
-    getInicioSesion() {
-        return this.inicioSesion;
+    // Devuelve el estado de la sesion de estudio
+    getSesionEstudioIniciada() {
+        return this.sesionEstudioIniciada;
     }
 
     // Devuelvo el objeto coleccionSesione
@@ -24,9 +28,10 @@ class Usuario {
         return this.coleccionSesiones;
     }
 
-    //Set inicio sesion, recibe un objeto tipo Date
-    setInicioSesion(fecha) {
-        this.inicioSesion = fecha;
+    //Set sesion iniciada, recibe un objeto tipo Date
+    // Generalmente se pone a una fecha si esta iniciada, y a null si no esta iniciada una 
+    setSesionEstudioIniciada(fecha) {
+        this.sesionEstudioIniciada = fecha;
     }
 }
 
