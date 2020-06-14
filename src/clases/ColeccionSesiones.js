@@ -93,7 +93,7 @@ class ColeccionSesiones {
         // Ponemos la hora del lunes a 0:0:0:000
         fechaInicioSemana.setHours(0, 0, 0, 0);
         // Llamamos al metodo que nos devuelve el array de sesiones entre 2 fechas
-        sesionesSemana = getSesionesEntreFechas(fechaInicioSemana, fecha);
+        sesionesSemana = this.getSesionesEntreFechas(fechaInicioSemana, fecha);
         // Devolvemos el array
         return sesionesSemana;
     }
@@ -110,7 +110,7 @@ class ColeccionSesiones {
         // Ponemos la hora del día 1 del mes a 0:0:0:000
         fechaInicioMes.setHours(0, 0, 0, 0);
         // Llamamos al metodo que nos devuelve el array de sesiones entre 2 fechas
-        sesionesMes = getSesionesEntreFechas(fechaInicioMes, fecha);
+        sesionesMes = this.getSesionesEntreFechas(fechaInicioMes, fecha);
         // Devolvemos el array
         return sesionesMes;
     }

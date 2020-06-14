@@ -28,6 +28,12 @@ estadísticas de tiempo de estudio del usuario -->
           <div class="text-h6">{{ semana }}</div>
         </q-card-section>
       </q-card>
+      <q-card class="my-card q-mb-sm .shadow-3 bg-red-14 text-white text-center">
+        <q-card-section>
+          <div class="text-h5">Estudiado mes:</div>
+          <div class="text-h6">{{ mes }}</div>
+        </q-card-section>
+      </q-card>
       <q-card class="my-card q-mb-sm .shadow-3 bg-purple text-white text-center">
         <q-card-section>
           <div class="text-h5">Total estudio:</div>
@@ -66,8 +72,22 @@ export default {
       return FuncionesAuxiliares.segundosToText(sumaSegundos);
     },
     semana: function() {
-      const calculoSemana = 0; // pendiente de que se implemente la funcion de calculo sesiones semana
-      return FuncionesAuxiliares.segundosToText(calculoSemana);
+      const ahora = new Date();
+      const arraySesiones = this.usuario.getColeccionSesiones().getSesionesSemana(ahora);
+      let sumaSegundos = 0;
+      arraySesiones.forEach(sesion => {
+        sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(sesion.getFinSesion(),sesion.getInicioSesion());
+      });
+      return FuncionesAuxiliares.segundosToText(sumaSegundos);
+    },
+    mes: function() {
+      const ahora = new Date();
+      const arraySesiones = this.usuario.getColeccionSesiones().getSesionesMes(ahora);
+      let sumaSegundos = 0;
+      arraySesiones.forEach(sesion => {
+        sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(sesion.getFinSesion(),sesion.getInicioSesion());
+      });
+      return FuncionesAuxiliares.segundosToText(sumaSegundos);
     },
     total: function() {
       const calculoTotal = this.usuario.getColeccionSesiones().tiempoTotalEstudio();
