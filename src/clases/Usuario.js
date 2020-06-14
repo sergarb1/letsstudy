@@ -7,6 +7,7 @@ class Usuario {
     //Se declara una colección de objetos ColeccionSesiones, pero que no es necesario pasarlo como argumento
     constructor(nombre) {
         this.nombre = nombre;
+        this.inicioSesion = new Date.now();
         this.coleccionSesiones = new ColeccionSesiones();
     }
     // Getters
@@ -14,9 +15,18 @@ class Usuario {
         return this.nombre;
     }
 
+    getInicioSesion() {
+        return this.inicioSesion;
+    }
+
     // Devuelvo el objeto coleccionSesione
     getColeccionSesiones() {
         return this.coleccionSesiones;
+    }
+
+    //Set inicio sesion, recibe un objeto tipo Date
+    setInicioSesion(fecha) {
+        this.inicioSesion = fecha;
     }
 }
 
