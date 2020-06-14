@@ -34,9 +34,9 @@ personalizaciones de estilo
       <q-circular-progress
         show-value
         class="text-light-blue justify-center"
-        :value="tiempo%61"
-        :min="1"
-        :max="60"
+        :value="tiempo%60"
+        :min="0"
+        :max="59"
         size="150px"
         color="light-blue"
         track-color="grey-3"
