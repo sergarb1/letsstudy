@@ -9,7 +9,7 @@
     <!-- usamos la directiva bind para que con cada tarjeta(a la que se le ha puesto una transicion
      con q-intersection) que obtenga le ponga un color de 
     fondo diferente usando el metodo claseColorFondo()-->
-    <q-intersection transition="rotate" v-for="fecha in fechas" :key="fecha">
+    <q-intersection transition="rotate" v-for="(fecha,i) in fechas" :key="i">
       <q-card class="my-card">
         <q-card-section class="text-white" :class="claseColorFondo()">
           <div class="text-h6" v-text="fecha[0]"></div>
