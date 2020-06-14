@@ -89,9 +89,7 @@ module.exports = function (/* ctx */) {
       all: 'auto',
 
       components: [
-        'QCard',
-        'QCardSection',
-        'QCardActions'
+        // NO ES NECESARIO PONER LOS COMPONENTES QUASAR (El modo auto, de 2 lineas mas arriba, los pone)
       ],
       directives: [],
 
