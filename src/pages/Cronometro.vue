@@ -61,8 +61,8 @@ personalizaciones de estilo
 import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
 // Importamos la clase SesionEstudio para poder registrar sesiones de estudio
 import SesionEstudio from "../clases/SesionEstudio.js";
-// Importamos la clase Usuario para poder hacer las pruebas de funcionamiento
-import Usuario from "../clases/Usuario.js";
+// Importamos la instancia de Usuario para poder hacer las pruebas de funcionamiento
+import usuarioPrueba from "../clases/UsuarioPrueba.js";
 
 // Estructura general necesaria para utilizar variables reactivas en componentes VUE
 export default {
@@ -82,7 +82,7 @@ export default {
       valorInterval: null, // variable utilizada para parar el "setInterval"
       sesion: null, // variable usada para registrar las distintas sesiones
       // Creamos un usuario para pruebas, el usuario real se le pasará al componente como 'props'
-      usuario: new Usuario("Usuario de prueba"),
+      usuario: usuarioPrueba,
       frasesMotivadoras: [
         "Siempre parece imposible hasta que se hace (Nelson Mandela)",
         "La motivación es lo que te pone en marcha, el hábito es lo que hace que sigas (Jim Ryun)",
@@ -103,7 +103,7 @@ export default {
         "La perseverancia puede transformar el fracaso en un logro extraordinario (Matt Biondi)",
         "Sin autodisciplina, el éxito es imposible (Lou Holz)",
         "La energía y la persistencia conquistan todas las cosas (Benjamin Franklin)"
-      ]
+      ] // lista con frases motivadoras para incluir en la notificacion de inicio de sesion
     };
   },
   // Definimos metodos del componente
@@ -163,9 +163,6 @@ export default {
         this.sesion.setFinSesion(this.fechaFin);
         // Añadimos la sesión a la coleccion de sesiones del usuario
         this.usuario.getColeccionSesiones().addSesion(this.sesion);
-        // Enviamos a consola los datos para comprobacion (eliminar cuando confirmemos buen funcionamiento)
-        console.log(this.usuario.getNombre());
-        console.log(this.usuario.getColeccionSesiones().getUltimaSesion());
         // Reseteamos la sesión para proximos registros
         this.sesion = null;
         this.textoCrono = "Empezar";

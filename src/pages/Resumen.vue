@@ -14,6 +14,7 @@ estadísticas de tiempo de estudio del usuario -->
       label="PROGRESO"
       icon="history"
     />
+    <!-- Se añade una sutil animacion al entrar en la pagina -->
     <q-intersection transition="fade">
       <q-card class="my-card q-mb-sm .shadow-3 bg-light-blue text-white text-center">
         <q-card-section>
@@ -38,17 +39,40 @@ estadísticas de tiempo de estudio del usuario -->
 </template>
 
 <script>
+// Importo la clase FuncionesAuxiliares
+import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
+// Importamos la instancia de Usuario para poder hacer las pruebas de funcionamiento
+import usuarioPrueba from "../clases/UsuarioPrueba.js";
+
 export default {
   name: "Resumen",
-  /* Creamos la función 'data' para hacer reactivas las
-  variables que contienen los tiempos de estudio. Esto en un futuro
-  se podría indicar como 'props' del componente. */
+  /* Creamos la función 'data' donde asignamos la instancia de usuarioPrueba a
+  la variable usuario */
   data: function() {
     return {
-      hoy: "2h 59min",
-      semana: "8h 22 min",
-      total: "55h 25 min"
+      usuario: usuarioPrueba
     };
+  },
+  /* Creamos variables 'computadas' que hacen un cálculo cada vez que entramos en el
+  componente, dándonos los datos de tiempos de estudios siempre actualizados */
+  computed: {
+    hoy: function() {
+      const ahora = new Date();
+      const arraySesiones = this.usuario.getColeccionSesiones().getSesionesDia(ahora);
+      let sumaSegundos = 0;
+      arraySesiones.forEach(sesion => {
+        sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(sesion.getFinSesion(),sesion.getInicioSesion());
+      });
+      return FuncionesAuxiliares.segundosToText(sumaSegundos);
+    },
+    semana: function() {
+      const calculoSemana = 0; // pendiente de que se implemente la funcion de calculo sesiones semana
+      return FuncionesAuxiliares.segundosToText(calculoSemana);
+    },
+    total: function() {
+      const calculoTotal = this.usuario.getColeccionSesiones().tiempoTotalEstudio();
+      return FuncionesAuxiliares.segundosToText(calculoTotal);
+    }
   }
 };
 </script>
