@@ -3,7 +3,7 @@
   <q-page class="flex flex-center">
     
 
-    <q-intersection transition="fade">
+    <q-intersection transition="scale">
       <q-card
         class="my-card q-mb-sm .shadow-3 bg-teal-6 text-white text-center">
         <q-card-section>
