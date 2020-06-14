@@ -1,3 +1,6 @@
+// Importamos los modulos necesarios
+import FuncionesAuxiliares from "./FuncionesAuxiliares.js"
+
 // Definimos la clase ColeccionSesiones que almacena cada unidad de estudio
 
 class ColeccionSesiones {

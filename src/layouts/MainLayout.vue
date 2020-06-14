@@ -68,7 +68,7 @@
         
         <q-item clickable to="Test">
           <q-item-section avatar>
-            <q-icon name="dev-to" />
+            <q-icon name="code" />
           </q-item-section>
 
           <q-item-section>
