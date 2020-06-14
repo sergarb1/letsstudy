@@ -134,20 +134,18 @@ export default {
         this.estadoCrono = false;
         // Si el crono estaba en marcha anteriormente y lo hemos parado, se muestra notificación
         // de fin de registro de sesión y grabamos la sesión finalizada
-        if (this.textoCrono == "Parar") {
-          this.showNotifFin();
-          // Establecemos feha de fin del crono para el registro de sesion
-          this.fechaFin = new Date();
-          // Registramos la fecha de fin en la sesion
-          this.sesion.setFinSesion(this.fechaFin);
-          // Añadimos la sesión a la coleccion de sesiones del usuario
-          this.usuario.getColeccionSesiones().addSesion(this.sesion);
-          // Enviamos a consola los datos para comprobacion (eliminar cuando confirmemos buen funcionamiento)
-          console.log(this.usuario.getNombre());
-          console.log(this.usuario.getColeccionSesiones().getUltimaSesion());
-          // Reseteamos la sesión para proximos registros
-          this.sesion = null;
-        }
+        this.showNotifFin();
+        // Establecemos feha de fin del crono para el registro de sesion
+        this.fechaFin = new Date();
+        // Registramos la fecha de fin en la sesion
+        this.sesion.setFinSesion(this.fechaFin);
+        // Añadimos la sesión a la coleccion de sesiones del usuario
+        this.usuario.getColeccionSesiones().addSesion(this.sesion);
+        // Enviamos a consola los datos para comprobacion (eliminar cuando confirmemos buen funcionamiento)
+        console.log(this.usuario.getNombre());
+        console.log(this.usuario.getColeccionSesiones().getUltimaSesion());
+        // Reseteamos la sesión para proximos registros
+        this.sesion = null;
         this.textoCrono = "Empezar";
         // Con clearInterval y la referencia al interval, cancelamos el hilo que se ejecuta a intervalos
         clearInterval(this.valorInterval);
