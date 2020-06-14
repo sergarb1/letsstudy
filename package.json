@@ -8,13 +8,19 @@
   "author": "sergarb1 <sergi.profesor@gmail.com>",
   "private": true,
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --require @babel/register"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "quasar": "^1.0.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/node": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/register": "^7.10.1",
+    "@babel/runtime": "^7.10.2",
     "@quasar/app": "^1.0.0",
     "mocha": "^8.0.1"
   },
