@@ -10,7 +10,9 @@ const routes = [
       { path: 'Cronometro', component: () => import('pages/Cronometro.vue') }, 
       { path: 'AcercaDe', component: () => import('pages/AcercaDe.vue') },
       { path: 'Resumen', component: () => import('pages/Resumen.vue') },
-      { path: 'Historico', component: () => import('pages/Historico.vue')}
+      { path: 'Historico', component: () => import('pages/Historico.vue')},
+      // PARA TEST, BORRAR EN PRODUCCION
+      { path: 'Test', component: () => import('pages/Test.vue')}
     ]
   }
 ]
