@@ -84,7 +84,7 @@ class ColeccionSesiones {
 
     // Pasamos un objeto de tipo date y devuelve las sesiones de esa semana
     getSesionesSemana(fecha) {
-        // Creo un array que iré rellenando con las sesiones de esa semana
+        // Creo un array que contendrá las sesiones desde la fecha hasta el lunes anterior
         let sesionesSemana = []
         // Calculo el lunes anterior a la fecha que obtenemos como parámetro, 
         // restando los milisegundos que hay hasta el lunes de cada semana
