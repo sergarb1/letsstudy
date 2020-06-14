@@ -59,8 +59,9 @@ personalizaciones de estilo
 <script>
 // Importo la clase FuncionesAuxiliares
 import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
+// Importamos la clase SesionEstudio para poder registrar sesiones de estudio
 import SesionEstudio from "../clases/SesionEstudio.js";
-// Importamos la clase Usuario para poder hacer la prueba de funcionamiento
+// Importamos la clase Usuario para poder hacer las pruebas de funcionamiento
 import Usuario from "../clases/Usuario.js";
 
 // Estructura general necesaria para utilizar variables reactivas en componentes VUE
@@ -138,7 +139,7 @@ export default {
           this.showNotifFin();
           // Establecemos feha de fin del crono para el registro de sesion
           this.fechaFin = new Date();
-          // Registramos la fecha de fin en la sesion
+          // Establecemos la fecha de fin en la sesion
           this.sesion.setFinSesion(this.fechaFin);
           // Añadimos la sesión a la coleccion de sesiones del usuario
           this.usuario.getColeccionSesiones().addSesion(this.sesion);
@@ -153,18 +154,19 @@ export default {
         clearInterval(this.valorInterval);
       }
     },
+    // Definimos dos metodos para generar las distintas notificaciones: la de inicio de sesion y la de fin
     showNotifInicio() {
       this.$q.notify({
-        message: "Iniciada nueva sesión de estudio",
-        caption: "Sumando tiempo conseguirás tus objetivos!",
-        color: "primary"
+        message: "** Iniciada nueva sesión de estudio **",
+        caption: "¡Sumando tiempo conseguirás tus objetivos!",
+        color: "accent"
       });
     },
     showNotifFin() {
       this.$q.notify({
-        message: "Sesión de estudio registrada",
-        caption: "Pudes consultarla en el histórico",
-        color: "secondary"
+        message: "** Sesión de estudio registrada **",
+        caption: "Ahora puedes consultarla en el histórico...",
+        color: "info"
       });
     }
   }
