@@ -82,20 +82,39 @@ class ColeccionSesiones {
         return sesiones;
     }
 
-    // Pasamos un objeto de tipo date y devuelve las sesiones de esa semana
+    // Pasamos un objeto de tipo date y devuelve las sesiones desde el lunes de esa semana
+    // hasta la fecha pasada como argumento
     getSesionesSemana(fecha) {
         // Creo un array que contendrá las sesiones desde la fecha hasta el lunes anterior
-        let sesionesSemana = []
+        let sesionesSemana = [];
         // Calculo el lunes anterior a la fecha que obtenemos como parámetro, 
         // restando los milisegundos que hay hasta el lunes de cada semana
         let fechaInicioSemana = new Date(fecha.getTime() - (fecha.getDay() * (24 * 3600 * 1000)));
         // Ponemos la hora del lunes a 0:0:0:000
         fechaInicioSemana.setHours(0, 0, 0, 0);
         // Llamamos al metodo que nos devuelve el array de sesiones entre 2 fechas
-        sesionesSemana = getSesionesEntreFechas(fechaInicioSemana, fecha)
+        sesionesSemana = getSesionesEntreFechas(fechaInicioSemana, fecha);
         // Devolvemos el array
         return sesionesSemana;
     }
+
+    // Pasamos un objeto de tipo date y devuelve las sesiones del mes en curso desde el día 1
+    // hasta la fecha pasada como argumento
+    getSesionesMes(fecha) {
+        // Creo un array que contendrá las sesiones desde el día 1 a la fecha pasada como parámetro
+        let sesionesMes = [];
+        // Clono la fecha
+        let diaActual = new Date(fecha.getTime());
+        // Calculo el día 1 del mes en curso
+        let fechaInicioMes = new Date(diaActual.setDate(1));
+        // Ponemos la hora del día 1 del mes a 0:0:0:000
+        fechaInicioMes.setHours(0, 0, 0, 0);
+        // Llamamos al metodo que nos devuelve el array de sesiones entre 2 fechas
+        sesionesMes = getSesionesEntreFechas(fechaInicioMes, fecha);
+        // Devolvemos el array
+        return sesionesMes;
+    }
+
 
     //Devuelve el tiempo total de estudio en segundos
     tiempoTotalEstudio() {
