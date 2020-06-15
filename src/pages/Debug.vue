@@ -106,6 +106,9 @@ export default {
     numeroAleatorio(A, B) {
       return Math.floor((Math.random() * B) + A);
     }
+  },
+  mounted(){
+    FuncionesAuxiliares.pantallaCargaIniciar();
   }
 }
 </script>
