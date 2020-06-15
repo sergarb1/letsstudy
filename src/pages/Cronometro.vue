@@ -165,12 +165,6 @@ export default {
         caption: "Ahora puedes consultarla en el histórico...",
         color: "info"
       });
-    },
-    // Funcion para que nos devuelva una frase aleatoria de la lista
-    getFraseAleatoria() {
-      return this.frasesMotivadoras[
-        Math.floor(Math.random() * this.frasesMotivadoras.length)
-      ];
     }
   }
 };
