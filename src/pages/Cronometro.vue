@@ -142,7 +142,6 @@ export default {
         let sesion = new SesionEstudio(this.fechaInicio,this.fechaFin);
         // Añadimos la sesión a la coleccion de sesiones del usuario
         this.usuario.getColeccionSesiones().addSesion(sesion);
-        // Reseteamos la sesión para proximos registros
         this.textoCrono = "Empezar";
         // Con clearInterval y la referencia al interval, cancelamos el hilo que se ejecuta a intervalos
         clearInterval(this.valorInterval);
