@@ -54,7 +54,6 @@ class FuncionesAuxiliares {
     let jUser = JSON.stringify(user);
     //guardamos el objeto (json friendly) con la clave "usuario"
     localStorage.setItem("usuario", jUser);
-    alert("Guardado" + JSON.parse(localStorage.getItem("usuario")).nombre);
   }
   //Funcion que restaura los datos de usuario a partir de la key de localStorage y devuelve el usuario
   static restaurarEstadoLocalStorage(userKey) {
