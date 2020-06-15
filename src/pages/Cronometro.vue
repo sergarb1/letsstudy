@@ -81,7 +81,6 @@ export default {
       tiempoMostrar: "00 : 00 : 00", // Tiempo que vemos dentro del circulo, valor por defecto
       estadoCrono: false, // true, crono funcionando, false, parado
       valorInterval: null, // variable utilizada para parar el "setInterval"
-      sesion: null, // variable usada para registrar las distintas sesiones
       // Creamos un usuario para pruebas, el usuario real se le pasará al componente como 'props'
       usuario: usuarioPrueba,
       frases: FrasesMotivadoras
@@ -138,12 +137,12 @@ export default {
         this.showNotifFin();
         // Establecemos feha de fin del crono para el registro de sesion
         this.fechaFin = new Date();
-        // Registramos la fecha de fin en la sesion
-        this.sesion.setFinSesion(this.fechaFin);
+        
+        // Instanciamos una nueva SesionEstudio para almacenarla
+        let sesion = new SesionEstudio(this.fechaInicio,this.fechaFin);
         // Añadimos la sesión a la coleccion de sesiones del usuario
-        this.usuario.getColeccionSesiones().addSesion(this.sesion);
+        this.usuario.getColeccionSesiones().addSesion(sesion);
         // Reseteamos la sesión para proximos registros
-        this.sesion = null;
         this.textoCrono = "Empezar";
         // Con clearInterval y la referencia al interval, cancelamos el hilo que se ejecuta a intervalos
         clearInterval(this.valorInterval);

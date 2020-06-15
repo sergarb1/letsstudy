@@ -71,7 +71,7 @@ class FuncionesAuxiliares {
     for (let i = 0; i < datosDeSesiones; i++) {
       //establecemos la fecha de inicio  y fin
       let tempInitDate = new Date(datosDeSesiones[i].inicioSesion);
-      let tempEndDate = (datosDeSesiones[i].finSesion != null) ? new Date(datosDeSesiones[i].finSesion) : null;
+      let tempEndDate = new Date(datosDeSesiones[i].finSesion);
       //re-creamos la sesion
       let tempSesion = new SesionEstudio(tempInitDate,tempEndDate);
       //la añadimos a la coleccion
