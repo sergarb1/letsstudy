@@ -1,10 +1,11 @@
 // Clase para almacenar las sesiones de estudio
 class SesionEstudio {
-    // Se crea el objeto pasandole el objeto Date de inicio de la sesión
-    constructor(inicio) {
+    // Se crea el objeto pasandole el objeto Date de inicio de la sesión y el fin
+    constructor(inicio,fin) {
+        
+        //Establecemos inicio y fin de sesion
         this.inicioSesion = inicio;
-        //Establecemos como vacio el fín de la sesión
-        this.finSesion = null;
+        this.finSesion = fin;
     }
 
     // Devuelve el inicio de la sesión. Será tipo Date

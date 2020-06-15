@@ -102,8 +102,6 @@ export default {
         // Establecemos fecha inicio (se usara para calcular diferencia entre fechas y para inicio
         // sesion de estudio) al construirla toma como valor la fecha del sistema
         this.fechaInicio = new Date();
-        // Instanciamos una nueva SesionEstudio para almacenar el inicio del crono
-        this.sesion = new SesionEstudio(this.fechaInicio);
 
         // setInterval es una funcion Javascript para que una funcion que se indica dentro
         // se ejecute cada X milisegundos (segundo parametro)
