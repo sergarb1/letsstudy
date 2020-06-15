@@ -43,11 +43,11 @@ class Frase {
     ];
   }
 
-  let frase=fraseMotivadoraAleatoria() ;
+  /*let frase=fraseMotivadoraAleatoria() ;
   let saludo=saludoAleatorio();
   console.log(frase);
-  console.log(saludo);
+  console.log(saludo);*/
 
 }
 
-//export default Frase
+export default Frase
