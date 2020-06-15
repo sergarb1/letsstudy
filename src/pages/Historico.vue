@@ -21,18 +21,28 @@
   
 </template>
 <script>
+// Importo la clase FuncionesAuxiliares
+import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
+// Importamos la instancia de Usuario para poder hacer las pruebas de funcionamiento
+import usuarioPrueba from "../clases/UsuarioPrueba.js";
+
 export default {
   name: "Historico",
   data() {
     return {
       //Datos de ejemplo
-      fechas: [
-        ["DD-MM-AAAA", "00:00:00"],
-        ["01-MM-AAAA", "00:00:01"],
-        ["02-MM-AAAA", "00:00:02"],
-        ["03-MM-AAAA", "00:00:03"]
-      ]
+      fechas: []
     };
+  },
+  // funcion ejecutada al crearse el componente
+  created: function() {
+    const usuario = usuarioPrueba;
+    const arraySesiones = usuario.getColeccionSesiones().getSesiones();
+    arraySesiones.forEach(sesion => {
+      let dia = sesion.getInicioSesion().toDateString();
+      let segundos = FuncionesAuxiliares.segundosEntreFechas(sesion.getFinSesion(),sesion.getInicioSesion());
+      this.fechas.push([dia,FuncionesAuxiliares.segundosToText(segundos)]);
+    });
   },
   //metodos para cambiar el color de las card  y que no sean todos del mismo color 
   methods: {
