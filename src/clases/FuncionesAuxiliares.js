@@ -1,5 +1,7 @@
 // Definición de clase para funciones auxiliares estáticas
 
+import { LocalStorage } from "quasar"
+
 class FuncionesAuxiliares {
 
     // Convierte una cantidad de segundos a formato texto 'hh:mm:ss'
@@ -46,6 +48,13 @@ class FuncionesAuxiliares {
         let toSecs = difS/1000;
         return Math.trunc(toSecs);
     }
+    //guarda el estado del usuario
+      static guardarEstadoLocalStorage(user){
+        //Transformamos los datos del usuario a formato JSON 
+        let jUser = JSON.stringify(user);
+        //guardamos el objeto (json friendly) con la clave "usuario"
+        localStorage.setItem("usuario",jUser);
+      }
 
 }
 
