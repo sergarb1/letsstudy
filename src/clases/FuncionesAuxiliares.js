@@ -1,6 +1,6 @@
 // Definición de clase para funciones auxiliares estáticas
-
 import Usuario from './Usuario';
+import SesionEstudio from "../clases/SesionEstudio.js";
 
 class FuncionesAuxiliares {
 
@@ -68,14 +68,14 @@ class FuncionesAuxiliares {
     usuario.sesionEstudioIniciada = (datos.sesionEstudioIniciada != null) ? new Date(datos.sesionEstudioIniciada) : null;
     //Le asignamos sus sesiones
     let datosDeSesiones = datos.coleccionSesiones.arraySesionesEstudio;
-    for (let i = 0; i < datosDeSesiones; i++) {
+    for (let i = 0; i < datosDeSesiones.length; i++) {
       //establecemos la fecha de inicio  y fin
       let tempInitDate = new Date(datosDeSesiones[i].inicioSesion);
       let tempEndDate = new Date(datosDeSesiones[i].finSesion);
       //re-creamos la sesion
       let tempSesion = new SesionEstudio(tempInitDate,tempEndDate);
       //la añadimos a la coleccion
-      usuario.coleccionSesiones.addSesion(tempSesion);
+      usuario.getColeccionSesiones().addSesion(tempSesion);
     }
     return usuario;
   }
