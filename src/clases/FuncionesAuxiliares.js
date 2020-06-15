@@ -1,6 +1,9 @@
 // Definición de clase para funciones auxiliares estáticas
 import Usuario from './Usuario';
 import SesionEstudio from "../clases/SesionEstudio.js";
+import {Loading,QSpinnerComment} from 'quasar';
+import FrasesMotivadoras from '../clases/FrasesMotivadoras.js';
+
 
 class FuncionesAuxiliares {
 
@@ -78,6 +81,26 @@ class FuncionesAuxiliares {
     }
     return usuario;
   }
+  //añade un componente Loader a la pantalla con mensaje motivador al iniciar la pagina.
+  static pantallaCargaIniciar() {
+    //mostrar componente
+    Loading.show(
+        {
+          //configuracion del componente
+            spinner: QSpinnerComment,
+            message: '<h5>'+FrasesMotivadoras.mostrarSaludo()+'</h5>',
+            messageColor: 'white',
+            backgroundColor: 'primary',
+            spinnerSize: 250, // in pixels    
+            spinnerColor: 'yellow',
+        }
+    );          
+        //Tras 4 segundos se ocultara
+   setTimeout(function () {
+        Loading.hide();
+    }, 4000);
+
+}
 
 }
 
