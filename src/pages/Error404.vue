@@ -2,23 +2,23 @@
   <div class="fixed-center text-center">
     <p>
       <img
-        src="~assets/sad.svg"
-        style="width:30vw;max-width:150px;"
+        src="~assets/LETSSTUDY_404.png"
+        style="width:40vw;max-width:400px;"
       >
     </p>
     <p class="text-faded">
-      Sorry, nothing here...<strong>(404)</strong>
+      <strong>Nada que estudiar aquí, lo sentimos...</strong>
     </p>
     <q-btn
       color="secondary"
-      style="width:200px;"
+      style="width:250px;"
       to="/"
-      label="Go back"
+      label="VOLVER"
     />
   </div>
 </template>
 
-<script >
+<script >                                                                                                                                                                             
 export default {
   name: 'Error404'
 }
