@@ -1,6 +1,6 @@
 <!-- Componente que mostrará el Histórico de un usuario -->
 <template>
-  <div>
+  <div> 
     <!--hacemos copypaste del componente de tarjeta que más nos gusta.
     Como el v-for lo queremos hacer en un componente propio necesitamos usar v-bind
     para que actualice bien los datos, por eso se usa :key, ya que de no utilizarlo diria 
@@ -9,14 +9,17 @@
     <!-- usamos la directiva bind para que con cada tarjeta(a la que se le ha puesto una transicion
      con q-intersection) que obtenga le ponga un color de 
     fondo diferente usando el metodo claseColorFondo()-->
-    <q-intersection transition="rotate" v-for="(fecha,i) in fechas" :key="i">
-      <q-card class="my-card">
+   <q-intersection  transition="rotate">
+  
+      <q-card class="my-card" v-for="(fecha,i) in fechas" :key="i">
         <q-card-section class="text-white" :class="claseColorFondo()">
           <div class="text-h6" v-text="fecha[0]"></div>
           <div class="text-subtitle2" v-text="fecha[1]"></div>
+          <p>{{fechas.length}}</p>
         </q-card-section>
       </q-card>
-    </q-intersection>
+      
+   </q-intersection>
   </div>
   
 </template>
