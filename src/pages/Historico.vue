@@ -15,7 +15,6 @@
         <q-card-section class="text-white" :class="claseColorFondo()">
           <div class="text-h6" v-text="fecha[0]"></div>
           <div class="text-subtitle2" v-text="fecha[1]"></div>
-          <p>{{fechas.length}}</p>
         </q-card-section>
       </q-card>
       
