@@ -55,7 +55,6 @@
 import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
 import SesionEstudio from "../clases/SesionEstudio.js";
 import Usuario from "../clases/Usuario.js";
-import { LocalStorage } from 'quasar';
 
 export default {
   name: "Debug",
@@ -93,7 +92,7 @@ export default {
         let fin = inicio.getTime() + sumaFin;
 
         // Creación de la sesión
-        let sesion = new SesionEstudio(Date.parse(inicio), fin);
+        let sesion = new SesionEstudio(inicio, new Date(fin));
 
         //Introducción de la sesión en el array de las sesiones
         //user.getColeccionSesiones().addSesion(sesion);
@@ -122,11 +121,11 @@ export default {
     },
     //funcion que borra el localStorage
     borrarLocalStorage() {
-      LocalStorage.clear();
+      localStorage.clear();
     },
     //funcion que obtiene un numero aleatorio entre A (menor) y B (mayor) incluidos
     numeroAleatorio(A, B) {
-      return Math.floor((Math.random() * B) + A);
+      return Math.floor(A+(Math.random()*(B-A+1)))
     }
   }
 }
