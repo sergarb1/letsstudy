@@ -4,7 +4,7 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }, 
+      { path: '', component: () => import('pages/Resumen.vue') }, 
 	  // Modificado para que router conozca que componentes cargar en la pagina
       // segun la ruta que se le proporcione
       { path: 'Cronometro', component: () => import('pages/Cronometro.vue') }, 
