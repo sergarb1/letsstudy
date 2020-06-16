@@ -131,6 +131,9 @@ export default {
         // Como iniciamos, guardamos la sesion activa como variable local
         Usuario.$usuarioLocal.setSesionEstudioIniciada(this.fechaInicio);
 
+        // Una vez modificado la sesionEstudioIniciada, guardamos en LocalStorage
+        FuncionesAuxiliares.guardarEstadoLocalStorage();
+
         // setInterval es una funcion Javascript para que una funcion que se indica dentro
         // se ejecute cada X milisegundos (segundo parametro)
         // para poder ser usada en componentes, se anyade el .bind(this) al final
