@@ -49,19 +49,13 @@ export default {
     ColorTarjeta() {
       //creamos una lista con los colores de quasar/vue
       let colores = [
-        "red",
-        "pink",
-        "purple",
-        "deep-purple",
-        "indigo",
-        "blue",
-        "light-blue",
-        "cyan",
-        "teal",
-        "green"
+        "light-blue-6",
+        "light-blue-7",
+        "light-blue-8",
+        "light-blue-9",
       ];
       //creamos funcion que nos de un numero aleatorio dentro del tamaño de nuestra lista
-      let random = () => Math.trunc(Math.random(colores.length - 1) * 10);
+      let random = () => Math.floor(Math.random()*3+1);
       //devolvemos un color aleatorio
       return colores[random()];
     },
@@ -80,7 +74,7 @@ export default {
 .doc-h2
   font-size: 1.5rem
   line-height: 1.5rem
-  padding: 0.5rem 0
+  padding: 0.5rem
   font-weight: 500
   border-bottom: 1px solid #ccc
   margin: 4rem 0 1.5rem
