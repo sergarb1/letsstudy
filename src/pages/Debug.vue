@@ -30,6 +30,13 @@
         label="Guarda datos"
         @click="guardarDatos"
       />
+      <!-- Este botón borra el LocalStorage-->
+      <q-btn
+        color="white"
+        text-color="black"
+        label="Borrar LocaStorage"
+        @click="borrarLocalStorage"
+      />
     </div>
     <div>
       <q-input
@@ -48,6 +55,7 @@
 import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
 import SesionEstudio from "../clases/SesionEstudio.js";
 import Usuario from "../clases/Usuario.js";
+import { LocalStorage } from 'quasar';
 
 export default {
   name: "Debug",
@@ -111,6 +119,10 @@ export default {
       // Para que el objeto este bien, recuperamos del LocalStorage y asi se re-construye el objeto
       FuncionesAuxiliares.restaurarEstadoLocalStorage();
 
+    },
+    //funcion que borra el localStorage
+    borrarLocalStorage() {
+      LocalStorage.clear();
     },
     //funcion que obtiene un numero aleatorio entre A (menor) y B (mayor) incluidos
     numeroAleatorio(A, B) {

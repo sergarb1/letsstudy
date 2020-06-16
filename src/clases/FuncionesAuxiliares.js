@@ -62,8 +62,13 @@ class FuncionesAuxiliares {
     //json para trabajar con ellos.
     let datos= JSON.parse(localStorage.getItem("usuarioLocal"));
 
-    // creamos el usuario
-    Usuario.$usuarioLocal = new Usuario(datos.nombre);
+    if (datos===undefined){
+      Usuario.$usuarioLocal = new Usuario("User");
+    }
+    else{
+      // creamos el usuario
+      Usuario.$usuarioLocal = new Usuario(datos.nombre);
+    }
     //le asignamos el estado de sesion
     // si no es null lo asignamos como fecha.
     Usuario.$usuarioLocal.sesionEstudioIniciada = (datos.sesionEstudioIniciada != null) ? new Date(datos.sesionEstudioIniciada) : null;
