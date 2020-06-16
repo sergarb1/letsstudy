@@ -58,36 +58,42 @@ class FuncionesAuxiliares {
   static guardarEstadoLocalStorage() {
     localStorage.setItem("usuarioLocal", JSON.stringify(Usuario.$usuarioLocal));
   }
-  
+
   // Restaura la variable estatica Usuario.$usuarioLocal desde LocalStorage
   static restaurarEstadoLocalStorage() {
 
 
-    //traemos los datos desde localStorage y los ponemos en formato
-    //json para trabajar con ellos.
-    let datos = JSON.parse(localStorage.getItem("usuarioLocal"));
 
     // Si no existia en localStorage usuarioLocal por ser la primera vez, creamos el objeto con nuestro constructor
     if (!localStorage["usuarioLocal"]) {
       Usuario.$usuarioLocal = new Usuario("User");
-    } else {
+    } 
+    // Caso de que existe
+    else {
+      
+      //traemos los datos desde localStorage y los ponemos en formato
+      //json para trabajar con ellos.
+      let datos = JSON.parse(localStorage.getItem("usuarioLocal"));
+
       // creamos el usuario
+      
       Usuario.$usuarioLocal = new Usuario(datos.nombre);
+      //le asignamos el estado de sesion
+      // si no es null lo asignamos como fecha.
+      Usuario.$usuarioLocal.sesionEstudioIniciada = (datos.sesionEstudioIniciada != null) ? new Date(datos.sesionEstudioIniciada) : null;
+      //Le asignamos sus sesiones
+      let datosDeSesiones = datos.coleccionSesiones.arraySesionesEstudio;
+      for (let i = 0; i < datosDeSesiones.length; i++) {
+        //establecemos la fecha de inicio  y fin
+        let tempInitDate = new Date(datosDeSesiones[i].inicioSesion);
+        let tempEndDate = new Date(datosDeSesiones[i].finSesion);
+        //re-creamos la sesion
+        let tempSesion = new SesionEstudio(tempInitDate, tempEndDate);
+        //la añadimos a la coleccion
+        Usuario.$usuarioLocal.getColeccionSesiones().addSesion(tempSesion);
+      }
     }
-    //le asignamos el estado de sesion
-    // si no es null lo asignamos como fecha.
-    Usuario.$usuarioLocal.sesionEstudioIniciada = (datos.sesionEstudioIniciada != null) ? new Date(datos.sesionEstudioIniciada) : null;
-    //Le asignamos sus sesiones
-    let datosDeSesiones = datos.coleccionSesiones.arraySesionesEstudio;
-    for (let i = 0; i < datosDeSesiones.length; i++) {
-      //establecemos la fecha de inicio  y fin
-      let tempInitDate = new Date(datosDeSesiones[i].inicioSesion);
-      let tempEndDate = new Date(datosDeSesiones[i].finSesion);
-      //re-creamos la sesion
-      let tempSesion = new SesionEstudio(tempInitDate, tempEndDate);
-      //la añadimos a la coleccion
-      Usuario.$usuarioLocal.getColeccionSesiones().addSesion(tempSesion);
-    }
+
   }
 
   //añade un componente Loader a la pantalla con mensaje motivador al iniciar la pagina.
