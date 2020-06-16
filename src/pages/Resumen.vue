@@ -16,28 +16,28 @@ estadísticas de tiempo de estudio del usuario -->
     />
     <!-- Se añade una sutil animacion al entrar en la pagina -->
     <q-intersection transition="fade">
-      <q-card class="my-card q-mb-sm .shadow-3 bg-light-blue text-white text-center">
+      <q-card class="my-card q-mb-sm .shadow-3 bg-light-blue-3 text-white text-center">
         <q-card-section>
-          <div class="text-h5">Estudiado hoy:</div>
-          <div class="text-h3">{{ hoy }}</div>
+          <div class="text-h6">Estudiado hoy:</div>
+          <div class="text-h5">{{ hoy }}</div>
         </q-card-section>
       </q-card>
-      <q-card class="my-card q-mb-sm .shadow-3 bg-light-green-14 text-white text-center">
+      <q-card class="my-card q-mb-sm .shadow-3 bg-light-blue-4 text-white text-center">
         <q-card-section>
-          <div class="text-h5">Estudiado semana:</div>
-          <div class="text-h3">{{ semana }}</div>
+          <div class="text-h6">Estudiado durante la semana:</div>
+          <div class="text-h5">{{ semana }}</div>
         </q-card-section>
       </q-card>
-      <q-card class="my-card q-mb-sm .shadow-3 bg-red-14 text-white text-center">
+      <q-card class="my-card q-mb-sm .shadow-3 bg-light-blue-5 text-white text-center">
         <q-card-section>
-          <div class="text-h5">Estudiado mes:</div>
-          <div class="text-h3">{{ mes }}</div>
+          <div class="text-h6">Estudiado durante el mes:</div>
+          <div class="text-h5">{{ mes }}</div>
         </q-card-section>
       </q-card>
-      <q-card class="my-card q-mb-sm .shadow-3 bg-purple text-white text-center">
+      <q-card class="my-card q-mb-sm .shadow-3 bg-light-blue-6 text-white text-center">
         <q-card-section>
-          <div class="text-h5">Total estudio:</div>
-          <div class="text-h3">{{ total }}</div>
+          <div class="text-h6">Total de tiempo estudiado:</div>
+          <div class="text-h5">{{ total }}</div>
         </q-card-section>
       </q-card>
     </q-intersection>
