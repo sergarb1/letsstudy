@@ -102,13 +102,14 @@ class FuncionesAuxiliares {
       message: '<h5>' + FrasesMotivadoras.mostrarSaludo() + '</h5>',
       messageColor: 'white',
       backgroundColor: 'primary',
+      customClass: 'bg-primary',
       spinnerSize: 250, // in pixels    
       spinnerColor: 'yellow',
     });
-    //Tras 4 segundos se ocultara
+    //Tras 3 segundos se ocultara
     setTimeout(function () {
       Loading.hide();
-    }, 4000);
+    }, 3000);
 
   }
 
