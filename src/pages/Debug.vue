@@ -59,11 +59,13 @@ export default {
   methods: {
     // Inserta en el textArea el JSON del objeto Usuario que devuelve la función restaurarEstadoLocalStorage
     recuperaDatos() {
-      this.text = JSON.stringify(FuncionesAuxiliares.restaurarEstadoLocalStorage('usuario'));
+      //this.text = JSON.stringify(FuncionesAuxiliares.restaurarEstadoLocalStorage('usuario'));
+      this.text = JSON.stringify(FuncionesAuxiliares.restaurarEstadoLocalStorage());
     },
     creaDatos() {
       // Creación del usuario con nombre Usuario prueba
-      let user = new Usuario('Usuario prueba');
+      //let user = new Usuario('Usuario prueba');
+      this.$usuarioLocal = new Usuario('Usuario test');
       // Va a generar entre 10 y 30 sesiones de estudio
       for (let i = 0; i < this.numeroAleatorio(10, 30); i++) {
         //Generación de días, horas y minutos aleatorios
@@ -85,19 +87,27 @@ export default {
         let sesion = new SesionEstudio(Date.parse(inicio), fin);
 
         //Introducción de la sesión en el array de las sesiones
-        user.getColeccionSesiones().addSesion(sesion);
+        //user.getColeccionSesiones().addSesion(sesion);
+        this.$usuarioLocal.getColeccionSesiones().addSesion(sesion);
+        
       }
 
       // Ordenar las sesiones por fechas
       // Función para ordenar el array cortesía de San Google con el método sort
-      user.getColeccionSesiones().getSesiones().sort(((a, b) => a.inicioSesion > b.inicioSesion));
+      //user.getColeccionSesiones().getSesiones().sort(((a, b) => a.inicioSesion > b.inicioSesion));
+      this.$usuarioLocal.getColeccionSesiones().getSesiones().sort(((a, b) => a.inicioSesion > b.inicioSesion));
 
       // Se muestra en el textArea el usuario como JSON
-      this.text = JSON.stringify(user);
+      this.text = JSON.stringify(this.$usuarioLocal);
+      alert(this.$usuarioLocal.nombre);
+     
     },
     // Función que guarda los datos en localStorage del objeto JSON que haya en el textArea
     guardarDatos() {
-      FuncionesAuxiliares.guardarEstadoLocalStorage(JSON.parse(this.text));
+      //FuncionesAuxiliares.guardarEstadoLocalStorage(JSON.parse(this.text));
+      alert("ola");
+      FuncionesAuxiliares.guardarEstadoLocalStorage();
+      alert("ola")
 
       // Se vacía el textArea
       this.text = '';
