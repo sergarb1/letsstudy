@@ -26,7 +26,6 @@ personalizaciones de estilo
        Ademas, ponemos text-center, ya que flex nos centra el "elemento",
       pero el texto si no indicamos nada dentro del elemento se alinea a la izquierda-->
       <h4 class="text-center Oswald">¡Hora de estudiar!</h4>
-      <q-separator />
       <!-- Usamos el componente https://quasar.dev/vue-components/circular-progress
        Indicamos distintos valores, entre ellos que su dibujo represente los rangos de 1 a 60 y que
        el valor para calcular en donde se esta, utilize la variable reactiva "tiempo" y obtenga
@@ -37,7 +36,7 @@ personalizaciones de estilo
         :value="tiempo%60"
         :min="0"
         :max="59"
-        size="300px"
+        size="250px"
         color="light-blue"
         track-color="grey-3"
       >
@@ -46,6 +45,7 @@ personalizaciones de estilo
         <p class="Oswald justify-center text-h4 text-blue-grey-13">{{ tiempoMostrar }}</p>
       </q-circular-progress>
 
+        <q-separator vertical inset />
       <!-- Usamos el componente https://quasar.dev/vue-components/button
       Asociamos al evento click que llame a "cambiarEstadoCrono" y asociamos que el contenido
       de la propiedad label se asocie a la variable reactiva "textoCrono"-->
@@ -83,6 +83,11 @@ export default {
       frases: FrasesMotivadoras
     };
   },
+  beforeDestroy: function() {
+    if(this.fechaFin == null) {
+      Usuario.$usuarioLocal.setSesionEstudioIniciada(this.fechaInicio);
+    }
+  },
   // Definimos metodos del componente
   methods: {
     // Metodo que al llamarse cambia el esto del cronometro de parado a en marcha o viceversa
@@ -97,7 +102,12 @@ export default {
         this.textoCrono = "Parar";
         // Establecemos fecha inicio (se usara para calcular diferencia entre fechas y para inicio
         // sesion de estudio) al construirla toma como valor la fecha del sistema
-        this.fechaInicio = new Date();
+        if (Usuario.$usuarioLocal.getSesionEstudioIniciada() != null) {
+          this.fechaInicio = Usuario.$usuarioLocal.getSesionEstudioIniciada();
+          this.tiempo = FuncionesAuxiliares.segundosEntreFechas(new Date(), Usuario.$usuarioLocal.getSesionEstudioIniciada());
+        } else {
+          this.fechaInicio = new Date();
+        }
 
         // setInterval es una funcion Javascript para que una funcion que se indica dentro
         // se ejecute cada X milisegundos (segundo parametro)
@@ -139,6 +149,8 @@ export default {
         let sesion = new SesionEstudio(this.fechaInicio,this.fechaFin);
         // Añadimos la sesión a la coleccion de sesiones del usuario
         Usuario.$usuarioLocal.getColeccionSesiones().addSesion(sesion);
+        // 
+        Usuario.$usuarioLocal.setSesionEstudioIniciada(null);
         // Al hacer un cambio, guardamos en LocalStorage
         FuncionesAuxiliares.guardarEstadoLocalStorage();
         // Cambiamos texto del cronometro
@@ -152,14 +164,16 @@ export default {
       this.$q.notify({
         message: "** Iniciada nueva sesión de estudio **",
         caption: this.frases.mostrarFraseMotivadora(), // Con cada inicio de sesión nos pasará aleatoriamente, una frase de la lista
-        color: "accent"
+        color: "accent",
+        position: "center"
       });
     },
     showNotifFin() {
       this.$q.notify({
         message: "** Sesión de estudio registrada **",
         caption: "Ahora puedes consultarla en el histórico...",
-        color: "info"
+        color: "info",
+        position: "center"
       });
     }
   }
