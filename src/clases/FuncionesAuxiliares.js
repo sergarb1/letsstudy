@@ -165,19 +165,21 @@ class FuncionesAuxiliares {
   }
 
 }
-//recibe una sesión, mira si esta ha sido entre dos dias diferentes y devuelve un array
-//con esos dos días (null la segunda posicion en caso de que haya sido sesion unica)
-function divideSesionEstudio(sesionEstudio) {
-
-  let fechaInicio = sesionEstudio.getInicioSesion();
-  let fechaFin = sesionEstudio.getFinSesion();
-
+//a partir de dos fechas crea array con una o dos sesiones
+function deFechaASesiones(initDate, endDate) {
+  //comprueba si me pasan un String o un objeto Date y devuelve el objeto Date
+  let toDate = fecha => {
+    let isDate = fecha instanceof Date ? true : false;
+    return isDate ? fecha : new Date(fecha);
+  }
+  let fechaInicio = toDate(initDate);
+  let fechaFin = toDate(endDate);
   //comprueba si están en el mismo día o no 
   //(damos por hecho que no vamos a dejar que una sesión dure más de un día
   //si pudiera haber sesiones de un mes habria que comprobar otras cosas)
   if (fechaInicio.getDate() == fechaFin.getDate()) {
-    //si es igual devuelve un array con la sesión sin más y nulo el segundo elemento.
-    return [sesionEstudio, null];
+    //si es igual devuelve un array con la sesión sin más.
+    return [new SesionEstudio(fechaInicio, fechaFin)];
   } else {
     //si no es igual... 
     //creamos una funcion que nos genere una fecha de fin (al final del dia) a partir de la fecha de inicio.
