@@ -64,16 +64,16 @@ class FuncionesAuxiliares {
     // Si no existia en localStorage usuarioLocal por ser la primera vez, creamos el objeto con nuestro constructor
     if (!localStorage["usuarioLocal"]) {
       Usuario.$usuarioLocal = new Usuario("User");
-    } 
+    }
     // Caso de que existe
     else {
-      
+
       //traemos los datos desde localStorage y los ponemos en formato
       //json para trabajar con ellos.
       let datos = JSON.parse(localStorage.getItem("usuarioLocal"));
 
       // creamos el usuario
-      
+
       Usuario.$usuarioLocal = new Usuario(datos.nombre);
       //le asignamos el estado de sesion
       // si no es null lo asignamos como fecha.
@@ -163,6 +163,34 @@ class FuncionesAuxiliares {
 
   }
 
+}
+//recibe una sesión, mira si esta ha sido entre dos dias diferentes y devuelve un array
+//con esos dos días (null la segunda posicion en caso de que haya sido sesion unica)
+function divideSesionEstudio(sesionEstudio) {
+
+  let fechaInicio = sesionEstudio.getInicioSesion();
+  let fechaFin = sesionEstudio.getFinSesion();
+
+  //comprueba si están en el mismo día o no 
+  //(damos por hecho que no vamos a dejar que una sesión dure más de un día
+  //si pudiera haber sesiones de un mes habria que comprobar otras cosas)
+  if (fechaInicio.getDate() == fechaFin.getDate()) {
+    //si es igual devuelve un array con la sesión sin más y nulo el segundo elemento.
+    return [sesionEstudio, null];
+  } else {
+    //si no es igual... 
+    //creamos una funcion que nos genere una fecha de fin (al final del dia) a partir de la fecha de inicio.
+    let generaFechaFinSesion = fecha => new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate(), 23, 59, 59);
+    //creamos otra función que a partir de una fecha de inicio, sumandole 1 segundo a la fecha fin,
+    // te de el inicio del dia siguiente.
+    let generaFechaInicioSesion = fecha => new Date(generaFechaFinSesion(fecha).getTime() + 1000);
+    //creamos la sesion del primer dia
+    let sesion1 = new SesionEstudio(fechaInicio, generaFechaFinSesion(fechaInicio));
+    //y creamos la del segundo
+    let sesion2 = new SesionEstudio(generaFechaInicioSesion(fechaInicio), fechaFin);
+    //y devuelve el array
+    return [sesion1, sesion2];
+  }
 }
 
 // Esto si lo comentais para probar, luego des-comentarlo
