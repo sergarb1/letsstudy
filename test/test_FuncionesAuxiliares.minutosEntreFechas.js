@@ -11,6 +11,29 @@ console.log ("introduciendo ms: "+ FuncionesAuxiliares.minutosEntreFechas(1000,5
 
 describe('FuncionesAuxiliares.minutosEntreFechas(fechaA, fechaB)', function () {
 
-    // #TODO
+    it('Probando años, meses, días, horas, minutos y segundos', function () {
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1"), new Date("2020-6-1") ), 0);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1 00:00:00"), new Date("2020-6-1 00:00:59") ), 0);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1 00:00:59"), new Date("2020-6-1 00:00:00") ), 0);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1 00:00:00"), new Date("2020-6-1 00:01:00") ), 1);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1 00:00:00"), new Date("2020-6-1 00:01:59") ), 1);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1 00:01:59"), new Date("2020-6-1 00:00:00") ), 1);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1 00:00:00"), new Date("2020-6-1 00:59:00") ), 59);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1 00:59:00"), new Date("2020-6-1 00:00:00") ), 59);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1 00:00:00"), new Date("2020-6-1 01:00:00") ), 60);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1 00:00:00"), new Date("2020-6-1 01:00:59") ), 60);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1 00:00:00"), new Date("2020-6-1 01:01:00") ), 61);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1 00:00:00"), new Date("2020-6-1 01:01:59") ), 61);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1 00:00:00"), new Date("2020-6-1 23:00:00") ), 1380);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1 00:00:00"), new Date("2020-6-1 23:59:00") ), 1439);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1 00:00:00"), new Date("2020-6-1 23:59:59") ), 1439);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1"), new Date("2020-6-2") ), 24*60);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1 00:00:00"), new Date("2020-6-2 01:01") ), 24*60+61);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1"), new Date("2020-7-1") ), 30*24*60);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1"), new Date("2020-7-1 01:01") ), 30*24*60+61);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1"), new Date("2021-6-1") ), 365*24*60);
+        assert.equal(FuncionesAuxiliares.minutosEntreFechas(new Date("2020-6-1"), new Date("2021-6-1 01:01") ), 365*24*60+61);
+    });
+
     
 });
