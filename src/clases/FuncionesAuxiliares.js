@@ -4,7 +4,7 @@ import SesionEstudio from "../clases/SesionEstudio.js";
 import {Loading,QSpinnerComment} from 'quasar';
 import FrasesMotivadoras from '../clases/FrasesMotivadoras.js';
 import usuarioPrueba from './UsuarioPrueba';
-import Vue from 'vue';
+import Vue from 'Vue';
 
 
 class FuncionesAuxiliares {
@@ -53,43 +53,15 @@ class FuncionesAuxiliares {
     let toSecs = difS / 1000;
     return Math.trunc(toSecs);
   }
-  //guarda el estado del usuario
-  //static guardarEstadoLocalStorage(user) {
-    //Transformamos los datos del usuario a formato JSON 
-    //let jUser = JSON.stringify(user);
-    //guardamos el objeto (json friendly) con la clave "usuario"
-    //localStorage.setItem("usuario", jUser);
-  //}
+
+  // Guarda la variable estatica Usuario.$usuarioLocal en LocalStorage
   static guardarEstadoLocalStorage(){
-    //Vue.prototype.$usuarioLocal = usuarioPrueba;
-    localStorage.setItem("usuarioLocal", JSON.stringify(Vue.prototype.$usuarioLocal));
+    localStorage.setItem("usuarioLocal", JSON.stringify(Usuario.$usuarioLocal));
   }
+  // Restaura la variable estatica Usuario.$usuarioLocal desde LocalStorage
   static restaurarEstadoLocalStorage(){
-    Vue.prototype.$usuarioLocal= JSON.parse(localStorage.getItem("usuarioLocal"));
+    Usuario.$usuarioLocal= JSON.parse(localStorage.getItem("usuarioLocal"));
   }
-  //Funcion que restaura los datos de usuario a partir de la key de localStorage y devuelve el usuario
- // static restaurarEstadoLocalStorage(userKey) {
-    //traemos los datos desde localStorage y los ponemos en formato
-    //json para trabajar con ellos.
-   // let datos = JSON.parse(localStorage.getItem(userKey));
-    // creamos el usuario
-    //let usuario = new Usuario(datos.nombre);
-    //le asignamos el estado de sesion
-    // si no es null lo asignamos como fecha.
-   // usuario.sesionEstudioIniciada = (datos.sesionEstudioIniciada != null) ? new Date(datos.sesionEstudioIniciada) : null;
-    //Le asignamos sus sesiones
-   // let datosDeSesiones = datos.coleccionSesiones.arraySesionesEstudio;
-   // for (let i = 0; i < datosDeSesiones.length; i++) {
-      //establecemos la fecha de inicio  y fin
-     // let tempInitDate = new Date(datosDeSesiones[i].inicioSesion);
-      //let tempEndDate = new Date(datosDeSesiones[i].finSesion);
-      //re-creamos la sesion
-     // let tempSesion = new SesionEstudio(tempInitDate,tempEndDate);
-      //la añadimos a la coleccion
-      //usuario.getColeccionSesiones().addSesion(tempSesion);
-   // }
-   // return usuario;
-  //}
   //añade un componente Loader a la pantalla con mensaje motivador al iniciar la pagina.
   static pantallaCargaIniciar() {
     //mostrar componente
