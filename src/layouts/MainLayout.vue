@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated >
-      <q-toolbar class="bg-white text-black" >
+    <q-header elevated>
+      <q-toolbar class="bg-white text-black">
         <q-btn
           flat
           dense
@@ -11,13 +11,12 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
 
-        <q-toolbar-title  class="q-mr-md text-right">Let's Study</q-toolbar-title>
+        <q-toolbar-title class="q-mr-md text-right Oswald text-weight-bold">Let's Study</q-toolbar-title>
 
-        <div ><img src="../assets/LETSSTUDY_ICON.png"/></div>
-        
+        <q-avatar class="no-border-radius">
+          <img src="~assets/logo_header.png" />
+        </q-avatar>
       </q-toolbar>
-
-
 
       <BarraNavegacion />
     </q-header>
@@ -89,7 +88,7 @@
 </template>
 
 <script>
-import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js"
+import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
 import BarraNavegacion from "../componentes/BarraNavegacion.vue";
 export default {
   name: "MainLayout",
@@ -102,9 +101,14 @@ export default {
       leftDrawerOpen: false
     };
   },
-  created: function(){
+  created: function() {
     // Al iniciar la APP, cargamos el valor de LocalStorage en Usuario.$usuarioLocal
     FuncionesAuxiliares.restaurarEstadoLocalStorage();
   }
 };
 </script>
+<style lang="sass" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap')
+.Oswald
+  font-family: 'Oswald', sans-serif
+</style>
