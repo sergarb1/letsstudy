@@ -18,15 +18,15 @@ personalizaciones de estilo
   <!-- Usamos el componente Quasar para paginas q-page.
   Usaremos flex para definir el posicionamiento.
   https://quasar.dev/layout/grid/introduction-to-flexbox-->
-  <q-page class="flex flex-center">
+  <q-page class="flex flex-center content-start">
     <!-- Indicamos que este DIV y sus elementos hijos seguiran en flex una columna
     y que se alineran horizontalmente al centro-->
-    <div class="column justify-center q-gutter-md">
+    <div class="column justify-center q-gutter-lg">
       <!-- Indicamos mediante una clase el tamanyo y tipo de texto. 
        Ademas, ponemos text-center, ya que flex nos centra el "elemento",
       pero el texto si no indicamos nada dentro del elemento se alinea a la izquierda-->
-      <p class="text-b1 text-center">¡Hora de estudiar!</p>
-
+      <h4 class="text-center Oswald">¡Hora de estudiar!</h4>
+      <q-separator />
       <!-- Usamos el componente https://quasar.dev/vue-components/circular-progress
        Indicamos distintos valores, entre ellos que su dibujo represente los rangos de 1 a 60 y que
        el valor para calcular en donde se esta, utilize la variable reactiva "tiempo" y obtenga
@@ -37,13 +37,13 @@ personalizaciones de estilo
         :value="tiempo%60"
         :min="0"
         :max="59"
-        size="150px"
+        size="300px"
         color="light-blue"
         track-color="grey-3"
       >
         <!-- Dentro de la etiqueta q-circular-progress metemos el texto que se mostrara.
         Este texto se asocia a la variable reactica "tiempoMostrar"-->
-        <p class="text-body2 justify-center">{{ tiempoMostrar }}</p>
+        <p class="Oswald justify-center text-h4 text-blue-grey-13">{{ tiempoMostrar }}</p>
       </q-circular-progress>
 
       <!-- Usamos el componente https://quasar.dev/vue-components/button
@@ -165,3 +165,8 @@ export default {
   }
 };
 </script>
+<style lang="sass" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
+.Oswald
+  font-family: 'Oswald', sans-serif
+</style>
