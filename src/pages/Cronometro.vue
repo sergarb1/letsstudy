@@ -37,7 +37,7 @@ personalizaciones de estilo
         :min="0"
         :max="59"
         size="250px"
-        color="light-blue"
+        color="light-blue-3"
         track-color="grey-3"
       >
         <!-- Dentro de la etiqueta q-circular-progress metemos el texto que se mostrara.
@@ -164,7 +164,7 @@ export default {
       this.$q.notify({
         message: "** Iniciada nueva sesión de estudio **",
         caption: this.frases.mostrarFraseMotivadora(), // Con cada inicio de sesión nos pasará aleatoriamente, una frase de la lista
-        color: "accent",
+        color: "light-blue-4",
         position: "center"
       });
     },
@@ -172,7 +172,7 @@ export default {
       this.$q.notify({
         message: "** Sesión de estudio registrada **",
         caption: "Ahora puedes consultarla en el histórico...",
-        color: "info",
+        color: "blue-grey-3",
         position: "center"
       });
     }
