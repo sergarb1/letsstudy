@@ -1,6 +1,9 @@
 import Usuario from './Usuario.js';
 import SesionEstudio from './SesionEstudio.js';
-import {Loading,QSpinnerComment} from 'quasar';
+import {
+  Loading,
+  QSpinnerComment
+} from 'quasar';
 import FrasesMotivadoras from './FrasesMotivadoras.js';
 
 // Definición de clase para funciones auxiliares estáticas
@@ -52,20 +55,21 @@ class FuncionesAuxiliares {
   }
 
   // Guarda la variable estatica Usuario.$usuarioLocal en LocalStorage
-  static guardarEstadoLocalStorage(){
+  static guardarEstadoLocalStorage() {
     localStorage.setItem("usuarioLocal", JSON.stringify(Usuario.$usuarioLocal));
   }
   // Restaura la variable estatica Usuario.$usuarioLocal desde LocalStorage
-  static restaurarEstadoLocalStorage(){
-    
+  static restaurarEstadoLocalStorage() {
+
+
     //traemos los datos desde localStorage y los ponemos en formato
     //json para trabajar con ellos.
-    let datos= JSON.parse(localStorage.getItem("usuarioLocal"));
+    let datos = JSON.parse(localStorage.getItem("usuarioLocal"));
 
-    if (datos===undefined){
+    // Si no existia en localStorage usuarioLocal por ser la primera vez, creamos el objeto con nuestro constructor
+    if (!localStorage["usuarioLocal"]) {
       Usuario.$usuarioLocal = new Usuario("User");
-    }
-    else{
+    } else {
       // creamos el usuario
       Usuario.$usuarioLocal = new Usuario(datos.nombre);
     }
@@ -79,7 +83,7 @@ class FuncionesAuxiliares {
       let tempInitDate = new Date(datosDeSesiones[i].inicioSesion);
       let tempEndDate = new Date(datosDeSesiones[i].finSesion);
       //re-creamos la sesion
-      let tempSesion = new SesionEstudio(tempInitDate,tempEndDate);
+      let tempSesion = new SesionEstudio(tempInitDate, tempEndDate);
       //la añadimos a la coleccion
       Usuario.$usuarioLocal.getColeccionSesiones().addSesion(tempSesion);
     }
@@ -87,23 +91,21 @@ class FuncionesAuxiliares {
   //añade un componente Loader a la pantalla con mensaje motivador al iniciar la pagina.
   static pantallaCargaIniciar() {
     //mostrar componente
-    Loading.show(
-        {
-          //configuracion del componente
-            spinner: QSpinnerComment,
-            message: '<h5>'+FrasesMotivadoras.mostrarSaludo()+'</h5>',
-            messageColor: 'white',
-            backgroundColor: 'primary',
-            spinnerSize: 250, // in pixels    
-            spinnerColor: 'yellow',
-        }
-    );          
-        //Tras 4 segundos se ocultara
-   setTimeout(function () {
-        Loading.hide();
+    Loading.show({
+      //configuracion del componente
+      spinner: QSpinnerComment,
+      message: '<h5>' + FrasesMotivadoras.mostrarSaludo() + '</h5>',
+      messageColor: 'white',
+      backgroundColor: 'primary',
+      spinnerSize: 250, // in pixels    
+      spinnerColor: 'yellow',
+    });
+    //Tras 4 segundos se ocultara
+    setTimeout(function () {
+      Loading.hide();
     }, 4000);
 
-}
+  }
 
 }
 
