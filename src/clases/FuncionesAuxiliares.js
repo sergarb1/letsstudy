@@ -61,9 +61,6 @@ class FuncionesAuxiliares {
 
   // Restaura la variable estatica Usuario.$usuarioLocal desde LocalStorage
   static restaurarEstadoLocalStorage() {
-
-
-
     // Si no existia en localStorage usuarioLocal por ser la primera vez, creamos el objeto con nuestro constructor
     if (!localStorage["usuarioLocal"]) {
       Usuario.$usuarioLocal = new Usuario("User");

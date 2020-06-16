@@ -111,10 +111,8 @@ export default {
     },
     // Función que guarda los datos en localStorage del objeto JSON que haya en el textArea
     guardarDatos() {
-      
-      Usuario.$usuarioLocal=this.text;
       // Guardamos en LocalStorage
-      FuncionesAuxiliares.guardarEstadoLocalStorage();
+      localStorage.setItem("usuarioLocal",this.text);
       // Para que el objeto este bien, recuperamos del LocalStorage y asi se re-construye el objeto
       FuncionesAuxiliares.restaurarEstadoLocalStorage();
 
