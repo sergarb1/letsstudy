@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated class="bg-light-blue">
-      <q-toolbar>
+    <q-header elevated >
+      <q-toolbar class="bg-white text-black" >
         <q-btn
           flat
           dense
@@ -11,10 +11,15 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
 
-        <q-toolbar-title>Let's Study</q-toolbar-title>
+        <q-toolbar-title  class="q-mr-md text-right">Let's Study</q-toolbar-title>
 
-        <div>Let's Study</div>
+        <div ><img src="../assets/LETSSTUDY_ICON.png"/></div>
+        
       </q-toolbar>
+
+
+
+      <BarraNavegacion />
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-1">
@@ -40,7 +45,7 @@
           </q-item-section>
 
           <q-item-section>
-            <q-item-label>Cronometro</q-item-label>
+            <q-item-label>Cronómetro</q-item-label>
             <q-item-label caption>Comienza a estudiar</q-item-label>
           </q-item-section>
         </q-item>
@@ -74,8 +79,6 @@
             <q-item-label caption>Sección para debuguear la app</q-item-label>
           </q-item-section>
         </q-item>
-
-        
       </q-list>
     </q-drawer>
 
@@ -86,8 +89,13 @@
 </template>
 
 <script>
+import BarraNavegacion from "../componentes/BarraNavegacion.vue";
 export default {
   name: "MainLayout",
+
+  components: {
+    BarraNavegacion
+  },
   data() {
     return {
       leftDrawerOpen: false
