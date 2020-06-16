@@ -21,7 +21,7 @@ personalizaciones de estilo
   <q-page class="flex flex-center content-start">
     <!-- Indicamos que este DIV y sus elementos hijos seguiran en flex una columna
     y que se alineran horizontalmente al centro-->
-    <div class="column justify-center ">
+    <div class="column justify-center">
       <!-- Indicamos mediante una clase el tamanyo y tipo de texto. 
        Ademas, ponemos text-center, ya que flex nos centra el "elemento",
       pero el texto si no indicamos nada dentro del elemento se alinea a la izquierda-->
@@ -45,7 +45,7 @@ personalizaciones de estilo
         <p class="Oswald justify-center text-h4 text-blue-grey-13">{{ tiempoMostrar }}</p>
       </q-circular-progress>
 
-        <q-separator vertical inset />
+      <q-separator vertical inset />
       <!-- Usamos el componente https://quasar.dev/vue-components/button
       Asociamos al evento click que llame a "cambiarEstadoCrono" y asociamos que el contenido
       de la propiedad label se asocie a la variable reactiva "textoCrono"-->
@@ -77,15 +77,27 @@ export default {
       fechaFin: null, // Fecha en la que se paro el cronometro
       tiempo: 0, // Segundos de la sesion
       textoCrono: "Empezar", // Texto del cronometro, por defecto empezar
-      tiempoMostrar: "00 : 00 : 00", // Tiempo que vemos dentro del circulo, valor por defecto
+      tiempoMostrar: "00:00:00", // Tiempo que vemos dentro del circulo, valor por defecto
       estadoCrono: false, // true, crono funcionando, false, parado
       valorInterval: null, // variable utilizada para parar el "setInterval"
       frases: FrasesMotivadoras
     };
   },
-  beforeDestroy: function() {
-    if(this.fechaFin == null) {
-      Usuario.$usuarioLocal.setSesionEstudioIniciada(this.fechaInicio);
+  created: function() {
+    // Si esta la sesion abierta, actualizamos las variables
+    let sesionIniciada = Usuario.$usuarioLocal.getSesionEstudioIniciada();
+
+    if (sesionIniciada != null) {
+      this.fechaInicio = sesionIniciada;
+      //Obtenemos fecha actual. Al construir un objeto Date, este toma la fecha actual
+      let fechaActual = new Date();
+      // Calculamos los segundos que han trascurrido restando la fecha de inicio del crono
+      // con la fecha actual. Esto se hace para no depender de la precision de setInterval
+      // y dar un resultado mas preciso
+      this.tiempo = FuncionesAuxiliares.segundosEntreFechas(this.fechaInicio,fechaActual);
+      // Transforma los segundo transcurridos en formato HH : MM : SS
+      this.tiempoMostrar = FuncionesAuxiliares.segundosToText(this.tiempo);
+      this.cambiarEstadoCrono();
     }
   },
   // Definimos metodos del componente
@@ -97,17 +109,27 @@ export default {
         // Indico que el cronometro esta encendido
         this.estadoCrono = true;
         // Se muestra la notificación de inicio de registro de sesión
-        this.showNotifInicio();
+        // Solo se ejecuta si no esta la sesion iniciada
+        if(Usuario.$usuarioLocal.getSesionEstudioIniciada()==null){
+          this.showNotifInicio();
+        }
         // Cambio el texto del cronometro
         this.textoCrono = "Parar";
+
         // Establecemos fecha inicio (se usara para calcular diferencia entre fechas y para inicio
         // sesion de estudio) al construirla toma como valor la fecha del sistema
         if (Usuario.$usuarioLocal.getSesionEstudioIniciada() != null) {
           this.fechaInicio = Usuario.$usuarioLocal.getSesionEstudioIniciada();
-          this.tiempo = FuncionesAuxiliares.segundosEntreFechas(new Date(), Usuario.$usuarioLocal.getSesionEstudioIniciada());
+          this.tiempo = FuncionesAuxiliares.segundosEntreFechas(
+            new Date(),
+            Usuario.$usuarioLocal.getSesionEstudioIniciada()
+          );
         } else {
           this.fechaInicio = new Date();
         }
+
+        // Como iniciamos, guardamos la sesion activa como variable local
+        Usuario.$usuarioLocal.setSesionEstudioIniciada(this.fechaInicio);
 
         // setInterval es una funcion Javascript para que una funcion que se indica dentro
         // se ejecute cada X milisegundos (segundo parametro)
@@ -144,12 +166,12 @@ export default {
         this.showNotifFin();
         // Establecemos feha de fin del crono para el registro de sesion
         this.fechaFin = new Date();
-        
+
         // Instanciamos una nueva SesionEstudio para almacenarla
-        let sesion = new SesionEstudio(this.fechaInicio,this.fechaFin);
+        let sesion = new SesionEstudio(this.fechaInicio, this.fechaFin);
         // Añadimos la sesión a la coleccion de sesiones del usuario
         Usuario.$usuarioLocal.getColeccionSesiones().addSesion(sesion);
-        // 
+        //
         Usuario.$usuarioLocal.setSesionEstudioIniciada(null);
         // Al hacer un cambio, guardamos en LocalStorage
         FuncionesAuxiliares.guardarEstadoLocalStorage();
@@ -157,6 +179,9 @@ export default {
         this.textoCrono = "Empezar";
         // Con clearInterval y la referencia al interval, cancelamos el hilo que se ejecuta a intervalos
         clearInterval(this.valorInterval);
+
+        // Como paramos, eliminamos la variable global que indica que la sesion activa
+        Usuario.$usuarioLocal.setSesionEstudioIniciada(null);
       }
     },
     // Definimos dos metodos para generar las distintas notificaciones: la de inicio de sesion y la de fin
