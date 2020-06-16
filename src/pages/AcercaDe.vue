@@ -1,20 +1,19 @@
 <template>
 
-  <q-page class="flex flex-center content-start" style="background-color: #00cfee">
-    <div class="column justify-center q-gutter-sm">
-        <img alt="Lets Study logo" src="~assets/logo_letsstudy.png" />
+  <q-page class="flex flex-center content-start">
+    <div class="column justify-center q-gutter-sm"  style="height: 250px">
+        <img alt="Lets Study logo" src="~assets/LETSSTUDY_2.png" />
         </div>
 
     <q-intersection transition="scale">
       
 
       <q-card
-      class="my-card q-mb-sm  bg-indigo-6 text-white text-left">
+      class="q-mb-lg q-px-lg text-white bg-light-blue no-box-shadow text-left no-border-radius">
         <q-card-section>
-        <h6>Proyecto realizado en el Hackaton 19/20 del CEEDCV.<br/> 
-        Por unos cuantos alumnos y alumnas entregados al lado luminoso de 
-          la programación
-          y unos profesores armados de paciencia infinita.</h6>
+        <h5>Proyecto realizado en el Hackaton 19/20 del CEEDCV</h5> 
+        <div class="text-subtitle1">Por unos cuantos alumnos y alumnas entregados al lado luminoso de 
+          la programación y unos profesores armados de paciencia infinita.</div>
         
         </q-card-section>
 
