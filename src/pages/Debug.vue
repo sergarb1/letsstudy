@@ -100,15 +100,17 @@ export default {
 
       // Se muestra en el textArea el usuario como JSON
       this.text = JSON.stringify(Usuario.$usuarioLocal);
-      alert(Usuario.$usuarioLocal.nombre);
      
     },
     // Función que guarda los datos en localStorage del objeto JSON que haya en el textArea
     guardarDatos() {
+      
+      Usuario.$usuarioLocal=this.text;
+      // Guardamos en LocalStorage
       FuncionesAuxiliares.guardarEstadoLocalStorage();
+      // Para que el objeto este bien, recuperamos del LocalStorage y asi se re-construye el objeto
+      FuncionesAuxiliares.restaurarEstadoLocalStorage();
 
-      // Se vacía el textArea
-      this.text = '';
     },
     //funcion que obtiene un numero aleatorio entre A (menor) y B (mayor) incluidos
     numeroAleatorio(A, B) {

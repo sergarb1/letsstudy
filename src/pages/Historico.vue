@@ -25,8 +25,7 @@
 <script>
 // Importo la clase FuncionesAuxiliares
 import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
-// Importamos la instancia de Usuario para poder hacer las pruebas de funcionamiento
-import usuarioPrueba from "../clases/UsuarioPrueba.js";
+import Usuario from "../clases/Usuario.js";
 
 export default {
   name: "Historico",
@@ -38,8 +37,7 @@ export default {
   },
   // funcion ejecutada al crearse el componente
   created: function() {
-    const usuario = usuarioPrueba;
-    const arraySesiones = usuario.getColeccionSesiones().getSesiones();
+    const arraySesiones = Usuario.$usuarioLocal.getColeccionSesiones().getSesiones();
     arraySesiones.forEach(sesion => {
       let dia = sesion.getInicioSesion().toDateString();
       let segundos = FuncionesAuxiliares.segundosEntreFechas(sesion.getFinSesion(),sesion.getInicioSesion());

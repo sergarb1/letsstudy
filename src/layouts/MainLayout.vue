@@ -89,6 +89,7 @@
 </template>
 
 <script>
+import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js"
 import BarraNavegacion from "../componentes/BarraNavegacion.vue";
 export default {
   name: "MainLayout",
@@ -100,6 +101,10 @@ export default {
     return {
       leftDrawerOpen: false
     };
+  },
+  created: function(){
+    // Al iniciar la APP, cargamos el valor de LocalStorage en Usuario.$usuarioLocal
+    FuncionesAuxiliares.restaurarEstadoLocalStorage();
   }
 };
 </script>

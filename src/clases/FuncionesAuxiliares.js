@@ -1,12 +1,9 @@
-// Definición de clase para funciones auxiliares estáticas
-import Usuario from './Usuario';
-import SesionEstudio from "../clases/SesionEstudio.js";
+import Usuario from './Usuario.js';
+import SesionEstudio from './SesionEstudio.js';
 import {Loading,QSpinnerComment} from 'quasar';
-import FrasesMotivadoras from '../clases/FrasesMotivadoras.js';
-import usuarioPrueba from './UsuarioPrueba';
-import Vue from 'Vue';
+import FrasesMotivadoras from './FrasesMotivadoras.js';
 
-
+// Definición de clase para funciones auxiliares estáticas
 class FuncionesAuxiliares {
 
   // Convierte una cantidad de segundos a formato texto 'hh:mm:ss'
@@ -60,7 +57,27 @@ class FuncionesAuxiliares {
   }
   // Restaura la variable estatica Usuario.$usuarioLocal desde LocalStorage
   static restaurarEstadoLocalStorage(){
-    Usuario.$usuarioLocal= JSON.parse(localStorage.getItem("usuarioLocal"));
+    
+    //traemos los datos desde localStorage y los ponemos en formato
+    //json para trabajar con ellos.
+    let datos= JSON.parse(localStorage.getItem("usuarioLocal"));
+
+    // creamos el usuario
+    Usuario.$usuarioLocal = new Usuario(datos.nombre);
+    //le asignamos el estado de sesion
+    // si no es null lo asignamos como fecha.
+    Usuario.$usuarioLocal.sesionEstudioIniciada = (datos.sesionEstudioIniciada != null) ? new Date(datos.sesionEstudioIniciada) : null;
+    //Le asignamos sus sesiones
+    let datosDeSesiones = datos.coleccionSesiones.arraySesionesEstudio;
+    for (let i = 0; i < datosDeSesiones.length; i++) {
+      //establecemos la fecha de inicio  y fin
+      let tempInitDate = new Date(datosDeSesiones[i].inicioSesion);
+      let tempEndDate = new Date(datosDeSesiones[i].finSesion);
+      //re-creamos la sesion
+      let tempSesion = new SesionEstudio(tempInitDate,tempEndDate);
+      //la añadimos a la coleccion
+      Usuario.$usuarioLocal.getColeccionSesiones().addSesion(tempSesion);
+    }
   }
   //añade un componente Loader a la pantalla con mensaje motivador al iniciar la pagina.
   static pantallaCargaIniciar() {

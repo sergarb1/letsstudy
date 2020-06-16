@@ -62,8 +62,7 @@ import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
 import FrasesMotivadoras from "../clases/FrasesMotivadoras.js";
 // Importamos la clase SesionEstudio para poder registrar sesiones de estudio
 import SesionEstudio from "../clases/SesionEstudio.js";
-// Importamos la instancia de Usuario para poder hacer las pruebas de funcionamiento
-import usuarioPrueba from "../clases/UsuarioPrueba.js";
+import Usuario from "../clases/Usuario.js";
 
 // Estructura general necesaria para utilizar variables reactivas en componentes VUE
 export default {
@@ -81,8 +80,6 @@ export default {
       tiempoMostrar: "00 : 00 : 00", // Tiempo que vemos dentro del circulo, valor por defecto
       estadoCrono: false, // true, crono funcionando, false, parado
       valorInterval: null, // variable utilizada para parar el "setInterval"
-      // Creamos un usuario para pruebas, el usuario real se le pasará al componente como 'props'
-      usuario: usuarioPrueba,
       frases: FrasesMotivadoras
     };
   },
@@ -141,7 +138,10 @@ export default {
         // Instanciamos una nueva SesionEstudio para almacenarla
         let sesion = new SesionEstudio(this.fechaInicio,this.fechaFin);
         // Añadimos la sesión a la coleccion de sesiones del usuario
-        this.usuario.getColeccionSesiones().addSesion(sesion);
+        Usuario.$usuarioLocal.getColeccionSesiones().addSesion(sesion);
+        // Al hacer un cambio, guardamos en LocalStorage
+        FuncionesAuxiliares.guardarEstadoLocalStorage();
+        // Cambiamos texto del cronometro
         this.textoCrono = "Empezar";
         // Con clearInterval y la referencia al interval, cancelamos el hilo que se ejecuta a intervalos
         clearInterval(this.valorInterval);

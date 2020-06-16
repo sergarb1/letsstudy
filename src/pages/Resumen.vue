@@ -47,16 +47,13 @@ estadísticas de tiempo de estudio del usuario -->
 <script>
 // Importo la clase FuncionesAuxiliares
 import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
-// Importamos la instancia de Usuario para poder hacer las pruebas de funcionamiento
-import usuarioPrueba from "../clases/UsuarioPrueba.js";
+import Usuario from "../clases/Usuario.js";
 
 export default {
   name: "Resumen",
-  /* Creamos la función 'data' donde asignamos la instancia de usuarioPrueba a
-  la variable usuario */
+  /* Creamos la función 'data' */
   data: function() {
     return {
-      usuario: usuarioPrueba
     };
   },
   /* Creamos variables 'computadas' que hacen un cálculo cada vez que entramos en el
@@ -64,7 +61,7 @@ export default {
   computed: {
     hoy: function() {
       const ahora = new Date();
-      const arraySesiones = this.usuario.getColeccionSesiones().getSesionesDia(ahora);
+      const arraySesiones = Usuario.$usuarioLocal.getColeccionSesiones().getSesionesDia(ahora);
       let sumaSegundos = 0;
       arraySesiones.forEach(sesion => {
         sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(sesion.getFinSesion(),sesion.getInicioSesion());
@@ -73,7 +70,7 @@ export default {
     },
     semana: function() {
       const ahora = new Date();
-      const arraySesiones = this.usuario.getColeccionSesiones().getSesionesSemana(ahora);
+      const arraySesiones = Usuario.$usuarioLocal.getColeccionSesiones().getSesionesSemana(ahora);
       let sumaSegundos = 0;
       arraySesiones.forEach(sesion => {
         sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(sesion.getFinSesion(),sesion.getInicioSesion());
@@ -82,7 +79,7 @@ export default {
     },
     mes: function() {
       const ahora = new Date();
-      const arraySesiones = this.usuario.getColeccionSesiones().getSesionesMes(ahora);
+      const arraySesiones = Usuario.$usuarioLocal.getColeccionSesiones().getSesionesMes(ahora);
       let sumaSegundos = 0;
       arraySesiones.forEach(sesion => {
         sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(sesion.getFinSesion(),sesion.getInicioSesion());
@@ -90,7 +87,7 @@ export default {
       return FuncionesAuxiliares.segundosToText(sumaSegundos);
     },
     total: function() {
-      const calculoTotal = this.usuario.getColeccionSesiones().tiempoTotalEstudio();
+      const calculoTotal = Usuario.$usuarioLocal.getColeccionSesiones().tiempoTotalEstudio();
       return FuncionesAuxiliares.segundosToText(calculoTotal);
     }
   }
