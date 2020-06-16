@@ -167,16 +167,41 @@ export default {
         // Establecemos feha de fin del crono para el registro de sesion
         this.fechaFin = new Date();
 
-        // Instanciamos una nueva SesionEstudio para almacenarla
-        let sesion = new SesionEstudio(this.fechaInicio, this.fechaFin);
-        // Añadimos la sesión a la coleccion de sesiones del usuario
-        Usuario.$usuarioLocal.getColeccionSesiones().addSesion(sesion);
+        //Usando la función para establecer el tiempo máximo de sesión
+        //Se pasa 4h máximo por cada sesión de estudio y las fechas de inicio y fin
+        //Si la sesión dura menos de 4h, devuelve la fecha de fin original, si no
+        //devuelve 4h después de la fecha de inicio
+        let fechaFinCorregida = FuncionesAuxiliares.tiempoMaximoSesion(4, this.fechaInicio, this.fechaFin);
+        
+        // Llamamos a la función que devuelve un array de sesiones
+        let arraySesiones = FuncionesAuxiliares.sesionesTiempoCronometro(this.fechaInicio, fechaFinCorregida);
+        //Descomentar las siguientes líneas para probar a insertar sesiones antes y despues de las 00:00h
+        /*let arraySesiones = FuncionesAuxiliares.sesionesTiempoCronometro(
+          new Date(
+            2020,
+            5,
+            16,
+            22, 59, 59), 
+          new Date(
+            2020,
+            5,
+            17,
+            2, 59, 59));
+        */
+        // Se recorre el array de las sesiones
+        arraySesiones.forEach(sesion => {
+          // Añadimos la sesión a la coleccion de sesiones del usuario
+          Usuario.$usuarioLocal.getColeccionSesiones().addSesion(sesion);
+        });
         //
         Usuario.$usuarioLocal.setSesionEstudioIniciada(null);
         // Al hacer un cambio, guardamos en LocalStorage
         FuncionesAuxiliares.guardarEstadoLocalStorage();
         // Cambiamos texto del cronometro
         this.textoCrono = "Empezar";
+        // Se limpian la variables de fecha
+        this.fechaInicio = null;
+        this.fechaFin = null;
         // Con clearInterval y la referencia al interval, cancelamos el hilo que se ejecuta a intervalos
         clearInterval(this.valorInterval);
 

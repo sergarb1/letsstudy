@@ -112,6 +112,57 @@ class FuncionesAuxiliares {
 
   }
 
+  //Función que recibe el tiempo de inicio y fin del cronómetro y devuelve un array
+  //con las sesiones. Si el tiempo pasa de las 00:00h, se crean dos sesiones, hasta
+  //las 00:00h y otra a partir de las 00:00h
+  static sesionesTiempoCronometro(inicio, fin) {
+    //Array de sesiones que devolveremos
+    let arraySesiones = [];
+    //Tiempo en milisegundos entre fecha inicio y fecha fin
+    let tiempoSesion = fin.getTime() - inicio.getTime();
+    //00:00h del día de inicio de la sesión
+    let doceHoras = new Date(
+      inicio.getFullYear(),
+      inicio.getMonth(),
+      inicio.getDate(),
+      23, 59, 59).getTime();
+
+    //Si el tiempo de sesion es superior al tiempo entre el inicio y las doce se
+    //deben hacer dos sesiones
+    if (tiempoSesion > doceHoras - inicio.getTime()) {
+      //Primera sesión desde el inicio hasta las 23:59:59 creada antes
+      let sesion1 = new SesionEstudio(inicio, new Date(doceHoras));
+      //Segunda sesión desde las 00:00:00 hasta la fecha de fin
+      let sesion2 = new SesionEstudio(new Date(doceHoras + 1000), fin);
+
+      arraySesiones.push(sesion1);
+      arraySesiones.push(sesion2);
+    } else {
+      let sesion1 = new SesionEstudio(inicio, fin);
+      arraySesiones.push(sesion1);
+    }
+
+    return arraySesiones;
+  }
+
+  //Función para establecer como máximo x horas de estudio seguidas en una sesión
+  //Recibe el tiempo máximo en horas de estudio, una hora de inicio, de fin, y devuelve la hora de fin correcta 
+  static tiempoMaximoSesion(horasMax, inicio, fin) {
+    //Las horas en milisegundos
+    let horasMil = horasMax * 3600000;
+    //Tiempo de la sesion en milisegundos
+    let tempSesion = fin.getTime() - inicio.getTime();
+
+    //Si el tiempo de la sesión es menor que x Horas, devuelve el fin que se pasó por parametro
+    if (tempSesion < horasMil) {
+      return fin;
+    } else {
+      //Si no devuelve el inicio de la sesión + el tiempo máximo
+      return new Date(inicio.getTime() + horasMil);
+    }
+
+  }
+
 }
 
 // Esto si lo comentais para probar, luego des-comentarlo
