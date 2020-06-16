@@ -21,7 +21,7 @@ personalizaciones de estilo
   <q-page class="flex flex-center content-start">
     <!-- Indicamos que este DIV y sus elementos hijos seguiran en flex una columna
     y que se alineran horizontalmente al centro-->
-    <div class="column justify-center q-gutter-lg">
+    <div class="column justify-center ">
       <!-- Indicamos mediante una clase el tamanyo y tipo de texto. 
        Ademas, ponemos text-center, ya que flex nos centra el "elemento",
       pero el texto si no indicamos nada dentro del elemento se alinea a la izquierda-->
