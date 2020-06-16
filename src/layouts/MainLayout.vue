@@ -104,6 +104,9 @@ export default {
   created: function() {
     // Al iniciar la APP, cargamos el valor de LocalStorage en Usuario.$usuarioLocal
     FuncionesAuxiliares.restaurarEstadoLocalStorage();
+  },
+  mounted(){
+    FuncionesAuxiliares.pantallaCargaIniciar();
   }
 };
 </script>
