@@ -58,6 +58,7 @@ class FuncionesAuxiliares {
   static guardarEstadoLocalStorage() {
     localStorage.setItem("usuarioLocal", JSON.stringify(Usuario.$usuarioLocal));
   }
+  
   // Restaura la variable estatica Usuario.$usuarioLocal desde LocalStorage
   static restaurarEstadoLocalStorage() {
 
@@ -88,6 +89,7 @@ class FuncionesAuxiliares {
       Usuario.$usuarioLocal.getColeccionSesiones().addSesion(tempSesion);
     }
   }
+
   //añade un componente Loader a la pantalla con mensaje motivador al iniciar la pagina.
   static pantallaCargaIniciar() {
     //mostrar componente
