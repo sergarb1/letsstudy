@@ -1,6 +1,6 @@
 {
   "name": "letsstudy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Aplicación para mejorar el ritmo de estudio",
   "productName": "Let's Study",
   "cordovaId": "org.ceedcv.letsstudy",

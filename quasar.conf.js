@@ -95,8 +95,7 @@ module.exports = function (/* ctx */) {
 
       // Quasar plugins
       plugins: [
-        'Notify',
-        'AppVisibility'
+        'Notify'
       ]
     },
 
