@@ -75,15 +75,15 @@ export default {
       //let user = new Usuario('Usuario prueba');
       Usuario.$usuarioLocal = new Usuario('Usuario test');
       // Va a generar entre 10 y 30 sesiones de estudio
-      for (let i = 0; i < this.numeroAleatorio(10, 30); i++) {
+      for (let i = 0; i < FuncionesAuxiliares.numeroAleatorio(10, 30); i++) {
         //Generación de días, horas y minutos aleatorios
-        let dia = this.numeroAleatorio(1, 31);
-        let hora = this.numeroAleatorio(0, 23);
-        let minuto = this.numeroAleatorio(0, 59);
+        let dia = FuncionesAuxiliares.numeroAleatorio(1, 31);
+        let hora = FuncionesAuxiliares.numeroAleatorio(0, 23);
+        let minuto = FuncionesAuxiliares.numeroAleatorio(0, 59);
         
         // El tiempo de estudio será entre 5mins y 60 mins en las pruebas
         // Número aleatorio entre 5mins y 60mins
-        let sumaFin = this.numeroAleatorio(300000, 3600000);
+        let sumaFin = FuncionesAuxiliares.numeroAleatorio(300000, 3600000);
 
         // Para las pruebas se hará en el mes de mayo del 2020
         let inicio = new Date(2020, 4, dia, hora, minuto, 0);
@@ -121,10 +121,6 @@ export default {
     borrarLocalStorage() {
       localStorage.clear();
     },
-    //funcion que obtiene un numero aleatorio entre A (menor) y B (mayor) incluidos
-    numeroAleatorio(A, B) {
-      return Math.floor(A+(Math.random()*(B-A+1)))
-    }
   }
 }
 </script>
