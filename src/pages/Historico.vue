@@ -41,7 +41,7 @@ export default {
     arraySesiones.forEach(sesion => {
       let dia = sesion.getInicioSesion().toDateString();
       let segundos = FuncionesAuxiliares.segundosEntreFechas(sesion.getFinSesion(),sesion.getInicioSesion());
-      this.fechas.push([dia,FuncionesAuxiliares.segundosToText(segundos)]);
+      this.fechas.unshift([dia,FuncionesAuxiliares.segundosToText(segundos)]);
     });
   },
   //metodos para cambiar el color de las card  y que no sean todos del mismo color 
