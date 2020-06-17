@@ -35,13 +35,13 @@ export default {
       fechas: []
     };
   },
-  // funcion ejecutada al crearse el componente
+  // funcion ejecutada al crearse el componente, isamos toLocaleDate/TimeString() para sacarlo en formato local
   created: function() {
     const arraySesiones = Usuario.$usuarioLocal.getColeccionSesiones().getSesiones();
     arraySesiones.forEach(sesion => {
-      let dia = sesion.getInicioSesion().toDateString();
+      let dia = sesion.getInicioSesion().toLocaleDateString()+ " a las "+sesion.getInicioSesion().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       let segundos = FuncionesAuxiliares.segundosEntreFechas(sesion.getFinSesion(),sesion.getInicioSesion());
-      this.fechas.unshift([dia,FuncionesAuxiliares.segundosToText(segundos)]);
+      this.fechas.unshift([dia,"Duración "+FuncionesAuxiliares.segundosToText(segundos)]);
     });
   },
   //metodos para cambiar el color de las card  y que no sean todos del mismo color 
