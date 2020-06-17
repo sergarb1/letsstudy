@@ -52,4 +52,5 @@ class FrasesMotivadoras {
 
 }
 
+// Para que se posible importar la clase
 export default FrasesMotivadoras

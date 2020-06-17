@@ -1,7 +1,7 @@
 // Importamos los modulos necesarios
 import FuncionesAuxiliares from "./FuncionesAuxiliares.js"
 
-// Clase para almacenar las sesiones de estudio
+// Clase para almacenar una sesion de estudio
 class SesionEstudio {
     // Se crea el objeto pasandole el objeto Date de inicio de la sesión y el fin
     constructor(inicio,fin) {
@@ -26,16 +26,27 @@ class SesionEstudio {
         this.finSesion = fin;
     }
 
+    // Devuelve el tiempo de estudio en segundos
+    getSegundosEstudio() {
+        let ms = this.finSesion.getTime() - this.inicioSesion.getTime();
+        return Math.floor(ms / 1000);
+    }
+
+    // Devuelve el tiempo de estudio en minutos
+    getMinutosEstudio() {
+        return Math.floor(this.getSegundosEstudio() / 60);
+    }
+
     // Devuelve un objeto SesionEstudio aleatorio (en los últimos 365 días, tiempo estudiado entre 20 y 120 minutos)
     static newAleatoria() {
         // Ahora, hace 365 días y momento aleatorio entre ambos
-        let ahora = Date.now().getTime();
-        let antes = ahora - 31536000000;
+        let ahora = new Date().getTime();
+        let antes = ahora - 31536000000; // 365*24*60*60*1000
         let inicio = FuncionesAuxiliares.numeroAleatorio(antes, ahora);
         // Tiempo estudiado entre 20 y 120 minutos
-        let estudiado = FuncionesAuxiliares.numeroAleatorio(1200000, 7200000);
+        let estudiado = FuncionesAuxiliares.numeroAleatorio(1200000, 7200000); // 20*60000 y 120*60000
         // Devolvemos la sesión de estudio
-        return new SesionEstudio(newDate(inicio), newDate(inicio+estudiado));
+        return new SesionEstudio(new Date(inicio), new Date(inicio+estudiado));
     }
 
     // Devuelve un objeto SesionEstudio aleatorio entre Date dateMin y dateMax, con minutos estudiados entre mMin y mMax
@@ -50,4 +61,5 @@ class SesionEstudio {
 
 }
 
+// Para que se posible importar la clase
 export default SesionEstudio;

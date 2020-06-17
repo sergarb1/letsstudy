@@ -201,5 +201,5 @@ class FuncionesAuxiliares {
   }
 }
 
-// Esto si lo comentais para probar, luego des-comentarlo
+// Para que se posible importar la clase
 export default FuncionesAuxiliares

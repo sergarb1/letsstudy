@@ -1,8 +1,7 @@
 // Importamos los modulos necesarios
 import FuncionesAuxiliares from "./FuncionesAuxiliares.js"
 
-// Definimos la clase ColeccionSesiones que almacena cada unidad de estudio
-
+// Clase que almacena una colección de sesiones de estudio
 class ColeccionSesiones {
     // Constructor que genera un array para almacenar objetos SesionEstudio
     constructor() {
@@ -129,15 +128,32 @@ class ColeccionSesiones {
                 // Uso la función auxiliar creada y le paso por parámetros el 
                 // inicio y fin de la sesion
                 // El acumulado es lo que ya había antes en acumulado + el nuevo tiempo
-                acumulado += FuncionesAuxiliares.segundosEntreFechas(
-                    sesion.getInicioSesion(),
-                    sesion.getFinSesion()
-                );
+                acumulado += sesion.getSegundosEstudio();
             }
         });
 
         return acumulado;
     }
+
+    // Devuelve un objeto ColeccionSesiones con 'cuantas' sesiones aleatorias
+    static newAleatoria(cuantas) {
+        let coleccion = new ColeccionSesiones();
+        for(var i = 0; i < cuantas; i++){
+            coleccion.addSesion(SesionEstudio.newAleatoria());
+        }
+        return coleccion;
+    }
+
+    // Devuelve un objeto ColeccionSesiones con 'cuantas' sesiones aleatorias de 20 a 120 minutos
+    // en el rango indicado dateMin -> dateMax (objetos Date).
+    static newAleatoriaRango(cuantas, dateMin, dateMax) {
+        let coleccion = new ColeccionSesiones();
+        for(var i = 0; i < cuantas; i++){
+            coleccion.addSesion(SesionEstudio.newAleatoriaRango(dateMin, dateMax, 20, 120));
+        }
+        return coleccion;
+    }
+
 }
 
 // Para que se posible importar la clase
