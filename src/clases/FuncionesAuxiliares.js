@@ -164,6 +164,11 @@ class FuncionesAuxiliares {
 
   }
 
+  // Devuelve un numero entero aleatorio entre min y max, ambos incluidos
+  static numeroAleatorio(min, max) {
+    return Math.floor(min + (Math.random() * (max - min + 1)))
+  }
+
 }
 //a partir de dos fechas crea array con una o dos sesiones
 function deFechaASesiones(initDate, endDate) {
