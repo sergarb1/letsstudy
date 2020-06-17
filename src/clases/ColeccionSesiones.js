@@ -1,5 +1,5 @@
 // Importamos los modulos necesarios
-import FuncionesAuxiliares from "./FuncionesAuxiliares.js"
+import SesionEstudio from "./SesionEstudio.js"
 
 // Clase que almacena una colección de sesiones de estudio
 class ColeccionSesiones {

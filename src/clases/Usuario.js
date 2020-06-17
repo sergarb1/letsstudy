@@ -28,6 +28,11 @@ class Usuario {
         return this.coleccionSesiones;
     }
 
+    // Set coleccionSesiones para copiar una nueva colección entera
+    setColeccionSesiones(nuevaColeccion) {
+        this.coleccionSesiones = nuevaColeccion;
+    }
+
     //Set sesion iniciada, recibe un objeto tipo Date
     // Generalmente se pone a una fecha si esta iniciada, y a null si no esta iniciada una 
     setSesionEstudioIniciada(fecha) {

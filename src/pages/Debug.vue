@@ -53,7 +53,7 @@
 
 <script>
 import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
-import SesionEstudio from "../clases/SesionEstudio.js";
+import ColeccionSesiones from "../clases/ColeccionSesiones.js";
 import Usuario from "../clases/Usuario.js";
 
 export default {
@@ -74,40 +74,15 @@ export default {
       // Creación del usuario con nombre Usuario prueba
       //let user = new Usuario('Usuario prueba');
       Usuario.$usuarioLocal = new Usuario('Usuario test');
-      // Va a generar entre 10 y 30 sesiones de estudio
-      for (let i = 0; i < FuncionesAuxiliares.numeroAleatorio(10, 30); i++) {
-        //Generación de días, horas y minutos aleatorios
-        let dia = FuncionesAuxiliares.numeroAleatorio(1, 31);
-        let hora = FuncionesAuxiliares.numeroAleatorio(0, 23);
-        let minuto = FuncionesAuxiliares.numeroAleatorio(0, 59);
-        
-        // El tiempo de estudio será entre 5mins y 60 mins en las pruebas
-        // Número aleatorio entre 5mins y 60mins
-        let sumaFin = FuncionesAuxiliares.numeroAleatorio(300000, 3600000);
-
-        // Para las pruebas se hará en el mes de mayo del 2020
-        let inicio = new Date(2020, 4, dia, hora, minuto, 0);
-
-        // Se establece la fecha de fín sumando el tiempo calculado
-        let fin = inicio.getTime() + sumaFin;
-
-        // Creación de la sesión
-        let sesion = new SesionEstudio(inicio, new Date(fin));
-
-        //Introducción de la sesión en el array de las sesiones
-        //user.getColeccionSesiones().addSesion(sesion);
-        Usuario.$usuarioLocal.getColeccionSesiones().addSesion(sesion);
-        
-      }
-
-      // Ordenar las sesiones por fechas
-      // Función para ordenar el array cortesía de San Google con el método sort
-      //user.getColeccionSesiones().getSesiones().sort(((a, b) => a.inicioSesion > b.inicioSesion));
-      Usuario.$usuarioLocal.getColeccionSesiones().getSesiones().sort(((a, b) => a.inicioSesion > b.inicioSesion));
-
+      
+      // Va a generar una coleccion de entre 10 y 30 sesiones de estudio
+      let nuevaColeccion = ColeccionSesiones.newAleatoria(FuncionesAuxiliares.numeroAleatorio(10, 30));
+      
+      // Asignamos la nueva colección al Usuario
+      Usuario.$usuarioLocal.setColeccionSesiones(nuevaColeccion);
+      
       // Se muestra en el textArea el usuario como JSON
       this.text = JSON.stringify(Usuario.$usuarioLocal);
-     
     },
     // Función que guarda los datos en localStorage del objeto JSON que haya en el textArea
     guardarDatos() {
