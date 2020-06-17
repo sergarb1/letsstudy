@@ -11,6 +11,9 @@ class ColeccionSesiones {
     // Añade una sesión al array. La sesión se tiene que pasar ya creada
     addSesion(sesion) {
         this.arraySesionesEstudio.push(sesion);
+        this.arraySesionesEstudio.sort(function (a, b){
+            return (a.getInicioSesion() - b.getInicioSesion())
+        })
     }
 
     // Devuelve el array entero
