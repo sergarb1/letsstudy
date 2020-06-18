@@ -1,11 +1,10 @@
 <!-- Componente que mostrará el Histórico de un usuario -->
+<!-- Componente que mostrará el Histórico de un usuario -->
 <template>
-  <div> 
-    <div class="q-pa-md col-8 q-gutter-md">
-      <div class="flex flex-center column" style="height: 200px" >
-        <img alt="Lets Study logo" src="~assets/logo_historico_s.png" />
-      </div>
-    </div>
+  <div v-if= "fechas.length == 0" :class="Noinfo()"> 
+  <!--comprobamos que no existan registros y llamamos el metodo Noinfo() el cual salta una notificación con un mensaje-->
+</div>
+<div v-else>
     <!--hacemos copypaste del componente de tarjeta que más nos gusta.
     Como el v-for lo queremos hacer en un componente propio necesitamos usar v-bind
     para que actualice bien los datos, por eso se usa :key, ya que de no utilizarlo diria 
