@@ -15,43 +15,45 @@ personalizaciones de estilo
 -->
 
 <template>
-  <!-- Usamos el componente Quasar para paginas q-page.
+  <div v-touch-swipe.horizontal="userHasSwiped">
+    <!-- Usamos el componente Quasar para paginas q-page.
   Usaremos flex para definir el posicionamiento.
-  https://quasar.dev/layout/grid/introduction-to-flexbox-->
-  <q-page class="flex flex-center content-start">
-    <!-- Indicamos que este DIV y sus elementos hijos seguiran en flex una columna
-    y que se alineran horizontalmente al centro-->
-    <div class="column justify-center">
-      <!-- Indicamos mediante una clase el tamanyo y tipo de texto. 
+    https://quasar.dev/layout/grid/introduction-to-flexbox-->
+    <q-page class="flex flex-center content-start">
+      <!-- Indicamos que este DIV y sus elementos hijos seguiran en flex una columna
+      y que se alineran horizontalmente al centro-->
+      <div class="column justify-center">
+        <!-- Indicamos mediante una clase el tamanyo y tipo de texto. 
        Ademas, ponemos text-center, ya que flex nos centra el "elemento",
-      pero el texto si no indicamos nada dentro del elemento se alinea a la izquierda-->
-      <h4 class="text-center Oswald">¡Hora de estudiar!</h4>
-      <!-- Usamos el componente https://quasar.dev/vue-components/circular-progress
+        pero el texto si no indicamos nada dentro del elemento se alinea a la izquierda-->
+        <h4 class="text-center Oswald">¡Hora de estudiar!</h4>
+        <!-- Usamos el componente https://quasar.dev/vue-components/circular-progress
        Indicamos distintos valores, entre ellos que su dibujo represente los rangos de 1 a 60 y que
        el valor para calcular en donde se esta, utilize la variable reactiva "tiempo" y obtenga
-      su modulo 61 (operacion %)-->
-      <q-circular-progress
-        show-value
-        class="text-light-blue justify-center"
-        :value="tiempo%60"
-        :min="0"
-        :max="59"
-        size="250px"
-        color="light-blue-3"
-        track-color="grey-3"
-      >
-        <!-- Dentro de la etiqueta q-circular-progress metemos el texto que se mostrara.
-        Este texto se asocia a la variable reactica "tiempoMostrar"-->
-        <p class="Oswald justify-center text-h4 text-blue-grey-13">{{ tiempoMostrar }}</p>
-      </q-circular-progress>
+        su modulo 61 (operacion %)-->
+        <q-circular-progress
+          show-value
+          class="text-light-blue justify-center"
+          :value="tiempo%60"
+          :min="0"
+          :max="59"
+          size="250px"
+          color="light-blue-3"
+          track-color="grey-3"
+        >
+          <!-- Dentro de la etiqueta q-circular-progress metemos el texto que se mostrara.
+          Este texto se asocia a la variable reactica "tiempoMostrar"-->
+          <p class="Oswald justify-center text-h4 text-blue-grey-13">{{ tiempoMostrar }}</p>
+        </q-circular-progress>
 
-      <q-separator vertical inset />
-      <!-- Usamos el componente https://quasar.dev/vue-components/button
+        <q-separator vertical inset />
+        <!-- Usamos el componente https://quasar.dev/vue-components/button
       Asociamos al evento click que llame a "cambiarEstadoCrono" y asociamos que el contenido
-      de la propiedad label se asocie a la variable reactiva "textoCrono"-->
-      <q-btn color="light-blue" :label="textoCrono" @click="cambiarEstadoCrono()" />
-    </div>
-  </q-page>
+        de la propiedad label se asocie a la variable reactiva "textoCrono"-->
+        <q-btn color="light-blue" :label="textoCrono" @click="cambiarEstadoCrono()" />
+      </div>
+    </q-page>
+  </div>
 </template>
 
 
@@ -94,7 +96,10 @@ export default {
       // Calculamos los segundos que han trascurrido restando la fecha de inicio del crono
       // con la fecha actual. Esto se hace para no depender de la precision de setInterval
       // y dar un resultado mas preciso
-      this.tiempo = FuncionesAuxiliares.segundosEntreFechas(this.fechaInicio,fechaActual);
+      this.tiempo = FuncionesAuxiliares.segundosEntreFechas(
+        this.fechaInicio,
+        fechaActual
+      );
       // Transforma los segundo transcurridos en formato HH : MM : SS
       this.tiempoMostrar = FuncionesAuxiliares.segundosToText(this.tiempo);
       this.cambiarEstadoCrono();
@@ -110,7 +115,7 @@ export default {
         this.estadoCrono = true;
         // Se muestra la notificación de inicio de registro de sesión
         // Solo se ejecuta si no esta la sesion iniciada
-        if(Usuario.$usuarioLocal.getSesionEstudioIniciada()==null){
+        if (Usuario.$usuarioLocal.getSesionEstudioIniciada() == null) {
           this.showNotifInicio();
         }
         // Cambio el texto del cronometro
@@ -174,10 +179,17 @@ export default {
         //Se pasa 4h máximo por cada sesión de estudio y las fechas de inicio y fin
         //Si la sesión dura menos de 4h, devuelve la fecha de fin original, si no
         //devuelve 4h después de la fecha de inicio
-        let fechaFinCorregida = FuncionesAuxiliares.tiempoMaximoSesion(4, this.fechaInicio, this.fechaFin);
-        
+        let fechaFinCorregida = FuncionesAuxiliares.tiempoMaximoSesion(
+          4,
+          this.fechaInicio,
+          this.fechaFin
+        );
+
         // Llamamos a la función que devuelve un array de sesiones
-        let arraySesiones = FuncionesAuxiliares.sesionesTiempoCronometro(this.fechaInicio, fechaFinCorregida);
+        let arraySesiones = FuncionesAuxiliares.sesionesTiempoCronometro(
+          this.fechaInicio,
+          fechaFinCorregida
+        );
         //Descomentar las siguientes líneas para probar a insertar sesiones antes y despues de las 00:00h
         /*let arraySesiones = FuncionesAuxiliares.sesionesTiempoCronometro(
           new Date(
@@ -228,6 +240,13 @@ export default {
         color: "blue-grey-3",
         position: "center"
       });
+    },
+    userHasSwiped(obj) {
+      if (obj.direction == "right") {
+        this.$router.push("/Resumen");
+      } else if (obj.direction == "left") {
+        this.$router.push("/Historico");
+      }
     }
   }
 };

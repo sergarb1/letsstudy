@@ -1,7 +1,7 @@
 <!-- Otro componente Vue, que mostrará la página de las
 estadísticas de tiempo de estudio del usuario -->
 <template>
-  <div class="q-pa-md col-8 q-gutter-md">
+  <div class="q-pa-md col-8 q-gutter-md" v-touch-swipe.horizontal="userHasSwiped">
     <div class="flex flex-center column">
       <img alt="Lets Study logo" src="~assets/LETSSTUDY_RESUMEN.png" />
     </div>
@@ -53,41 +53,64 @@ export default {
   name: "Resumen",
   /* Creamos la función 'data' */
   data: function() {
-    return {
-    };
+    return {};
+  },
+  methods: {
+    userHasSwiped(obj) {
+      if (obj.direction == "left") {
+        this.$router.push("/Cronometro");
+      }
+    }
   },
   /* Creamos variables 'computadas' que hacen un cálculo cada vez que entramos en el
   componente, dándonos los datos de tiempos de estudios siempre actualizados */
   computed: {
     hoy: function() {
       const ahora = new Date();
-      const arraySesiones = Usuario.$usuarioLocal.getColeccionSesiones().getSesionesDia(ahora);
+      const arraySesiones = Usuario.$usuarioLocal
+        .getColeccionSesiones()
+        .getSesionesDia(ahora);
       let sumaSegundos = 0;
       arraySesiones.forEach(sesion => {
-        sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(sesion.getFinSesion(),sesion.getInicioSesion());
+        sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(
+          sesion.getFinSesion(),
+          sesion.getInicioSesion()
+        );
       });
       return FuncionesAuxiliares.segundosToText(sumaSegundos);
     },
     semana: function() {
       const ahora = new Date();
-      const arraySesiones = Usuario.$usuarioLocal.getColeccionSesiones().getSesionesSemana(ahora);
+      const arraySesiones = Usuario.$usuarioLocal
+        .getColeccionSesiones()
+        .getSesionesSemana(ahora);
       let sumaSegundos = 0;
       arraySesiones.forEach(sesion => {
-        sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(sesion.getFinSesion(),sesion.getInicioSesion());
+        sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(
+          sesion.getFinSesion(),
+          sesion.getInicioSesion()
+        );
       });
       return FuncionesAuxiliares.segundosToText(sumaSegundos);
     },
     mes: function() {
       const ahora = new Date();
-      const arraySesiones = Usuario.$usuarioLocal.getColeccionSesiones().getSesionesMes(ahora);
+      const arraySesiones = Usuario.$usuarioLocal
+        .getColeccionSesiones()
+        .getSesionesMes(ahora);
       let sumaSegundos = 0;
       arraySesiones.forEach(sesion => {
-        sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(sesion.getFinSesion(),sesion.getInicioSesion());
+        sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(
+          sesion.getFinSesion(),
+          sesion.getInicioSesion()
+        );
       });
       return FuncionesAuxiliares.segundosToText(sumaSegundos);
     },
     total: function() {
-      const calculoTotal = Usuario.$usuarioLocal.getColeccionSesiones().tiempoTotalEstudio();
+      const calculoTotal = Usuario.$usuarioLocal
+        .getColeccionSesiones()
+        .tiempoTotalEstudio();
       return FuncionesAuxiliares.segundosToText(calculoTotal);
     }
   }
