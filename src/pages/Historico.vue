@@ -3,7 +3,7 @@
 <template>
   <div>
      <div class="q-pa-md col-8 q-gutter-md">
-      <div class="flex flex-center column" style="height: 200px" >
+      <div class="flex flex-center column" style="height: 250px" >
         <img alt="Lets Study logo" src="~assets/logo_historico_s.png" />
       </div>
     </div>
