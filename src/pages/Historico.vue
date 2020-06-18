@@ -1,6 +1,11 @@
 <!-- Componente que mostrará el Histórico de un usuario -->
 <template>
   <div> 
+    <div class="q-pa-md col-8 q-gutter-md">
+      <div class="flex flex-center column" style="height: 200px" >
+        <img alt="Lets Study logo" src="~assets/logo_historico_s.png" />
+      </div>
+    </div>
     <!--hacemos copypaste del componente de tarjeta que más nos gusta.
     Como el v-for lo queremos hacer en un componente propio necesitamos usar v-bind
     para que actualice bien los datos, por eso se usa :key, ya que de no utilizarlo diria 
@@ -31,11 +36,11 @@ export default {
   name: "Historico",
   data() {
     return {
-      //Datos de ejemplo
+      // lista donde guardaremos las sesiones del usuario
       fechas: []
     };
   },
-  // funcion ejecutada al crearse el componente, isamos toLocaleDate/TimeString() para sacarlo en formato local
+  // funcion ejecutada al crearse el componente, usamos toLocaleDate/TimeString() para sacarlo en formato local
   created: function() {
     const arraySesiones = Usuario.$usuarioLocal.getColeccionSesiones().getSesiones();
     arraySesiones.forEach(sesion => {
