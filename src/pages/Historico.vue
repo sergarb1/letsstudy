@@ -7,31 +7,26 @@
         <img alt="Lets Study logo" src="~assets/logo_historico_s.png" />
       </div>
     </div>
-    <div v-if="sesiones != null">
-      <div v-if="sesiones.length == 0" :class="Noinfo()">
-        <h2 class="doc-heading doc-h2">Sin datos</h2>
-        <!--comprobamos que no existan registros y llamamos el metodo Noinfo() el cual salta una notificación con un mensaje-->
-      </div>
-      <div v-else>
-        <!--hacemos copypaste del componente de tarjeta que más nos gusta.
-      Como el v-for lo queremos hacer en un componente propio necesitamos usar v-bind
-      para que actualice bien los datos, por eso se usa :key, ya que de no utilizarlo diria 
-        que "fecha" no ha sido definido-->
-        <h2 class="doc-heading doc-h2">Histórico de Estudio</h2>
-        <!-- usamos la directiva bind para que con cada tarjeta(a la que se le ha puesto una transicion
-      con q-intersection) que obtenga le ponga un color de 
-        fondo diferente usando el metodo claseColorFondo()-->
-        <q-intersection transition="rotate">
-            <q-card class="my-card" v-for="(sesion, i) in sesiones.slice().reverse()" :key="i">
-              <q-card-section class="text-white" :class="claseColorFondo()">
-                <!-- Se usará el moustache {{}} para llamar a sesion.asignatura -->
-                <div class="text-h4">Asignatura</div>
-                <div class="text-h6">{{ devuelveFechaFormat(sesion.inicioSesion) }}</div>
-                <div class="text-subtitle2">{{ devuelveDuracionFormat(sesion) }}</div>
-              </q-card-section>
-            </q-card>
-        </q-intersection>
-      </div>
+    <div v-if="fechas.length == 0" :class="Noinfo()">
+      <!--comprobamos que no existan registros y llamamos el metodo Noinfo() el cual salta una notificación con un mensaje-->
+    </div>
+    <div v-else>
+      <!--hacemos copypaste del componente de tarjeta que más nos gusta.
+    Como el v-for lo queremos hacer en un componente propio necesitamos usar v-bind
+    para que actualice bien los datos, por eso se usa :key, ya que de no utilizarlo diria 
+      que "fecha" no ha sido definido-->
+      <h2 class="doc-heading doc-h2">Histórico de Estudio</h2>
+      <!-- usamos la directiva bind para que con cada tarjeta(a la que se le ha puesto una transicion
+     con q-intersection) que obtenga le ponga un color de 
+      fondo diferente usando el metodo claseColorFondo()-->
+      <q-intersection transition="rotate">
+        <q-card class="my-card" v-for="(fecha,i) in fechas" :key="i">
+          <q-card-section class="text-white" :class="claseColorFondo()">
+            <div class="text-h6" v-text="fecha[0]"></div>
+            <div class="text-subtitle2" v-text="fecha[1]"></div>
+          </q-card-section>
+        </q-card>
+      </q-intersection>
     </div>
   </div>
 </template>
@@ -44,32 +39,34 @@ export default {
   name: "Historico",
   data() {
     return {
-      // Objeto que guarda todas las sesiones
-      sesiones: null
+      // lista donde guardaremos las sesiones del usuario
+      fechas: []
     };
   },
-  mounted: function(){
-    //Rellenammos el objeto sesiones con todas las sesiones
-    this.sesiones = Usuario.$usuarioLocal
+  // funcion ejecutada al crearse el componente, usamos toLocaleDate/TimeString() para sacarlo en formato local
+  created: function() {
+    const arraySesiones = Usuario.$usuarioLocal
       .getColeccionSesiones()
       .getSesiones();
-  },
-  methods: {
-    //Método que recibe una fecha y la muestra con el formato que se ve en la app
-    devuelveFechaFormat(fecha){
-      return fecha.toLocaleDateString() +
-              " a las " +
-              fecha.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-    },
-    //Método que recibe una sesión y devuelve el tiempo en segundos, formateada para mostrar
-    devuelveDuracionFormat(sesion){
+    arraySesiones.forEach(sesion => {
+      let dia =
+        sesion.getInicioSesion().toLocaleDateString() +
+        " a las " +
+        sesion
+          .getInicioSesion()
+          .toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
       let segundos = FuncionesAuxiliares.segundosEntreFechas(
         sesion.getFinSesion(),
         sesion.getInicioSesion()
       );
-      return "Duración " + FuncionesAuxiliares.segundosToText(segundos);
-    },
-    //metodos para cambiar el color de las card  y que no sean todos del mismo color
+      this.fechas.unshift([
+        dia,
+        "Duración " + FuncionesAuxiliares.segundosToText(segundos)
+      ]);
+    });
+  },
+  //metodos para cambiar el color de las card  y que no sean todos del mismo color
+  methods: {
     ColorTarjeta() {
       //creamos una lista con los colores de quasar/vue
       let colores = [
