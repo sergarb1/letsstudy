@@ -15,9 +15,9 @@
             la programación y unos profesores armados de paciencia infinita.
           </div>
           <br>
-          <a href="https://github.com/sergarb1/letsstudy">Proyecto en Github</a>
+          <a href="https://github.com/sergarb1/letsstudy" target="_blank">Proyecto en Github</a>
           <br>
-          <a href="https://github.com/sergarb1/letsstudy-downloads">Descarga LetsStudy</a>
+          <a href="https://github.com/sergarb1/letsstudy-downloads" target="_blank">Descarga LetsStudy</a>
         </q-card-section>
       </q-card>
     </q-intersection>
