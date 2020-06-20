@@ -261,7 +261,7 @@ export default {
     },
     userHasSwiped(obj) {
       // Si el gesto no dura un minimo, lo quitamos
-      if(obj.duration<120){
+      if(obj.duration<100){
         return;
       }
       // Comprobamos direccion del gesto y actuamos
