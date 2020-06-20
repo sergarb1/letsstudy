@@ -49,6 +49,8 @@ class PlanDeEstudio{
 
     // Recibe una Coleccion de sesiones
     // El metodo con esa coleccion llama al metodo update de cada uno de los objetivos
+    // con el fin de que en el momento de la llamada, todos comprueben si se ha realizado el objetiv
+    // o cuanto queda
     actualizarObjetivos(coleccionDeSesiones){
         let i;
         for(i=0;i<this.objetivos.lenght;i++){
