@@ -76,14 +76,23 @@ class Objetivo {
         const periodo = ahora.getMonth()  // número del mes
     }
     // Sumamos el tiempo y calculamos el tiempoRestante
-    this.tiempoRestante = this.duracion //inicializamos siempre tiempoRestante a duracion
+    this.tiempoRestante = this.duracion // inicializamos siempre tiempoRestante a duracion
     let sumaTiempo = 0
-    sesiones.forEach(sesion => {
-      sumaTiempo += FuncionesAuxiliares.segundosEntreFechas(
-        sesion.getFinSesion(),
-        sesion.getInicioSesion()
-      )
-    })
+    if(this.getAsignatura() === null) {  // si el objetivo no pertenece a ninguna asignatura se cogerán todas las sesiones
+      sesiones.forEach(sesion => {
+        sumaTiempo += FuncionesAuxiliares.segundosEntreFechas(
+          sesion.getFinSesion(),
+          sesion.getInicioSesion()
+        )
+      })
+    } else {  // si el objetivo está asignado a una asignatura, sólo se cogerán las sesiones de esa asignatura
+      sesiones.forEach(sesion => {
+        sumaTiempo += sesion.getAsignatura() === this.getAsignatura() ? FuncionesAuxiliares.segundosEntreFechas(
+          sesion.getFinSesion(),
+          sesion.getInicioSesion()
+        ) : 0
+      })
+    }
     this.tiempoRestante -= sumaTiempo / 60 // pasamos sumatiempo a minutos y restamos de tiempoRestante
 
     // si se cumple el objetivo
