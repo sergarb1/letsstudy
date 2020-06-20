@@ -1,7 +1,6 @@
-// Clase que define el plan de estudios de un usuario
-
-import Usuario from "../clases/Usuario.js";
-
+// Clase que define un plan de estudios asociado al usuario
+// Contiene conjunto de asignaturas y objetivos,
+// Ademas de metodos para manipularlos y para solicitar la actualizacion de todos los objetivos
 
 class PlanDeEstudio{
     // Recibe un array de asignaturas y un array de objetivos.
