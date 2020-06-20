@@ -1,7 +1,7 @@
 <!-- Otro componente Vue, que mostrará la página de las
 estadísticas de tiempo de estudio del usuario -->
 <template>
-  <div class="q-pa-md col-8 q-gutter-md" v-touch-swipe.horizontal="userHasSwiped">
+  <div class="q-pa-md col-8 q-gutter-md" v-touch-swipe.mouse="userHasSwiped">
     <div class="flex flex-center column">
       <img alt="Lets Study logo" src="~assets/LETSSTUDY_RESUMEN.png" />
     </div>
@@ -57,7 +57,12 @@ export default {
   },
   methods: {
     userHasSwiped(obj) {
-      if (obj.direction == "left") {
+      // Si el gesto no dura un minimo, lo quitamos
+      if(obj.duration<120){
+        return;
+      }
+      // Comprobamos direccion del gesto y actuamos
+      if (obj.direction === "right") {
         this.$router.push("/Cronometro");
       }
     }
