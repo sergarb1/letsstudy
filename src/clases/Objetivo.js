@@ -60,19 +60,19 @@ class Objetivo {
   }
 
   // Método a ejecutar después de cada sesión de estudio
-  update(coleccionSesiones) {
+  update(coleccionDeSesiones) {
     this.conseguido = false  // inicializamos siempre a false
     const ahora = new Date()  // indicamos la fecha de hoy
     // Según la frecuencia calculamos las sesiones a tener en cuenta y el periodo que estamos tratando
     switch (this.frecuencia) {
       case 'diario':
-        const sesiones = coleccionSesiones.getSesionesDia(ahora)
+        const sesiones = coleccionDeSesiones.getSesionesDia(ahora)
         const periodo = ahora.getDate()  // número del día
       case 'semanal':
-        const sesiones = coleccionSesiones.getSesionesSemana(ahora)
+        const sesiones = coleccionDeSesiones.getSesionesSemana(ahora)
         const periodo = this.getNumSemana(ahora)  // número de la semana (año)
       case 'mensual':
-        const sesiones = coleccionSesiones.getSesionesMes(ahora)
+        const sesiones = coleccionDeSesiones.getSesionesMes(ahora)
         const periodo = ahora.getMonth()  // número del mes
     }
     // Sumamos el tiempo y calculamos el tiempoRestante
