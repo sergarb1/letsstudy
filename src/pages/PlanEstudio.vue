@@ -15,54 +15,7 @@
           </div>
         </q-card-section>
 
-        <q-card-section>
-          <q-list>
-            <q-item class="justify-start">
-              <q-btn
-                push
-                rounded
-                size="sm"
-                color="primary"
-                icon="code"
-                label="Proyecto Let's Study en Github"
-                
-              />
-            </q-item>
-            <q-item class="justify-start">
-              <q-btn
-                push
-                rounded
-                size="sm"
-                color="primary"
-                icon="get_app"
-                label="Let's Study en Google Play"
-                
-              />
-            </q-item>
-            <q-item class="justify-start">
-              <q-btn
-                push
-                rounded
-                size="sm"
-                color="primary"
-                icon="cloud"
-                label="Let's Study (Online)"
-                
-              />
-            </q-item>
-            <q-item class="justify-start">
-              <q-btn
-                push
-                rounded
-                size="sm"
-                color="primary"
-                icon="desktop_windows"
-                label="Let's Study para Escritorio"
-                
-              />
-            </q-item>
-          </q-list>
-        </q-card-section>
+        
       </q-card>
     </q-intersection>
   </q-page>
