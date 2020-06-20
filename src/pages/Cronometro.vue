@@ -265,9 +265,9 @@ export default {
         return;
       }
       // Comprobamos direccion del gesto y actuamos
-      if (obj.direction === "right") {
+      if (obj.direction === "left") {
         this.$router.push("/Historico");
-      } else if (obj.direction === "left") {
+      } else if (obj.direction === "right") {
         this.$router.push("/Resumen");
       }
     }

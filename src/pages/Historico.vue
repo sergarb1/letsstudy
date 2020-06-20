@@ -99,7 +99,7 @@ export default {
         return;
       }
       // Comprobamos direccion del gesto y actuamos
-      if (obj.direction === "left") {
+      if (obj.direction === "right") {
         this.$router.push("/Cronometro");
       }
     }
