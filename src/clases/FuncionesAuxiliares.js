@@ -84,8 +84,9 @@ class FuncionesAuxiliares {
         //establecemos la fecha de inicio  y fin
         let tempInitDate = new Date(datosDeSesiones[i].inicioSesion);
         let tempEndDate = new Date(datosDeSesiones[i].finSesion);
+        let tempAsig = new Date(datosDeSesiones[i].asignatura);
         //re-creamos la sesion
-        let tempSesion = new SesionEstudio(tempInitDate, tempEndDate);
+        let tempSesion = new SesionEstudio(tempInitDate, tempEndDate,tempAsig);
         //la añadimos a la coleccion
         Usuario.$usuarioLocal.getColeccionSesiones().addSesion(tempSesion);
       }
@@ -116,7 +117,7 @@ class FuncionesAuxiliares {
   //Función que recibe el tiempo de inicio y fin del cronómetro y devuelve un array
   //con las sesiones. Si el tiempo pasa de las 00:00h, se crean dos sesiones, hasta
   //las 00:00h y otra a partir de las 00:00h
-  static sesionesTiempoCronometro(inicio, fin) {
+  static sesionesTiempoCronometro(inicio, fin, asig) {
     //Array de sesiones que devolveremos
     let arraySesiones = [];
     //Tiempo en milisegundos entre fecha inicio y fecha fin
@@ -132,14 +133,14 @@ class FuncionesAuxiliares {
     //deben hacer dos sesiones
     if (tiempoSesion > doceHoras - inicio.getTime()) {
       //Primera sesión desde el inicio hasta las 23:59:59 creada antes
-      let sesion1 = new SesionEstudio(inicio, new Date(doceHoras));
+      let sesion1 = new SesionEstudio(inicio, new Date(doceHoras),asig);
       //Segunda sesión desde las 00:00:00 hasta la fecha de fin
-      let sesion2 = new SesionEstudio(new Date(doceHoras + 1000), fin);
+      let sesion2 = new SesionEstudio(new Date(doceHoras + 1000), fin,asig);
 
       arraySesiones.push(sesion1);
       arraySesiones.push(sesion2);
     } else {
-      let sesion1 = new SesionEstudio(inicio, fin);
+      let sesion1 = new SesionEstudio(inicio, fin, asig);
       arraySesiones.push(sesion1);
     }
 
@@ -165,7 +166,7 @@ class FuncionesAuxiliares {
   }
 
   //a partir de dos fechas crea array con una o dos sesiones
-  static deFechaASesiones(initDate, endDate) {
+  static deFechaASesiones(initDate, endDate, asig) {
     //comprueba si me pasan un String o un objeto Date y devuelve el objeto Date
     let toDate = fecha => {
       let isDate = fecha instanceof Date ? true : false;
@@ -176,9 +177,9 @@ class FuncionesAuxiliares {
     //comprueba si están en el mismo día o no 
     //(damos por hecho que no vamos a dejar que una sesión dure más de un día
     //si pudiera haber sesiones de un mes habria que comprobar otras cosas)
-    if (fechaInicio.getDate() == fechaFin.getDate()) {
+    if (fechaInicio.getDate() === fechaFin.getDate()) {
       //si es igual devuelve un array con la sesión sin más.
-      return [new SesionEstudio(fechaInicio, fechaFin)];
+      return [new SesionEstudio(fechaInicio, fechaFin, asig)];
     } else {
       //si no es igual... 
       //creamos una funcion que nos genere una fecha de fin (al final del dia) a partir de la fecha de inicio.
@@ -187,9 +188,9 @@ class FuncionesAuxiliares {
       // te de el inicio del dia siguiente.
       let generaFechaInicioSesion = fecha => new Date(generaFechaFinSesion(fecha).getTime() + 1000);
       //creamos la sesion del primer dia
-      let sesion1 = new SesionEstudio(fechaInicio, generaFechaFinSesion(fechaInicio));
+      let sesion1 = new SesionEstudio(fechaInicio, generaFechaFinSesion(fechaInicio),asig);
       //y creamos la del segundo
-      let sesion2 = new SesionEstudio(generaFechaInicioSesion(fechaInicio), fechaFin);
+      let sesion2 = new SesionEstudio(generaFechaInicioSesion(fechaInicio), fechaFin,asig);
       //y devuelve el array
       return [sesion1, sesion2];
     }
