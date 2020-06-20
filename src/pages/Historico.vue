@@ -1,7 +1,7 @@
 <!-- Componente que mostrará el Histórico de un usuario -->
 <!-- Componente que mostrará el Histórico de un usuario -->
 <template>
-  <div v-touch-swipe.mouse="userHasSwiped">
+  <div v-touch-swipe.mouse.horizontal="userHasSwiped">
     <div class="q-pa-md col-8 q-gutter-md">
       <div class="flex flex-center column" style="height: 250px">
         <img alt="Lets Study logo" src="~assets/logo_historico_s.png" />

@@ -15,7 +15,7 @@ personalizaciones de estilo
 -->
 
 <template>
-  <div v-touch-swipe.mouse="userHasSwiped">
+  <div v-touch-swipe.mouse.horizontal="userHasSwiped">
     <!-- Usamos el componente Quasar para paginas q-page.
   Usaremos flex para definir el posicionamiento.
     https://quasar.dev/layout/grid/introduction-to-flexbox-->

@@ -1,7 +1,7 @@
 <!-- Otro componente Vue, que mostrará la página de las
 estadísticas de tiempo de estudio del usuario -->
 <template>
-  <div class="q-pa-md col-8 q-gutter-md" v-touch-swipe.mouse="userHasSwiped">
+  <div class="q-pa-md col-8 q-gutter-md" v-touch-swipe.mouse.horizontal="userHasSwiped">
     <div class="flex flex-center column">
       <img alt="Lets Study logo" src="~assets/LETSSTUDY_RESUMEN.png" />
     </div>
