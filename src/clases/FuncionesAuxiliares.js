@@ -165,37 +165,6 @@ class FuncionesAuxiliares {
 
   }
 
-  //a partir de dos fechas crea array con una o dos sesiones
-  static deFechaASesiones(initDate, endDate, asig) {
-    //comprueba si me pasan un String o un objeto Date y devuelve el objeto Date
-    let toDate = fecha => {
-      let isDate = fecha instanceof Date ? true : false;
-      return isDate ? fecha : new Date(fecha);
-    }
-    let fechaInicio = toDate(initDate);
-    let fechaFin = toDate(endDate);
-    //comprueba si están en el mismo día o no 
-    //(damos por hecho que no vamos a dejar que una sesión dure más de un día
-    //si pudiera haber sesiones de un mes habria que comprobar otras cosas)
-    if (fechaInicio.getDate() === fechaFin.getDate()) {
-      //si es igual devuelve un array con la sesión sin más.
-      return [new SesionEstudio(fechaInicio, fechaFin, asig)];
-    } else {
-      //si no es igual... 
-      //creamos una funcion que nos genere una fecha de fin (al final del dia) a partir de la fecha de inicio.
-      let generaFechaFinSesion = fecha => new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate(), 23, 59, 59);
-      //creamos otra función que a partir de una fecha de inicio, sumandole 1 segundo a la fecha fin,
-      // te de el inicio del dia siguiente.
-      let generaFechaInicioSesion = fecha => new Date(generaFechaFinSesion(fecha).getTime() + 1000);
-      //creamos la sesion del primer dia
-      let sesion1 = new SesionEstudio(fechaInicio, generaFechaFinSesion(fechaInicio),asig);
-      //y creamos la del segundo
-      let sesion2 = new SesionEstudio(generaFechaInicioSesion(fechaInicio), fechaFin,asig);
-      //y devuelve el array
-      return [sesion1, sesion2];
-    }
-  }
-
   // Devuelve un numero entero aleatorio entre min y max, ambos incluidos
   static numeroAleatorio(min, max) {
     return Math.floor(min + (Math.random() * (max - min + 1)))
