@@ -4,6 +4,7 @@ import FuncionesAuxiliares from "./FuncionesAuxiliares.js"
 // Creamos clase Objetivo y definimos valores por defecto
 // duracion será siempre en horas
 // frecuencia ha de ser un valor entre: diario, semanal o mensual
+// El tiempo restante para conseguirlo será en minutos.
 class Objetivo {
   constructor(duracion = 2, frecuencia = 'diario', asignatura = null) {
     this.duracion = duracion
@@ -12,6 +13,7 @@ class Objetivo {
     this.conseguido = false
     this.racha = 0
     this.periodoConseguido = null
+    // En minutos
     this.tiempoRestante = this.duracion
   }
 
@@ -82,7 +84,7 @@ class Objetivo {
         sesion.getInicioSesion()
       )
     })
-    this.tiempoRestante -= sumaTiempo / 3600 // pasamos sumatiempo a horas y restamos de tiempoRestante
+    this.tiempoRestante -= sumaTiempo / 60 // pasamos sumatiempo a minutos y restamos de tiempoRestante
 
     // si se cumple el objetivo
     if (this.tiempoRestante <= 0) {
