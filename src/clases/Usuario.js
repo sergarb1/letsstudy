@@ -1,5 +1,6 @@
 // Importo la clase ColeccionSesiones para poder crear un objeto de esa clase dentro del constructor
 import ColeccionSesiones from './ColeccionSesiones';
+import PlanEstudio from './PlanEstudio';
 
 // Definimos la clase Usuario que almacena cada usuario
 class Usuario {
@@ -12,6 +13,7 @@ class Usuario {
         // o tendra una fecha si si hay una sesion de estudio iniciada
         this.sesionEstudioIniciada = null;
         this.coleccionSesiones = new ColeccionSesiones();
+        this.planEstudio = new PlanEstudio([], []);
     }
     // Getters
     getNombre() {
@@ -26,6 +28,11 @@ class Usuario {
     // Devuelvo el objeto coleccionSesione
     getColeccionSesiones() {
         return this.coleccionSesiones;
+    }
+
+    // Devuelvo el objeto planEstudio
+    getPlanEstudio() {
+        return this.planEstudio;
     }
 
     // Set coleccionSesiones para copiar una nueva colección entera
