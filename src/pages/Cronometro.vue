@@ -45,7 +45,18 @@ personalizaciones de estilo
           Este texto se asocia a la variable reactica "tiempoMostrar"-->
           <p class="Oswald justify-center text-h4 text-blue-grey-13">{{ tiempoMostrar }}</p>
         </q-circular-progress>
-
+        <div class="q-gutter-md">
+          <!-- Cuando inicie el cronometro habría que ponerlo disabled -->
+          <q-select 
+            v-model="asignaturaElegida"
+            :options="listaAsignaturas"
+            label="Asignatura"
+          >
+            <template v-slot:prepend>
+              <q-icon name="event" />
+            </template>
+          </q-select>
+        </div>
         <q-separator vertical inset />
         <!-- Usamos el componente https://quasar.dev/vue-components/button
       Asociamos al evento click que llame a "cambiarEstadoCrono" y asociamos que el contenido
@@ -82,7 +93,11 @@ export default {
       tiempoMostrar: "00:00:00", // Tiempo que vemos dentro del circulo, valor por defecto
       estadoCrono: false, // true, crono funcionando, false, parado
       valorInterval: null, // variable utilizada para parar el "setInterval"
-      frases: FrasesMotivadoras
+      frases: FrasesMotivadoras,
+      asignaturaElegida: null,
+      listaAsignaturas: ['Sistemas informáticos',
+                        'Programación',
+                        'Entornos de desarrollo']
     };
   },
   created: function() {
