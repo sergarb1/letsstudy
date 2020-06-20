@@ -203,7 +203,8 @@ export default {
         // Llamamos a la función que devuelve un array de sesiones
         let arraySesiones = FuncionesAuxiliares.sesionesTiempoCronometro(
           this.fechaInicio,
-          fechaFinCorregida
+          fechaFinCorregida,
+          null // ESTE CAMPO SERIA LA ASIGNATURA
         );
         //Descomentar las siguientes líneas para probar a insertar sesiones antes y despues de las 00:00h
         /*let arraySesiones = FuncionesAuxiliares.sesionesTiempoCronometro(
@@ -216,7 +217,9 @@ export default {
             2020,
             5,
             17,
-            2, 59, 59));
+            2, 59, 59),
+            null // ESTE CAMPO SERIA LA ASIGNATURA
+            );
         */
         // Se recorre el array de las sesiones
         arraySesiones.forEach(sesion => {

@@ -28,10 +28,10 @@ function probarClases(){
     // Creación de nuevo usuario
     let user1 = new Usuario("User1");
     // Creación de sesiones de estudio, están sin fecha de fin
-    let sesion1 = new SesionEstudio(fecha1,fecha2);
-    let sesion2 = new SesionEstudio(fecha3,fecha4);
-    let sesion3 = new SesionEstudio(fecha5,fecha6);
-    let sesion4 = new SesionEstudio(fecha7,fecha8);
+    let sesion1 = new SesionEstudio(fecha1,fecha2,null);
+    let sesion2 = new SesionEstudio(fecha3,fecha4,null);
+    let sesion3 = new SesionEstudio(fecha5,fecha6,null);
+    let sesion4 = new SesionEstudio(fecha7,fecha8,null);
 
     // Para no tener que repetir todas las veces el getColeccionSesiones(),
     // almaceno en k todas las sesiones

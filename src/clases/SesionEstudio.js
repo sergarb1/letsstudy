@@ -3,12 +3,15 @@ import FuncionesAuxiliares from "./FuncionesAuxiliares.js"
 
 // Clase para almacenar una sesion de estudio
 class SesionEstudio {
-    // Se crea el objeto pasandole el objeto Date de inicio de la sesión y el fin
-    constructor(inicio,fin) {
+    // Se crea el objeto pasandole el objeto Date de inicio de la sesión y el fin 
+    // y a que asignatura se asocia la sesion. Si no se asocia a ninguna, se enviaria null
+    constructor(inicio,fin, asig) {
         
         //Establecemos inicio y fin de sesion
         this.inicioSesion = inicio;
         this.finSesion = fin;
+        // Establecemos asignatura
+        this.asignatura = asig
     }
 
     // Devuelve el inicio de la sesión. Será tipo Date
@@ -24,6 +27,15 @@ class SesionEstudio {
     // Establece el fín de la sesión, pasandole por parámetro un objeto tipo Date
     setFinSesion(fin){
         this.finSesion = fin;
+    }
+    // Devuelve la asignatura asociada a la sesion
+    getAsignatura(){
+        return this.asignatura;
+    }
+
+    // Establece la asignatura asociada a la sesion
+    setAsigntura(asig){
+        this.asignatura = asig;
     }
 
     // Devuelve el tiempo de estudio en segundos
@@ -42,11 +54,14 @@ class SesionEstudio {
         // Ahora, hace 365 días y momento aleatorio entre ambos
         let ahora = new Date().getTime();
         let antes = ahora - 31536000000; // 365*24*60*60*1000
+        // Por ahora las aleatorias, simplemente no tienen asignatura
+        let asig=null;
+        // Obtenemos fecha de inicio aleatoria
         let inicio = FuncionesAuxiliares.numeroAleatorio(antes, ahora);
         // Tiempo estudiado entre 20 y 120 minutos
         let estudiado = FuncionesAuxiliares.numeroAleatorio(1200000, 7200000); // 20*60000 y 120*60000
         // Devolvemos la sesión de estudio
-        return new SesionEstudio(new Date(inicio), new Date(inicio+estudiado));
+        return new SesionEstudio(new Date(inicio), new Date(inicio+estudiado), asig);
     }
 
     // Devuelve un objeto SesionEstudio aleatorio entre Date dateMin y dateMax, con minutos estudiados entre mMin y mMax
@@ -55,8 +70,10 @@ class SesionEstudio {
         let inicio = FuncionesAuxiliares.numeroAleatorio(dateMin.getTime(), dateMax.getTime());
         // Milisegundos estudiados entre mMin y mMax
         let estudiado = FuncionesAuxiliares.numeroAleatorio(mMin*60000, mMax*60000);
+        // Por ahora las aleatorias, simplemente no tienen asignatura
+        let asig=null;
         // Devolvemos la sesión de estudio
-        return new SesionEstudio(new Date(inicio), new Date(inicio + estudiado));
+        return new SesionEstudio(new Date(inicio), new Date(inicio + estudiado), asig);
     }
 
 }
