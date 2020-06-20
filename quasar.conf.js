@@ -21,13 +21,14 @@ module.exports = function (/* ctx */) {
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
     boot: [
-      
+
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: [
       'app.sass'
     ],
+
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
@@ -72,6 +73,11 @@ module.exports = function (/* ctx */) {
       https: false,
       port: 8080,
       open: true // opens browser window automatically
+    },
+
+    //Ruta de android studio
+    bin: {
+        linuxAndroidStudio: "/home/ximo/android-studio/bin/studio.sh"
     },
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework

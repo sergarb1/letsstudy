@@ -15,7 +15,7 @@ personalizaciones de estilo
 -->
 
 <template>
-  <div v-touch-swipe.horizontal="userHasSwiped">
+  <div v-touch-swipe.mouse.horizontal="userHasSwiped">
     <!-- Usamos el componente Quasar para paginas q-page.
   Usaremos flex para definir el posicionamiento.
     https://quasar.dev/layout/grid/introduction-to-flexbox-->
@@ -260,10 +260,15 @@ export default {
       });
     },
     userHasSwiped(obj) {
-      if (obj.direction == "right") {
-        this.$router.push("/Resumen");
-      } else if (obj.direction == "left") {
+      // Si el gesto no dura un minimo, lo quitamos
+      if(obj.duration<100){
+        return;
+      }
+      // Comprobamos direccion del gesto y actuamos
+      if (obj.direction === "left") {
         this.$router.push("/Historico");
+      } else if (obj.direction === "right") {
+        this.$router.push("/Resumen");
       }
     }
   }

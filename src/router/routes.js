@@ -10,6 +10,7 @@ const routes = [
       { path: 'Cronometro', component: () => import('pages/Cronometro.vue') }, 
       { path: 'AcercaDe', component: () => import('pages/AcercaDe.vue') },
       { path: 'Resumen', component: () => import('pages/Resumen.vue') },
+      { path: 'PlanEstudio', component: () => import('pages/PlanEstudio.vue') },
       { path: 'Historico', component: () => import('pages/Historico.vue')},
       //{ path: 'PlanEstudio', component: () => import('pages/PlanEstudio.vue')},
       { path: 'Debug', component: () => import('pages/Debug.vue')}

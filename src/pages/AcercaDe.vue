@@ -14,10 +14,59 @@
             Por unos cuantos alumnos y alumnas entregados al lado luminoso de
             la programación y unos profesores armados de paciencia infinita.
           </div>
-          <br>
-          <a href="https://github.com/sergarb1/letsstudy" target="_blank" rel="noopener noreferrer">Proyecto en Github</a>
-          <br>
-          <a href="https://github.com/sergarb1/letsstudy-downloads" target="_blank" rel="noopener noreferrer">Descarga LetsStudy</a>
+          
+        </q-card-section>
+        
+        <q-card-section>
+          <q-list >
+            <q-item class="justify-start">
+              <q-btn
+                push
+                rounded
+                size="sm"
+                color="primary"
+                icon="code"
+                label="Proyecto Let's Study en Github"
+                @click="abrirURL('https://github.com/sergarb1/letsstudy')"
+              />
+            </q-item>
+            <q-item class="justify-start">
+              <q-btn
+             
+                push
+                rounded
+                size="sm"
+                color="primary"
+                icon="get_app"
+                label="Let's Study en Google Play"
+                @click="abrirURL('https://github.com/sergarb1/letsstudy-downloads')"
+              />
+            </q-item>
+            <q-item class="justify-start">
+              <q-btn
+             
+                push
+                rounded
+                size="sm"
+                color="primary"
+                icon="cloud"
+                label="Let's Study (Online)"
+                @click="abrirURL('https://apuntesfpinformatica.es/letsstudy')"
+              />
+            </q-item>
+            <q-item class="justify-start">
+              <q-btn
+             
+                push
+                rounded
+                size="sm"
+                color="primary"
+                icon="desktop_windows"
+                label="Let's Study para Escritorio"
+                @click="abrirURL('https://github.com/sergarb1/letsstudy-downloads')"
+              />
+            </q-item>
+          </q-list>
         </q-card-section>
       </q-card>
     </q-intersection>
@@ -25,10 +74,22 @@
 </template>
 
 <script>
+// Para poder usar OpenURl que gestione el abrir enlaces en cada contexto
+import { openURL } from "quasar";
+
 export default {
-  name: "AcercaDe"
+  name: "AcercaDe",
+  // Metodos accesibles desde Vue
+  methods: {
+    // Funcion que recibe un URL y la abre
+    abrirURL(url) {
+      openURL(url);
+    }
+  }
 };
 </script>
+
+
 <style lang="sass" scoped>
 .fondo
   background: #00cfee
