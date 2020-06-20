@@ -61,7 +61,6 @@
 
         <q-item clickable to="PlanEstudio">
           <q-item-section avatar>
-<<<<<<< HEAD
             <q-icon name="emoji_events" />
           </q-item-section>
 
@@ -70,20 +69,6 @@
             <q-item-label caption>Establece tus objetivos</q-item-label>
           </q-item-section>
         </q-item>
-
-=======
-            <q-icon name="settings" />
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>Plan Estudio</q-item-label>
-            <q-item-label caption>Configura tu plan de estudio</q-item-label>
-          </q-item-section>
-        </q-item>
-
-
-
->>>>>>> 251d58dbc081f7ebdff23e7abfe58a02319fab10
         <q-item clickable to="AcercaDe">
           <q-item-section avatar>
             <q-icon name="info" />
