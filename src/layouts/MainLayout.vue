@@ -58,6 +58,20 @@
             <q-item-label caption>Compara tu progreso</q-item-label>
           </q-item-section>
         </q-item>
+
+        <q-item clickable to="PlanEstudio">
+          <q-item-section avatar>
+            <q-icon name="settings" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Plan Estudio</q-item-label>
+            <q-item-label caption>Configura tu plan de estudio</q-item-label>
+          </q-item-section>
+        </q-item>
+
+
+
         <q-item clickable to="AcercaDe">
           <q-item-section avatar>
             <q-icon name="info" />
