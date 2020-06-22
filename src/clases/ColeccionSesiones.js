@@ -32,32 +32,6 @@ class ColeccionSesiones {
         return this.arraySesionesEstudio[0];
     }
 
-    // Pasamos un objeto de tipo Date y devuelve las sesiones de ese día
-    getSesionesDia(fecha) {
-        // Creo un array que iré rellenando con las sesiones de ese día
-        let sesionesDia = []
-        // Clono la fecha y le pongo las horas, minutos, segundos y milisegundos a 0
-        let inicioDia = new Date(fecha.getTime());
-        inicioDia.setHours(0, 0, 0, 0);
-
-        // Clono la fecha y le pongo las horas, minutos, segundos y milisegundos al final del dia
-        let finDia = new Date(fecha.getTime());
-        finDia.setHours(23, 59, 59, 999);
-
-        // Recorre todo el arraySesionesEstudio buscando las sesiones de la fecha indicada
-        this.arraySesionesEstudio.forEach(sesion => {
-            // Comprobación si la sesion inicia entre inicioDia y finDia
-            if (sesion.getInicioSesion().getTime() >= inicioDia.getTime() && sesion.getInicioSesion().getTime() <= finDia.getTime()) {
-                //Si es el mismo día, introducimos en el array la sesión
-                sesionesDia.push(sesion);
-            }
-        });
-
-        // Devolvemos el array
-        return sesionesDia;
-    }
-
-
     // Devuelve sesiones entre dos fechas que se le pasan como parametro
     getSesionesEntreFechas(fechaA, fechaB) {
         // Creo un array que iré rellenando con las sesiones de ese día
@@ -83,39 +57,41 @@ class ColeccionSesiones {
         return sesiones;
     }
 
-    // Pasamos un objeto de tipo date y devuelve las sesiones desde el lunes de esa semana
-    // hasta la fecha pasada como argumento
-    // TODO ¿por qué desde el lunes hasta la fecha pasada como argumento? ¿no debería ser de lunes a domingo?
-    getSesionesSemana(fecha) {
-        // Creo un array que contendrá las sesiones desde la fecha hasta el lunes anterior
-        let sesionesSemana = [];
-        // Calculo el lunes anterior a la fecha que obtenemos como parámetro, 
-        // restando los milisegundos que hay hasta el lunes de cada semana
-        let fechaInicioSemana = new Date(fecha.getTime() - (fecha.getDay() * (24 * 3600 * 1000)));
-        // Ponemos la hora del lunes a 0:0:0:000
-        fechaInicioSemana.setHours(0, 0, 0, 0);
-        // Llamamos al metodo que nos devuelve el array de sesiones entre 2 fechas
-        sesionesSemana = this.getSesionesEntreFechas(fechaInicioSemana, fecha);
-        // Devolvemos el array
-        return sesionesSemana;
+    // Devuelve un array con las SesionesEstudio del dia de la fecha indicada (objeto Date)
+    getSesionesDia(fecha) {
+        // Primer instante del dia (a las 00:00:00:000)
+        let inicio = new Date(fecha.getTime());
+        inicio.setHours(0, 0, 0, 0);
+        // Último instante del dia (a las 23:59:59:999)
+        let fin = new Date(fecha.getTime());
+        fin.setHours(23, 59, 59, 999);
+        // Devolvemos las sesiones de ese dia
+        return this.getSesionesEntreFechas(inicio, fin);
     }
 
-    // Pasamos un objeto de tipo date y devuelve las sesiones del mes en curso desde el día 1
-    // hasta la fecha pasada como argumento
-    // TODO ¿por qué desde el dia hasta la fecha pasada como argumento? ¿no debería ser todo el mes?
+    // Devuelve un array con las SesionesEstudio de la semana de la fecha indicada (objeto Date)
+    getSesionesSemana(fecha) {
+        // Primer instante de la semana (lunes a las 00:00:00:000)
+        let inicio = new Date(fecha.getTime() - (fecha.getDay() * (24 * 3600 * 1000)));
+        inicio.setHours(0, 0, 0, 0);
+        // Último instante de la semana (domingo a las 23:59:59:999)
+        let fin = new Date(inicio.getTime() + (7 * 24 * 3600 * 1000) - 1);
+        // Devolvemos las sesiones de la semana
+        return this.getSesionesEntreFechas(inicio, fin);
+    }
+
+    // Devuelve un array con las SesionesEstudio del mes de la fecha indicada (objeto Date)
     getSesionesMes(fecha) {
-        // Creo un array que contendrá las sesiones desde el día 1 a la fecha pasada como parámetro
-        let sesionesMes = [];
-        // Clono la fecha
-        let diaActual = new Date(fecha.getTime());
-        // Calculo el día 1 del mes en curso
-        let fechaInicioMes = new Date(diaActual.setDate(1));
-        // Ponemos la hora del día 1 del mes a 0:0:0:000
-        fechaInicioMes.setHours(0, 0, 0, 0);
-        // Llamamos al metodo que nos devuelve el array de sesiones entre 2 fechas
-        sesionesMes = this.getSesionesEntreFechas(fechaInicioMes, fecha);
-        // Devolvemos el array
-        return sesionesMes;
+        // Primer instante del mes (día 1 a las 00:00:00:0000...)
+        let inicio = new Date(fecha.getTime());
+        inicio.setDate(1);
+        inicio.setHours(0, 0, 0, 0);
+        // Último instante del mes (último día del mes a las 23:59:59:9999...)
+        let fin = new Date(inicio.getTime()); // Al primer instante del mes
+        fin.setMonth(inicio.getMonth() + 1);  // le sumamos un mes y
+        fin = new Date(fin.getTime() - 1);    // le restamos un milisegundo
+        // Devolvemos las sesiones del mes
+        return this.getSesionesEntreFechas(inicio, fin);
     }
 
     // Devuelve el tiempo total de estudio en segundos
