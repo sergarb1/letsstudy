@@ -62,6 +62,12 @@ personalizaciones de estilo
       Asociamos al evento click que llame a "cambiarEstadoCrono" y asociamos que el contenido
         de la propiedad label se asocie a la variable reactiva "textoCrono"-->
         <q-btn color="light-blue" :label="textoCrono" @click="cambiarEstadoCrono()" />
+        <q-btn align="around" class="btn-fixed-width" color="brown-5" label="Configurar Pomodoro" icon="settings" @click="configurarPomodoro=!configurarPomodoro" />
+
+        <!-- Definimos dialogo a mostrar con la configuracion de pomodoro -->
+        <q-dialog v-model="configurarPomodoro">
+            <configurarPomodoro />
+        </q-dialog>
       </div>
     </q-page>
   </div>
@@ -77,9 +83,16 @@ import FrasesMotivadoras from "../clases/FrasesMotivadoras.js";
 import SesionEstudio from "../clases/SesionEstudio.js";
 import Usuario from "../clases/Usuario.js";
 
+// Importamos componente ConfigurarPomodoro
+
+import ConfigurarPomodoro from "../componentes/ConfigurarPomodoro.vue";
+
 // Estructura general necesaria para utilizar variables reactivas en componentes VUE
 export default {
   name: "Cronometro",
+  components:{
+    ConfigurarPomodoro
+  },
   /* Data es una funcion... porque si, porque los componetes Vue van asi.a1
   Basicamente, en data definiremos aquellas variables que son reactivas.
   Podriamos decir, que las variables reactivas son aquellas que si se cambian en algun lugar del codigo,
@@ -97,7 +110,10 @@ export default {
       asignaturaElegida: null,
       listaAsignaturas: ['Sistemas informáticos',
                         'Programación',
-                        'Entornos de desarrollo']
+                        'Entornos de desarrollo'],
+
+
+      configurarPomodoro: false,
     };
   },
   created: function() {
@@ -259,6 +275,8 @@ export default {
         position: "center"
       });
     },
+
+    // Manejador para gestionar el swipe de la pagina (lo que nos mueve de seccion al arrastrar)
     userHasSwiped(obj) {
       // Si el gesto no dura un minimo, lo quitamos
       if(obj.duration<100){
