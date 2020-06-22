@@ -59,17 +59,26 @@ personalizaciones de estilo
       Asociamos al evento click que llame a "cambiarEstadoCrono" y asociamos que el contenido
         de la propiedad label se asocie a la variable reactiva "textoCrono"-->
         <q-btn color="light-blue" :label="textoCrono" @click="cambiarEstadoCrono()" />
+       
+        <q-separator vertical inset />
+        <!--Usamos el componente https://quasar.dev/vue-components/button
+        Asociamos al evento click que lleva a la pantalla de configuración de Pomodoro-->
         <q-btn
           align="around"
           class="btn-fixed-width"
-          color="brown-5"
-          label="Configurar Pomodoro"
+          color="red-5"
+          label="Pomodoro"
           icon="settings"
           @click="configPomodoro=!configPomodoro"
         />
 
+
+        <div class="q-pa-md q-gutter-sm">
+          <q-btn align="right" round color="blue-grey-11" icon />
+        </div>
+
         <!-- Definimos dialogo a mostrar con la configuracion de pomodoro -->
-        <q-dialog v-model="configPomodoro"  persistent>
+        <q-dialog v-model="configPomodoro" persistent>
           <configurarPomodoro :botonListo="true" />
         </q-dialog>
       </div>
