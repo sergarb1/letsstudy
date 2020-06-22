@@ -38,7 +38,7 @@ class Pomodoro {
     getDuracionRonda() {
         return this.duracionRonda
     }
-    setDuracionrondas(tiempo) {
+    setDuracionRonda(tiempo) {
         this.duracionRonda = tiempo
     }
 
@@ -121,3 +121,5 @@ class Pomodoro {
     }
 
 }
+
+export default Pomodoro;

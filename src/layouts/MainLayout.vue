@@ -14,7 +14,7 @@
         <q-toolbar-title class="q-mr-md text-right Oswald text-weight-bold">Let's Study</q-toolbar-title>
 
         <q-avatar class="no-border-radius">
-          <img src="~assets/logo_header.png" />
+          <img src="~assets/logo_header.png" alt="logo" />
         </q-avatar>
       </q-toolbar>
 

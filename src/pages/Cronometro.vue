@@ -65,11 +65,11 @@ personalizaciones de estilo
           color="brown-5"
           label="Configurar Pomodoro"
           icon="settings"
-          @click="configurarPomodoro=!configurarPomodoro"
+          @click="configPomodoro=!configPomodoro"
         />
 
         <!-- Definimos dialogo a mostrar con la configuracion de pomodoro -->
-        <q-dialog v-model="configurarPomodoro" persistent>
+        <q-dialog v-model="configPomodoro"  persistent>
           <configurarPomodoro />
         </q-dialog>
       </div>
@@ -118,7 +118,7 @@ export default {
         "Entornos de desarrollo"
       ],
 
-      configurarPomodoro: false
+      configPomodoro: false
     };
   },
   created: function() {

@@ -5,6 +5,7 @@ import {
   QSpinnerComment
 } from 'quasar';
 import FrasesMotivadoras from './FrasesMotivadoras.js';
+import Pomodoro from './Pomodoro.js';
 
 // Definición de clase para funciones auxiliares estáticas
 class FuncionesAuxiliares {
@@ -90,6 +91,16 @@ class FuncionesAuxiliares {
         //la añadimos a la coleccion
         Usuario.$usuarioLocal.getColeccionSesiones().addSesion(tempSesion);
       }
+      // Cargamos el pomodoro
+      Usuario.$usuarioLocal.pomodor=new Pomodoro();
+
+      Usuario.$usuarioLocal.pomodoro.setNumeroCiclos(datos.pomodoro.numeroCiclos);
+      Usuario.$usuarioLocal.pomodoro.setNumeroRondas(datos.pomodoro.numeroRondas);
+      Usuario.$usuarioLocal.pomodoro.setDuracionRonda(datos.pomodoro.duracionRonda);
+      Usuario.$usuarioLocal.pomodoro.setDuracionDescansoLargo(datos.pomodoro.duracionDescansoLargo);
+      Usuario.$usuarioLocal.pomodoro.setDuracionDescansoCorto(datos.pomodoro.duracionDescansoCorto);
+      
+
     }
 
   }

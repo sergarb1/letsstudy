@@ -1,6 +1,7 @@
 // Importo la clase ColeccionSesiones para poder crear un objeto de esa clase dentro del constructor
 import ColeccionSesiones from './ColeccionSesiones';
 import PlanEstudio from './PlanEstudio';
+import Pomodoro from './Pomodoro';
 
 // Definimos la clase Usuario que almacena cada usuario
 class Usuario {
@@ -14,6 +15,7 @@ class Usuario {
         this.sesionEstudioIniciada = null;
         this.coleccionSesiones = new ColeccionSesiones();
         this.planEstudio = new PlanEstudio([], []);
+        this.pomodoro=new Pomodoro();
     }
     // Getters
     getNombre() {
@@ -45,6 +47,9 @@ class Usuario {
     setSesionEstudioIniciada(fecha) {
         this.sesionEstudioIniciada = fecha;
     }
+
+
+    
 }
 
 // Para que se posible importar la clase
