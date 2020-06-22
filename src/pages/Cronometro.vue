@@ -15,6 +15,7 @@ personalizaciones de estilo
 -->
 
 <template>
+  <!-- Indicamos el manejador del swipe -->
   <div v-touch-swipe.mouse.horizontal="userHasSwiped">
     <!-- Usamos el componente Quasar para paginas q-page.
   Usaremos flex para definir el posicionamiento.
@@ -47,11 +48,7 @@ personalizaciones de estilo
         </q-circular-progress>
         <div class="q-gutter-md">
           <!-- Cuando inicie el cronometro habría que ponerlo disabled -->
-          <q-select 
-            v-model="asignaturaElegida"
-            :options="listaAsignaturas"
-            label="Asignatura"
-          >
+          <q-select v-model="asignaturaElegida" :options="listaAsignaturas" label="Asignatura">
             <template v-slot:prepend>
               <q-icon name="event" />
             </template>
@@ -62,11 +59,18 @@ personalizaciones de estilo
       Asociamos al evento click que llame a "cambiarEstadoCrono" y asociamos que el contenido
         de la propiedad label se asocie a la variable reactiva "textoCrono"-->
         <q-btn color="light-blue" :label="textoCrono" @click="cambiarEstadoCrono()" />
-        <q-btn align="around" class="btn-fixed-width" color="brown-5" label="Configurar Pomodoro" icon="settings" @click="configurarPomodoro=!configurarPomodoro" />
+        <q-btn
+          align="around"
+          class="btn-fixed-width"
+          color="brown-5"
+          label="Configurar Pomodoro"
+          icon="settings"
+          @click="configurarPomodoro=!configurarPomodoro"
+        />
 
         <!-- Definimos dialogo a mostrar con la configuracion de pomodoro -->
-        <q-dialog v-model="configurarPomodoro">
-            <configurarPomodoro />
+        <q-dialog v-model="configurarPomodoro" persistent>
+          <configurarPomodoro />
         </q-dialog>
       </div>
     </q-page>
@@ -90,7 +94,7 @@ import ConfigurarPomodoro from "../componentes/ConfigurarPomodoro.vue";
 // Estructura general necesaria para utilizar variables reactivas en componentes VUE
 export default {
   name: "Cronometro",
-  components:{
+  components: {
     ConfigurarPomodoro
   },
   /* Data es una funcion... porque si, porque los componetes Vue van asi.a1
@@ -108,12 +112,13 @@ export default {
       valorInterval: null, // variable utilizada para parar el "setInterval"
       frases: FrasesMotivadoras,
       asignaturaElegida: null,
-      listaAsignaturas: ['Sistemas informáticos',
-                        'Programación',
-                        'Entornos de desarrollo'],
+      listaAsignaturas: [
+        "Sistemas informáticos",
+        "Programación",
+        "Entornos de desarrollo"
+      ],
 
-
-      configurarPomodoro: false,
+      configurarPomodoro: false
     };
   },
   created: function() {
@@ -267,6 +272,7 @@ export default {
         position: "center"
       });
     },
+    // Mostramos la notificacion de fin de sesion
     showNotifFin() {
       this.$q.notify({
         message: "** Sesión de estudio registrada **",
@@ -279,7 +285,7 @@ export default {
     // Manejador para gestionar el swipe de la pagina (lo que nos mueve de seccion al arrastrar)
     userHasSwiped(obj) {
       // Si el gesto no dura un minimo, lo quitamos
-      if(obj.duration<100){
+      if (obj.duration < 100) {
         return;
       }
       // Comprobamos direccion del gesto y actuamos
