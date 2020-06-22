@@ -69,6 +69,17 @@
             <q-item-label caption>Establece tus objetivos</q-item-label>
           </q-item-section>
         </q-item>
+        
+        <q-item clickable to="ConfigurarPomodoro">
+          <q-item-section avatar>
+            <q-icon name="psychology" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Pomodoro</q-item-label>
+            <q-item-label caption>Configuralo a tu medida</q-item-label>
+          </q-item-section>
+        </q-item>
         <q-item clickable to="AcercaDe">
           <q-item-section avatar>
             <q-icon name="info" />
