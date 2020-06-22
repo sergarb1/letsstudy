@@ -3,41 +3,37 @@ import FuncionesAuxiliares from "./FuncionesAuxiliares.js"
 
 // Clase para almacenar una sesion de estudio
 class SesionEstudio {
-    // Se crea el objeto pasandole el objeto Date de inicio de la sesión y el fin 
-    // y a que asignatura se asocia la sesion. Si no se asocia a ninguna, se enviaria null
-    // TODO Ojo cuidao con asignatura. ¿De qué tipo es? ¿Qué pasa si se le cambia el nombre o se elimina la asignatura?
+    // Se construcye con el inicio y fin de sesión (Date) además del nombre de la asignatura ('null' si no hay)
+    // IMPORTANTE: Tener en cuenta que las asignaturas pueden eliminarse, crearse y cambiar de nombre (en clase PlanEstudio)
     constructor(inicio, fin, asig = null) {
-        
         // Inicio y fin de sesion (objetos Date)
         this.inicioSesion = inicio;
         this.finSesion = fin;
-        // TODO Cadena de texto o Objeto Asignatura ???
+        // Nombre de la asignatura (cadena de texto)
         this.asignatura = asig;
     }
 
-    // Devuelve el inicio de la sesión. Será tipo Date
+    // Devuelve el inicio de la sesión (tipo Date)
     getInicioSesion(){
         return this.inicioSesion;
     }
 
-    // Devuelve el fin de la sesión. Será tipo Date
+    // Devuelve el fin de la sesión (tipo Date)
     getFinSesion(){
         return this.finSesion;
     }
 
-    // Establece el fín de la sesión. , pasandole por parámetro un objeto tipo Date
+    // Establece el fín de la sesión (tipo Date)
     setFinSesion(fin){
         this.finSesion = fin;
     }
 
-    // Devuelve el objeto Asignatura asociado a la sesion
-    // TODO ¿asignatura qué tipo de dato es?
+    // Devuelve el nombre de la asignatura (cadena de texto), 'null' si no hay
     getAsignatura(){
         return this.asignatura;
     }
 
-    // Establece la asignatura asociada a la sesion. 'null' indica ninguna asignatura.
-    // TODO ¿asignatura qué tipo de dato es?
+    // Establece el nombre de la asignatura (cadena de texto), 'null' si no hay
     setAsigntura(asig){
         this.asignatura = asig;
     }
@@ -59,7 +55,7 @@ class SesionEstudio {
         let ahora = new Date().getTime();
         let antes = ahora - 31536000000; // 365*24*60*60*1000
         // Por ahora las aleatorias, simplemente no tienen asignatura
-        let asig=null;
+        let asig = null;
         // Obtenemos fecha de inicio aleatoria
         let inicio = FuncionesAuxiliares.numeroAleatorio(antes, ahora);
         // Tiempo estudiado entre 20 y 120 minutos
@@ -75,7 +71,7 @@ class SesionEstudio {
         // Milisegundos estudiados entre mMin y mMax
         let estudiado = FuncionesAuxiliares.numeroAleatorio(mMin*60000, mMax*60000);
         // Por ahora las aleatorias, simplemente no tienen asignatura
-        let asig=null;
+        let asig = null;
         // Devolvemos la sesión de estudio
         return new SesionEstudio(new Date(inicio), new Date(inicio + estudiado), asig);
     }

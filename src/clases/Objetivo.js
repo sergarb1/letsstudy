@@ -1,19 +1,22 @@
 // Importamos los modulos necesarios
 import FuncionesAuxiliares from "./FuncionesAuxiliares.js"
 
-// Creamos clase Objetivo y definimos valores por defecto
-// duracion será siempre en horas
-// frecuencia ha de ser un valor entre: diario, semanal o mensual
-// El tiempo restante para conseguirlo será en minutos.
+// La clase Objetivo representa un objetivo de tiempo de estudio a alcanzar.
 class Objetivo {
   constructor(duracion = 2, frecuencia = 'diario', asignatura = null) {
+    // Tiempo de estudio a alcanzar (minutos)
     this.duracion = duracion
+    // Frecuencia del objetivo. Puede ser 'diario', 'semanal' o 'mensual'
     this.frecuencia = frecuencia
+    // Nombre de la asignatura
     this.asignatura = asignatura
+    // Si se ha conseguido el objetivo (true/false)
     this.conseguido = false
+    // Cuantas veces seguidas se ha conseguido (nº entero)
     this.racha = 0
+    // ?????
     this.periodoConseguido = null
-    // En minutos
+    // Tiempo restante hasta alcanzar objetivo (minutos)
     this.tiempoRestante = this.duracion
   }
 

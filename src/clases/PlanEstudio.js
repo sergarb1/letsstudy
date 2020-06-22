@@ -14,6 +14,7 @@ class PlanDeEstudio{
     getAsignaturas(){
         return this.asignaturas;
     }
+    
     // Devuelve todos los objetivos
     getObjetivos(){
         return this.objetivos;
@@ -30,15 +31,16 @@ class PlanDeEstudio{
     }
 
     // Eliminar una asignatura del array
+    // TODO ¿y qué sucede con las sesiones de estudio asociadas a esta asignatura?
     removeAsignaturas(asigBorrar){
         // Obtenemos su posicion en el array
         let i = this.asignaturas.indexOf( asigBorrar );
         // Eliminamos el elemento del array
         this.asignaturas.splice( i, 1 );
     }
+
     // Elimina un objetivo
     removeObjetivos(objBorrar){
-        
         // Obtenemos su posicion en el array
         let i = this.objetivos.indexOf( objBorrar );
         // Eliminamos el elemento del array
