@@ -5,13 +5,14 @@ import FuncionesAuxiliares from "./FuncionesAuxiliares.js"
 class SesionEstudio {
     // Se crea el objeto pasandole el objeto Date de inicio de la sesión y el fin 
     // y a que asignatura se asocia la sesion. Si no se asocia a ninguna, se enviaria null
-    constructor(inicio,fin, asig) {
+    // TODO Ojo cuidao con asignatura. ¿De qué tipo es? ¿Qué pasa si se le cambia el nombre o se elimina la asignatura?
+    constructor(inicio, fin, asig = null) {
         
-        //Establecemos inicio y fin de sesion
+        // Inicio y fin de sesion (objetos Date)
         this.inicioSesion = inicio;
         this.finSesion = fin;
-        // Establecemos asignatura
-        this.asignatura = asig
+        // TODO Cadena de texto o Objeto Asignatura ???
+        this.asignatura = asig;
     }
 
     // Devuelve el inicio de la sesión. Será tipo Date
@@ -24,16 +25,19 @@ class SesionEstudio {
         return this.finSesion;
     }
 
-    // Establece el fín de la sesión, pasandole por parámetro un objeto tipo Date
+    // Establece el fín de la sesión. , pasandole por parámetro un objeto tipo Date
     setFinSesion(fin){
         this.finSesion = fin;
     }
-    // Devuelve la asignatura asociada a la sesion
+
+    // Devuelve el objeto Asignatura asociado a la sesion
+    // TODO ¿asignatura qué tipo de dato es?
     getAsignatura(){
         return this.asignatura;
     }
 
-    // Establece la asignatura asociada a la sesion
+    // Establece la asignatura asociada a la sesion. 'null' indica ninguna asignatura.
+    // TODO ¿asignatura qué tipo de dato es?
     setAsigntura(asig){
         this.asignatura = asig;
     }
