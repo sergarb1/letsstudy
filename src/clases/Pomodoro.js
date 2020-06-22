@@ -99,7 +99,7 @@ class Pomodoro {
             this.enDescanso = true
             setTimeout(function(){
                 this.enDescanso = false
-            }, (this.descansoActual * 60 *60 *1000))  // función que cambia de descanso a no descanso en un tiempo establecido
+            }, (this.descansoActual * 60 * 60 * 1000))  // función que cambia de descanso a no descanso en un tiempo establecido
 
             if(this.getCicloActual() === this.numeroCiclos) {
                 this.cicloActual = 0
@@ -112,7 +112,10 @@ class Pomodoro {
     // método principal de gestión de la sesión pomodoro, tiempo en minutos
     // se ejecutará cada minuto en iniciar el cronómetro
     update(tiempo) {
-        if(this.getEnMarcha() && !this.getEnDescanso() && tiempo % this.getDuracionRonda() === 0) {
+        let ciclos = this.getCicloActual()
+        let rondas = this.getRondaActual() + (ciclos * this.getNumeroRondas())
+        let descansoTotal = (ciclos * this.duracionDescansoLargo) + (rondas * this.duracionDescansoCorto)
+        if(this.getEnMarcha() && !this.getEnDescanso() && (tiempo - descansoTotal) % this.getDuracionRonda() === 0) {
             this.incrementaRondaActual()
         }
     }
