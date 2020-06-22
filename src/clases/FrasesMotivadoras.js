@@ -2,7 +2,9 @@
 
 class FrasesMotivadoras {
  
-  static mostrarSaludo() {
+  // Devuelve una cadena de texto con un saludo aleatorio
+  static getSaludoAleatorio() {
+    // Lista de saludos
     const arraySaludos =[
       "Las novedades han de ser siempre bienvenidas.",
       "La única forma universal de dar la bienvenida es una sonrisa.",
@@ -22,8 +24,9 @@ class FrasesMotivadoras {
 
   }
   
-  static mostrarFraseMotivadora() {
-    // lista con frases motivadoras 
+  // Devuelve una cadena de texto con una frase motivadora aleatoria
+  static getFraseMotivadoraAleatoria() {
+    // Lista con frases motivadoras 
     const arrayFrasesMotivadoras = [
       "Siempre parece imposible hasta que se hace (Nelson Mandela)",
       "La motivación es lo que te pone en marcha, el hábito es lo que hace que sigas (Jim Ryun)",
@@ -52,5 +55,5 @@ class FrasesMotivadoras {
 
 }
 
-// Para que se posible importar la clase
+// Para que sea posible importar la clase
 export default FrasesMotivadoras

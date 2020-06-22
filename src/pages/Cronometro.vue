@@ -253,7 +253,7 @@ export default {
     showNotifInicio() {
       this.$q.notify({
         message: "** Iniciada nueva sesión de estudio **",
-        caption: this.frases.mostrarFraseMotivadora(), // Con cada inicio de sesión nos pasará aleatoriamente, una frase de la lista
+        caption: this.frases.getFraseMotivadoraAleatoria(), // Con cada inicio de sesión nos pasará aleatoriamente, una frase de la lista
         color: "light-blue-4",
         position: "center"
       });

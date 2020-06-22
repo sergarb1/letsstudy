@@ -104,7 +104,7 @@ class FuncionesAuxiliares {
     Loading.show({
       //configuracion del componente
       spinner: QSpinnerComment,
-      message: '<h5>' + FrasesMotivadoras.mostrarSaludo() + '</h5>',
+      message: '<h5>' + FrasesMotivadoras.getSaludoAleatorio() + '</h5>',
       messageColor: 'white',
       backgroundColor: 'primary',
       customClass: 'bg-primary',
