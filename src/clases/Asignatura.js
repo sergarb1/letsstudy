@@ -3,34 +3,35 @@
 
 // Clase para almacenar una asignatura
 class Asignatura {
-    // Se crea el objeto pasandole el texto con el nombre y el objeto de tipo Objetivo
-    constructor(nombre,objetivo) {
-        
-        //Establecemos inicio y fin de sesion
-        this.nombreAsignatura = nombre;
-        this.objetivoAsignatura = objetivo;
+    // Construye el objeto a partir del nombre y el objetivo
+    // nombre: Cadena de texto
+    // objetivo: Tipo Objetivo. Puede ser 'null' si no tiene
+    constructor(nombre, objetivo = null) {
+        // Cadena de texto
+        this.nombre = nombre;
+        // Objeto tipo Objetivo
+        this.objetivo = objetivo;
     }
 
-    // Devuelve el nombre de la Asignatura. Será tipo texto
-    getNombreAsignatura(){
-        return this.nombreAsignatura;
+    // Devuelve el nombre (tipo texto)
+    getNombre(){
+        return this.nombre;
     }
 
-    // Devuelve el objetivo de la Asignatura. Será tipo Objetivo
-    getObjetivoAsignatura(){
-        return this.objetivoAsignatura;
+    // Devuelve el objetivo (tipo Objetivo). 'null' si no hay.
+    getObjetivo(){
+        return this.objetivo;
     }
 
-    // Establece el nombre de la Asignatura, pasandole por parámetro un objeto tipo texto
-    setNombreAsignatura(nombre){
-        this.nombreAsignatura = nombre;
+    // Establece el nombre de la Asignatura (cadena de texto)
+    setNombre(nombre){
+        this.nombre = nombre;
     }
 
-    // Establece el objetivo de la Asignatura, pasandole por parámetro un objeto tipo Objetivo
-    setObjetivoAsignatura(objetivo){
-        this.objetivoAsignatura = objetivo;
+    // Establece el objetivo de la Asignatura (tipo Objetivo). 'null' si no hay.
+    setObjetivo(objetivo){
+        this.objetivo = objetivo;
     }
-    
 
 }
 
