@@ -242,7 +242,9 @@ export default {
           // Añadimos la sesión a la coleccion de sesiones del usuario
           Usuario.$usuarioLocal.getColeccionSesiones().addSesion(sesion);
         });
-        //
+        // Comprobamos si se ha alcanzado alguno de los objetivos
+        this.compruebaObjetivoConseguido();
+        // Eliminamos la variable global que indica que la sesion activa
         Usuario.$usuarioLocal.setSesionEstudioIniciada(null);
         // Al hacer un cambio, guardamos en LocalStorage
         FuncionesAuxiliares.guardarEstadoLocalStorage();
@@ -262,7 +264,7 @@ export default {
     showNotifInicio() {
       this.$q.notify({
         message: "** Iniciada nueva sesión de estudio **",
-        caption: this.frases.mostrarFraseMotivadora(), // Con cada inicio de sesión nos pasará aleatoriamente, una frase de la lista
+        caption: this.frases.getFraseMotivadoraAleatoria(), // Con cada inicio de sesión nos pasará aleatoriamente, una frase de la lista
         color: "light-blue-4",
         position: "center"
       });
@@ -276,7 +278,6 @@ export default {
         position: "center"
       });
     },
-
     // Manejador para gestionar el swipe de la pagina (lo que nos mueve de seccion al arrastrar)
     userHasSwiped(obj) {
       // Si el gesto no dura un minimo, lo quitamos
@@ -289,6 +290,39 @@ export default {
       } else if (obj.direction === "right") {
         this.$router.push("/Resumen");
       }
+    },
+    // Función para comprobar si se ha cumplido algún objetivo del usuario, después de cada sesión de estudio.
+    compruebaObjetivoConseguido() {
+      let arraySesiones = Usuario.$usuarioLocal.getColeccionSesiones().getSesiones();
+      let objetivos = Usuario.$usuarioLocal.getPlanEstudio().getObjetivos();
+      objetivos.forEach(objetivo => {
+        if(objetivo.update(arraySesiones)) {
+          if(objetivo.getAsignatura === null) {
+            let message = "** ENHORABUENA, ACABAS DE CONSEGUIR UN OBJETIVO " + objetivo.getFrecuencia().toUpperText();
+            let racha = objetivo.getRacha();
+            let caption = racha > 1 ? "Llevas una racha de " + racha + " veces seguidas cumpliendo el objetivo"
+                                    : "Empiezas una nueva racha con este objetivo";
+            this.showNotifObjetivoConseguido(message,caption); // Emitimos notificación con mensaje y caption específico
+          } else {
+            let asignatura = objetivo.getAsignatura();
+            let message = "** ENHORABUENA, ACABAS DE CONSEGUIR UN OBJETIVO " + objetivo.getFrecuencia().toUpperText();
+            let racha = objetivo.getRacha();
+            let caption = (racha > 1 ? "Llevas una racha de " + racha + " veces seguidas cumpliendo el objetivo"
+                                    : "Empiezas una nueva racha con este objetivo") +
+                                    ", en la asignatura " + asignatura;
+            this.showNotifObjetivoConseguido(message,caption); // Emitimos notificación con mensaje y caption específico
+          }
+        }
+      });
+    },
+    // Definimos una nueva función para notificar el objetivo conseguido
+    showNotifObjetivoConseguido(m,c) {
+      this.$q.notify({
+        message: m,
+        caption: c,
+        color: "light-blue-4",
+        position: "bottom"
+      });
     }
   }
 };
