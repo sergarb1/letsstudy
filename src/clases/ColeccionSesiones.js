@@ -3,12 +3,13 @@ import SesionEstudio from "./SesionEstudio.js"
 
 // Clase que almacena una colección de sesiones de estudio
 class ColeccionSesiones {
-    // Constructor que genera un array para almacenar objetos SesionEstudio
+    // Constructor que genera un array para almacenar objetos SesionEstudio en orden cronológico
     constructor() {
         this.arraySesionesEstudio = [];
     }
 
-    // Añade una sesión al array. La sesión se tiene que pasar ya creada
+    // Añade un objeto SesionEstudio al array. La sesión se tiene que pasar ya creada
+    // TODO optimizarlo: si ya está ordenado solo hay que insertarlo en la posición correcta, no es necesario hacer sort de toda la lista
     addSesion(sesion) {
         this.arraySesionesEstudio.push(sesion);
         this.arraySesionesEstudio.sort(function (a, b){
@@ -16,20 +17,22 @@ class ColeccionSesiones {
         })
     }
 
-    // Devuelve el array entero
+    // Devuelve el array de sesiones de estudio
     getSesiones() {
         return this.arraySesionesEstudio;
     }
 
-    // Para facilitar el manejo esta función devuelve la última sesión del array
-    // así evitamos realizar la función siempre que sea necesario
+    // Devuelve la última sesión de estudio
     getUltimaSesion() {
-        // array[x] donde x es el tamaño del array menos 1
-        // ej. array.lenth = 5, la última posición es 4
         return this.arraySesionesEstudio[this.arraySesionesEstudio.length - 1];
     }
 
-    // Pasamos un objeto de tipo date y devuelve las sesiones de ese día
+    // Devuelve la primera sesión de estudio
+    getPrimeraSesion() {
+        return this.arraySesionesEstudio[0];
+    }
+
+    // Pasamos un objeto de tipo Date y devuelve las sesiones de ese día
     getSesionesDia(fecha) {
         // Creo un array que iré rellenando con las sesiones de ese día
         let sesionesDia = []
@@ -41,9 +44,7 @@ class ColeccionSesiones {
         let finDia = new Date(fecha.getTime());
         finDia.setHours(23, 59, 59, 999);
 
-        // Bucle foreach
-        // Recorre todo el arraySesionesEstudio. forEach (por cada elemento) lo llamamos sesion
-        // hace lo siguiente:
+        // Recorre todo el arraySesionesEstudio buscando las sesiones de la fecha indicada
         this.arraySesionesEstudio.forEach(sesion => {
             // Comprobación si la sesion inicia entre inicioDia y finDia
             if (sesion.getInicioSesion().getTime() >= inicioDia.getTime() && sesion.getInicioSesion().getTime() <= finDia.getTime()) {
@@ -69,9 +70,7 @@ class ColeccionSesiones {
             fechaB = aux;
         }
 
-        // Bucle foreach
-        // Recorre todo el arraySesionesEstudio. forEach (por cada elemento) lo llamamos sesion
-        // hace lo siguiente:
+        // Recorre todo el arraySesionesEstudio buscando las sesiones en las fechas indicadas
         this.arraySesionesEstudio.forEach(sesion => {
             // Comprobación si la sesion inicia entre fechaA y fechaB
             if (sesion.getInicioSesion().getTime() >= fechaA.getTime() && sesion.getInicioSesion().getTime() <= fechaB.getTime()) {
@@ -86,6 +85,7 @@ class ColeccionSesiones {
 
     // Pasamos un objeto de tipo date y devuelve las sesiones desde el lunes de esa semana
     // hasta la fecha pasada como argumento
+    // TODO ¿por qué desde el lunes hasta la fecha pasada como argumento? ¿no debería ser de lunes a domingo?
     getSesionesSemana(fecha) {
         // Creo un array que contendrá las sesiones desde la fecha hasta el lunes anterior
         let sesionesSemana = [];
@@ -102,6 +102,7 @@ class ColeccionSesiones {
 
     // Pasamos un objeto de tipo date y devuelve las sesiones del mes en curso desde el día 1
     // hasta la fecha pasada como argumento
+    // TODO ¿por qué desde el dia hasta la fecha pasada como argumento? ¿no debería ser todo el mes?
     getSesionesMes(fecha) {
         // Creo un array que contendrá las sesiones desde el día 1 a la fecha pasada como parámetro
         let sesionesMes = [];
@@ -117,8 +118,7 @@ class ColeccionSesiones {
         return sesionesMes;
     }
 
-
-    //Devuelve el tiempo total de estudio en segundos
+    // Devuelve el tiempo total de estudio en segundos
     tiempoTotalEstudio() {
         // Variable para ir acumulando el tiempo
         let acumulado = 0;
