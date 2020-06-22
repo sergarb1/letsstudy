@@ -5,18 +5,18 @@ import Pomodoro from './Pomodoro';
 
 // Definimos la clase Usuario que almacena cada usuario
 class Usuario {
-    //Constructor de la clase que recibe el parametro nombre que es el nombre del usuario
-    //Se declara una colección de objetos ColeccionSesiones, pero que no es necesario pasarlo como argumento
+    // Constructor de la clase. Parámetro 'nombre' es una cadena de texto
     constructor(nombre) {
-        // Establecemos nombre de usuario
+        // Nombre de usuario
         this.nombre = nombre;
-        // La variable sesionEstudioIniciada valdra null si no esta iniciada una sesion de estudio
-        // o tendra una fecha si si hay una sesion de estudio iniciada
+        // Si hay una sesión de estudio iniciada contendrá un objeto Date con el inicio de la sesión. 'null' en caso contrario
         this.sesionEstudioIniciada = null;
+        // Demás objetos con los datos y configuración de estudio
         this.coleccionSesiones = new ColeccionSesiones();
         this.planEstudio = new PlanEstudio([], []);
-        this.pomodoro=new Pomodoro();
+        this.pomodoro = new Pomodoro();
     }
+
     // Getters
     getNombre() {
         return this.nombre;
@@ -27,7 +27,7 @@ class Usuario {
         return this.sesionEstudioIniciada;
     }
 
-    // Devuelvo el objeto coleccionSesione
+    // Devuelvo el objeto coleccionSesiones
     getColeccionSesiones() {
         return this.coleccionSesiones;
     }
@@ -37,18 +37,15 @@ class Usuario {
         return this.planEstudio;
     }
 
-    // Set coleccionSesiones para copiar una nueva colección entera
+    // Set coleccionSesiones para establecer una colección entera
     setColeccionSesiones(nuevaColeccion) {
         this.coleccionSesiones = nuevaColeccion;
     }
 
-    //Set sesion iniciada, recibe un objeto tipo Date
-    // Generalmente se pone a una fecha si esta iniciada, y a null si no esta iniciada una 
-    setSesionEstudioIniciada(fecha) {
-        this.sesionEstudioIniciada = fecha;
+    // Set sesionEstudioIniciada. Se le pasa un objeto date si está iniciada, 'null' si no
+    setSesionEstudioIniciada(date) {
+        this.sesionEstudioIniciada = date;
     }
-
-
     
 }
 
