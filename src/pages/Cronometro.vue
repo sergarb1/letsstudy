@@ -70,7 +70,7 @@ personalizaciones de estilo
 
         <!-- Definimos dialogo a mostrar con la configuracion de pomodoro -->
         <q-dialog v-model="configPomodoro"  persistent>
-          <configurarPomodoro />
+          <configurarPomodoro :botonListo="true" />
         </q-dialog>
       </div>
     </q-page>

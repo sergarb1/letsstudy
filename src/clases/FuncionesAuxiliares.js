@@ -92,7 +92,7 @@ class FuncionesAuxiliares {
         Usuario.$usuarioLocal.getColeccionSesiones().addSesion(tempSesion);
       }
       // Cargamos el pomodoro
-      Usuario.$usuarioLocal.pomodor=new Pomodoro();
+      Usuario.$usuarioLocal.pomodoro=new Pomodoro();
 
       Usuario.$usuarioLocal.pomodoro.setNumeroCiclos(datos.pomodoro.numeroCiclos);
       Usuario.$usuarioLocal.pomodoro.setNumeroRondas(datos.pomodoro.numeroRondas);

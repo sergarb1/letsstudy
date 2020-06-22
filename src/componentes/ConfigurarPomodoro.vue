@@ -15,45 +15,45 @@
     </q-card-section>
 
     <q-card-section class="col items-center">
-      <q-badge color="secondary">Número de ciclos: {{ numCiclos }}</q-badge>
-      <q-slider v-model="numCiclos" markers :min="1" :max="15" />
-      <q-badge color="secondary">Rondas por ciclos: {{ numRondas }}</q-badge>
-      <q-slider v-model="numRondas" markers :min="1" :max="15" />
-      <q-badge color="secondary">Minutos por ronda: {{ minPorRondas }}</q-badge>
-      <q-slider v-model="minPorRondas" markers :min="1" :max="60" />
-      <q-badge color="secondary">Minutos descanso por rondas: {{ descansoRondas }}</q-badge>
-      <q-slider v-model="descansoRondas" markers :min="1" :max="60" />
-
-      <q-badge color="secondary">Minutos descanso por ciclos: {{ descansoCiclos }}</q-badge>
-      <q-slider v-model="descansoCiclos" markers :min="1" :max="60" />
+      <q-badge color="secondary">Número de ciclos: {{ miUsuaro.pomodoro.numeroCiclos }}</q-badge>
+      <q-slider v-model="miUsuaro.pomodoro.numeroCiclos" markers :min="1" :max="15" @change="guardar();"  />
+      <q-badge color="secondary">Rondas por ciclos: {{ miUsuaro.pomodoro.numeroRondas }}</q-badge>
+      <q-slider v-model="miUsuaro.pomodoro.numeroRondas" markers :min="1" :max="15" @change="guardar();"  />
+      <q-badge color="secondary">Minutos por ronda: {{ miUsuaro.pomodoro.duracionRonda }}</q-badge>
+      <q-slider v-model="miUsuaro.pomodoro.duracionRonda" markers :min="1" :max="60" @change="guardar();"  />
+      <q-badge color="secondary">Minutos descanso por rondas: {{ miUsuaro.pomodoro.duracionDescansoCorto }}</q-badge>
+      <q-slider v-model="miUsuaro.pomodoro.duracionDescansoCorto" markers :min="1" :max="60" @change="guardar();" />
+      <q-badge color="secondary">Minutos descanso por ciclos: {{ miUsuaro.pomodoro.duracionDescansoLargo }}</q-badge>
+      <q-slider v-model="miUsuaro.pomodoro.duracionDescansoLargo" markers :min="1" :max="60" @change="guardar();" />
     </q-card-section>
-
-    <q-card-actions align="right">
-      <q-btn flat label="Listo" icon="check" color="primary" v-close-popup />
+    
+    <q-card-actions align="right" v-if="visibleListo">
+      <q-btn flat label="Listo" icon="check" color="primary" @click="guardar();" v-close-popup />
     </q-card-actions>
   </q-card>
 </template>
 <script>
+import Usuario from '../clases/Usuario';
+import FuncionesAuxiliares from '../clases/FuncionesAuxiliares';
 export default {
   name: "ConfigurarPomodoro",
   data() {
     return {
-      numCiclos: 2,
-      numRondas: 2,
-      minPorRondas: 15,
-      descansoRondas: 5,
-      descansoCiclos: 20
+      visibleListo: this.botonListo,
+      miUsuaro: Usuario.$usuarioLocal
     };
   },
   mounted: function() {
-    // Obtenemos la configuracion del Pomodoro del Usuario
-    this.numCiclos=Usuario.$usuarioLocal.pomodoro.getNumeroCiclos();
-    this.numRondas=Usuario.$usuarioLocal.pomodoro.getNumeroRondas();
-    this.minPorRondas=Usuario.$usuarioLocal.pomodoro.getDuracionRondas();
-    this.descansoRondas=Usuario.$usuarioLocal.pomodoro.getDuracionDescansoCorto();
-    this.descansoCiclos=Usuario.$usuarioLocal.pomodoro.getDuracionDescansoLargo();
 
   },
-  methods: {}
+  // Propiedades que se le pasan
+  props: {
+    botonListo: Boolean
+  },
+  methods: {
+    guardar: function(){
+      FuncionesAuxiliares.guardarEstadoLocalStorage();
+    }
+  }
 };
 </script>

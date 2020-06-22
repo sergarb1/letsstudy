@@ -11,7 +11,7 @@ class FrasesMotivadoras {
       "Esfuerzo, lágrimas y cansancio a causa del trabajo, pero, ¡Bienvenido seas!",
       "Da la bienvenida al futuro, pues pronto será pasado.",
       "Un viejo amigo siempre será bienvenido de nuevo.",
-      "Puedo decírtelo en muchos idiomas: Willkommen, Welcome, Benvenuti… ¡bienvenido!",
+      "Puedo decírtelo en muchos idiomas: Willkommen, Welcome, Benvenuti… ¡Bienvenido!",
       "Sé capaz de hacer algo cuyas consecuencias sean para siempre. ¡Bienvenido a este nuevo día!",
       "Bienvenido a este lugar, al cual perteneces y en el que te recibimos con los brazos abiertos.",
       "Te damos la bienvenida a nuestro humilde hogar. Solo tienes que relajarte y ser feliz."
