@@ -1,7 +1,7 @@
 <!-- Componente que mostrará la Configuracion de Pomodoro -->
 <template>
-  <q-card >
-    <q-card-section class="row items-center">
+  <q-card flat>
+    <q-card-section class="row items-center " style="wdith: 1000px; max-width:1500px">
       <div class="flex flex-center column justify-center" style="height:50px">
         <img alt="Lets Study logo" src="../assets/logo_historico_s.png" />
       </div>
