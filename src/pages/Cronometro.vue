@@ -227,21 +227,7 @@ export default {
           fechaFinCorregida,
           null // ESTE CAMPO SERIA LA ASIGNATURA
         );
-        //Descomentar las siguientes líneas para probar a insertar sesiones antes y despues de las 00:00h
-        /*let arraySesiones = FuncionesAuxiliares.sesionesTiempoCronometro(
-          new Date(
-            2020,
-            5,
-            16,
-            22, 59, 59), 
-          new Date(
-            2020,
-            5,
-            17,
-            2, 59, 59),
-            null // ESTE CAMPO SERIA LA ASIGNATURA
-            );
-        */
+
         // Se recorre el array de las sesiones
         arraySesiones.forEach(sesion => {
           // Añadimos la sesión a la coleccion de sesiones del usuario

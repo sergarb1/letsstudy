@@ -10,8 +10,8 @@
     <!-- Lista de objetivos, cada q-item representa un objetivo -->
     <q-card-section>
       <div class="Oswald text-center">
-        Técnica Pomodoro
-        <q-icon name="help" />
+        <h5>Técnica Pomodoro
+        <q-icon name="help" /></h5>
       </div>
     </q-card-section>
 

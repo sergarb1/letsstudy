@@ -8,7 +8,7 @@ class FrasesMotivadoras {
       "La única forma universal de dar la bienvenida es una sonrisa.",
       "De la tristeza de tu ausencia a la alegría de tu llegada. ¡Bienvenido!",
       "Estamos felices de tenerte de nuevo con nosotros, así que queremos darte nuestra más sincera bienvenida.",
-      "Esfuerzo, lágrimas y cansancio a causa del trabajo, pero, ¡bienvenido seas!",
+      "Esfuerzo, lágrimas y cansancio a causa del trabajo, pero, ¡Bienvenido seas!",
       "Da la bienvenida al futuro, pues pronto será pasado.",
       "Un viejo amigo siempre será bienvenido de nuevo.",
       "Puedo decírtelo en muchos idiomas: Willkommen, Welcome, Benvenuti… ¡bienvenido!",
