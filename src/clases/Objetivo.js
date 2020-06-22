@@ -65,18 +65,20 @@ class Objetivo {
   // Método a ejecutar después de cada sesión de estudio
   update(coleccionDeSesiones) {
     this.conseguido = false  // inicializamos siempre a false
+    const sesiones = null;
+    const periodo = null;
     const ahora = new Date()  // indicamos la fecha de hoy
     // Según la frecuencia calculamos las sesiones a tener en cuenta y el periodo que estamos tratando
     switch (this.frecuencia) {
       case 'diario':
-        const sesiones = coleccionDeSesiones.getSesionesDia(ahora)
-        const periodo = ahora.getDate()  // número del día
+        sesiones = coleccionDeSesiones.getSesionesDia(ahora)
+        periodo = ahora.getDate()  // número del día
       case 'semanal':
-        const sesiones = coleccionDeSesiones.getSesionesSemana(ahora)
-        const periodo = this.getNumSemana(ahora)  // número de la semana (año)
+        sesiones = coleccionDeSesiones.getSesionesSemana(ahora)
+        periodo = this.getNumSemana(ahora)  // número de la semana (año)
       case 'mensual':
-        const sesiones = coleccionDeSesiones.getSesionesMes(ahora)
-        const periodo = ahora.getMonth()  // número del mes
+        sesiones = coleccionDeSesiones.getSesionesMes(ahora)
+        periodo = ahora.getMonth()  // número del mes
     }
     // Sumamos el tiempo y calculamos el tiempoRestante
     this.tiempoRestante = this.duracion // inicializamos siempre tiempoRestante a duracion
@@ -119,6 +121,8 @@ class Objetivo {
     return this.getIsConseguido // si true notificar CONSEGUIDO! YA LLEVAS racha VECES SEGUIDAS CONSEGUIDO
   }
 }
+
+export default Objetivo;
 
 /**Hay que tener en cuenta que el cálculo del objetivo se realiza después de casa sesión. En ese momento
  * puede haber acabado el periodo de duración del objetivo o no, que és lo que determina la racha.
