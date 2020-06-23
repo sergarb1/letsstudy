@@ -52,6 +52,8 @@ personalizaciones de estilo
             v-model="asignaturaElegida"
             :options="listaAsignaturas"
             :option-label="opt => Object(opt) === opt && 'nombre' in opt ? opt.nombre : 'No hay asignaturas'"
+            :disable="estadoCrono"
+            options-cover
             emit-value
             label="Asignatura"
           >
@@ -123,8 +125,12 @@ export default {
   },
   created: function() {
     // Si esta la sesion abierta, actualizamos las variables
+    
+    // Obtenemos tanto la sesion guardarda como su asignaturas
     let sesionIniciada = Usuario.$usuarioLocal.getSesionEstudioIniciada();
+    let sesionIniciadaAsignatura=Usuario.$usuarioLocal.getSesionEstudioIniciadaAsignatura();
 
+    // Si habia sesion iniciada
     if (sesionIniciada != null) {
       this.fechaInicio = sesionIniciada;
       //Obtenemos fecha actual. Al construir un objeto Date, este toma la fecha actual
@@ -139,6 +145,12 @@ export default {
       // Transforma los segundo transcurridos en formato HH : MM : SS
       this.tiempoMostrar = FuncionesAuxiliares.segundosToText(this.tiempo);
       this.cambiarEstadoCrono();
+
+      // Comprobamos si ademas habia asignatura
+      if(sesionIniciadaAsignatura != null){
+        this.asignaturaElegida=sesionIniciadaAsignatura;
+      }
+
     }
   },
   // Definimos metodos del componente
