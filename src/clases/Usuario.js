@@ -32,7 +32,7 @@ class Usuario {
 
     // Devuelve el estado de la asgiantura sesion de estudio
     getSesionEstudioIniciadaAsignatura() {
-        return this.sesionEstudioIniciadaAsingatura;
+        return this.sesionEstudioIniciadaAsignatura;
     }
 
     // Devuelvo el objeto coleccionSesiones
