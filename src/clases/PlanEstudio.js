@@ -20,12 +20,12 @@ class PlanDeEstudio{
         return this.objetivos;
     }
 
-    // Anyade asignaturas
+    // Anyade una nueva asignatura
     addAsignaturas(nuevaAsig){
         this.asignaturas.push(nuevaAsig);
     }
 
-    // Anyade objetivps
+    // Anyade un nuevo objetivo
     addObjetivos(nuevoObj){
         this.objetivos.push(nuevoObj);
     }
@@ -50,7 +50,7 @@ class PlanDeEstudio{
 
     // Recibe una Coleccion de sesiones
     // El metodo con esa coleccion llama al metodo update de cada uno de los objetivos
-    // con el fin de que en el momento de la llamada, todos comprueben si se ha realizado el objetiv
+    // con el fin de que en el momento de la llamada, todos comprueben si se ha realizado el objetivo
     // o cuanto queda
     actualizarObjetivos(coleccionDeSesiones){
         let i;

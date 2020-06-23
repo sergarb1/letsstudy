@@ -181,7 +181,7 @@ export default {
   methods: {
     anadirAsignatura() {
       //Comprueba que exista un nombre en el textfield
-      if (this.nombreAsignatura == "") {
+      if (this.nombreAsignatura === "") {
         //Si es '', muestra el error y sale del método
         this.errorAsignatura = true;
         return;
@@ -226,12 +226,12 @@ export default {
       }
 
       this.planEstudio.objetivos.forEach(objetivo => {
-        if(objetivo.frecuencia == obj){
+        if(objetivo.frecuencia === obj){
           encontrado = true;
           objetivo.duracion = duracion;
 
           Usuario.$usuarioLocal.getPlanEstudio().getObjetivos().forEach(o => {
-            if(o.getFrecuencia() == obj){
+            if(o.getFrecuencia() === obj){
               o.setDuracion(duracion)
             }
           });
@@ -250,7 +250,7 @@ export default {
       //Recorre los objetivos
       this.planEstudio.objetivos.forEach(objetivo => {
         //Comprobación si es el objetivo que estamos buscando, y no tiene asignatura asignada
-        if(objetivo.frecuencia == obj && objetivo.asignatura == null){
+        if(objetivo.frecuencia === obj && objetivo.asignatura === null){
           //Se elimina la frecuencia de ese objetivo en el objeto
           objetivo.frecuencia = null;
 
@@ -266,7 +266,7 @@ export default {
     getObjetivoDiario() {
       if (this.planEstudio != null) {
         this.planEstudio.objetivos.forEach(objetivo => {
-          if (objetivo.frecuencia == "diario" && objetivo.asignatura == null) {
+          if (objetivo.frecuencia === "diario" && objetivo.asignatura == null) {
             this.objetivoDiario = objetivo.duracion;
           }
         });
@@ -276,7 +276,7 @@ export default {
     getObjetivoSemanal() {
       if (this.planEstudio != null) {
         this.planEstudio.objetivos.forEach(objetivo => {
-          if (objetivo.frecuencia == "semanal" && objetivo.asignatura == null) {
+          if (objetivo.frecuencia === "semanal" && objetivo.asignatura === null) {
             this.objetivoSemanal = objetivo.duracion;
           }
         });
@@ -286,7 +286,7 @@ export default {
     getObjetivoMensual() {
       if (this.planEstudio != null) {
         this.planEstudio.objetivos.forEach(objetivo => {
-          if (objetivo.frecuencia == "mensual" && objetivo.asignatura == null) {
+          if (objetivo.frecuencia === "mensual" && objetivo.asignatura === null) {
             this.objetivoMensual = objetivo.duracion;
           }
         });

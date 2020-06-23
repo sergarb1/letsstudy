@@ -6,6 +6,9 @@ import {
 } from 'quasar';
 import FrasesMotivadoras from './FrasesMotivadoras.js';
 import Pomodoro from './Pomodoro.js';
+import PlanDeEstudio from './PlanEstudio.js';
+import Asignatura from './Asignatura.js';
+import Objetivo from './Objetivo.js';
 
 // Definición de clase para funciones auxiliares estáticas
 class FuncionesAuxiliares {
@@ -87,8 +90,57 @@ class FuncionesAuxiliares {
         Usuario.$usuarioLocal.getColeccionSesiones().addSesion(tempSesion);
       }
 
+      // Cargamos el plan de estudios
+      Usuario.$usuarioLocal.planEstudio = new PlanEstudio([], []);
+
+      // Para cada asignatura, creamos su objetivo y lo rellenamos
+      for (let asig in datos.planEstudio.asignaturas) {
+        let tmpAsig = new Asignatura(asig.nombre,null);
+        // Si no tiene objetivo, null, pero si tiene, creamos el objeto
+        if (asig.objetivo === null) {
+          tmpAsig.objetivo = null;
+        } else {
+          // Creamos objetivo, sin asignatura
+          tmpAsig.objetivo = new Objetivo(asig.objetivo.duracion, asig.objetivo.frecuencia, null);
+          tmpAsig.objetivo.conseguido = asig.objetivo.conseguido;
+          tmpAsig.objetivo.racha = asig.objetivo.racha;
+          tmpAsig.objetivo.periodoConseguido = asig.objetivo.periodoConseguido;
+          tmpAsig.objetivo.tiempoRestante = asig.objetivo.tiempoRestante;
+
+          // Anyadimos la propia asignatura
+          tmpAsig.objetivo.setAsignatura(tmpAsig);
+
+          // Preparada la asignatura, la ponemos en el plan de estudios
+          Usuario.$usuarioLocal.planEstudio.addAsignatura(tmpAsig);
+        }
+      }
+
+      // Para cada objetivo, creamos su objetivo y lo rellenamos
+      for (let obj in datos.planEstudio.objetivos) {
+        let tmpObj = new objetivo(obj.duracion, obj.frecuencia,null);
+        tmpObj.conseguido = obj.conseguido;
+        tmpObj.racha = obj.racha;
+        tmpObj.periodoConseguido = obj.periodoConseguido;
+        tmpObj.tiempoRestante = obj.tiempoRestante;
+
+        // Si no tiene asignatura, null, pero si tiene, creamos el objeto
+        if (obj.asignatura === null) {
+          tmpObj.asignatura = null;
+        } else {
+          // Creamos asignatura, sin objetivo
+          tmpObj.asignatura = new Asignatura(obj.asignatura.nombre, null);
+
+          // Anyadimos el propio objetivo a la asignatura
+          tmpObj.asignatura.setObjetivo(tmpObj);
+
+          // Preparado el objetivo, la ponemos en el plan de estudios
+          Usuario.$usuarioLocal.planEstudio.addObjetivo(tmpObj);
+        }
+      }
+
+
       // Cargamos el pomodoro
-      Usuario.$usuarioLocal.pomodoro=new Pomodoro();
+      Usuario.$usuarioLocal.pomodoro = new Pomodoro();
       Usuario.$usuarioLocal.pomodoro.setNumeroCiclos(datos.pomodoro.numeroCiclos);
       Usuario.$usuarioLocal.pomodoro.setNumeroRondas(datos.pomodoro.numeroRondas);
       Usuario.$usuarioLocal.pomodoro.setDuracionRonda(datos.pomodoro.duracionRonda);
@@ -137,9 +189,9 @@ class FuncionesAuxiliares {
     // deben hacer dos sesiones
     if (tiempoSesion > doceHoras - inicio.getTime()) {
       // Primera sesión desde el inicio hasta las 23:59:59 creada antes
-      let sesion1 = new SesionEstudio(inicio, new Date(doceHoras),asig);
+      let sesion1 = new SesionEstudio(inicio, new Date(doceHoras), asig);
       // Segunda sesión desde las 00:00:00 hasta la fecha de fin
-      let sesion2 = new SesionEstudio(new Date(doceHoras + 1000), fin,asig);
+      let sesion2 = new SesionEstudio(new Date(doceHoras + 1000), fin, asig);
 
       arraySesiones.push(sesion1);
       arraySesiones.push(sesion2);
