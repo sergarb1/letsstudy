@@ -48,9 +48,20 @@ personalizaciones de estilo
         </q-circular-progress>
         <div class="q-gutter-md">
           <!-- Cuando inicie el cronometro habría que ponerlo disabled -->
-          <q-select v-model="asignaturaElegida" :options="listaAsignaturas" label="Asignatura">
+          <q-select
+            v-model="asignaturaElegida"
+            :options="listaAsignaturas"
+            :option-label="opt => Object(opt) === opt && 'nombre' in opt ? opt.nombre : 'No hay asignaturas'"
+            emit-value
+            label="Asignatura"
+          >
             <template v-slot:prepend>
               <q-icon name="event" />
+            </template>
+            <template v-slot:no-option>
+              <q-item>
+                <q-item-section class="text-italic text-grey">No hay asignaturas disponibles</q-item-section>
+              </q-item>
             </template>
           </q-select>
         </div>
@@ -59,7 +70,7 @@ personalizaciones de estilo
       Asociamos al evento click que llame a "cambiarEstadoCrono" y asociamos que el contenido
         de la propiedad label se asocie a la variable reactiva "textoCrono"-->
         <q-btn color="light-blue" :label="textoCrono" @click="cambiarEstadoCrono()" />
-       
+
         <q-separator vertical inset />
         <!--Usamos el componente https://quasar.dev/vue-components/button
         Asociamos al evento click que lleva a la pantalla de configuración de Pomodoro-->
@@ -71,7 +82,6 @@ personalizaciones de estilo
           icon="settings"
           @click="configPomodoro=!configPomodoro"
         />
-
 
         <div class="q-pa-md q-gutter-sm">
           <q-btn align="right" round color="blue-grey-11" icon />
@@ -121,12 +131,7 @@ export default {
       valorInterval: null, // variable utilizada para parar el "setInterval"
       frases: FrasesMotivadoras,
       asignaturaElegida: null,
-      listaAsignaturas: [
-        "Sistemas informáticos",
-        "Programación",
-        "Entornos de desarrollo"
-      ],
-
+      listaAsignaturas: Usuario.$usuarioLocal.planEstudio.asignaturas,
       configPomodoro: false
     };
   },
@@ -174,12 +179,15 @@ export default {
             new Date(),
             Usuario.$usuarioLocal.getSesionEstudioIniciada()
           );
+          // Recuperamos la asignatura elegida
+          this.asignaturaElegida=Usuario.$usuarioLocal.getSesionEstudioIniciadaAsignatura()
         } else {
           this.fechaInicio = new Date();
         }
 
-        // Como iniciamos, guardamos la sesion activa como variable local
+        // Como iniciamos, guardamos la sesion activa como variable local y la asignatura
         Usuario.$usuarioLocal.setSesionEstudioIniciada(this.fechaInicio);
+        Usuario.$usuarioLocal.setSesionEstudioIniciadaAsignatura(this.asignaturaElegida);
 
         // Una vez modificado la sesionEstudioIniciada, guardamos en LocalStorage
         FuncionesAuxiliares.guardarEstadoLocalStorage();
@@ -234,7 +242,7 @@ export default {
         let arraySesiones = FuncionesAuxiliares.sesionesTiempoCronometro(
           this.fechaInicio,
           fechaFinCorregida,
-          null // ESTE CAMPO SERIA LA ASIGNATURA
+          this.asignaturaElegida // Enviamos la asignatura elegida
         );
 
         // Se recorre el array de las sesiones
@@ -246,6 +254,7 @@ export default {
         this.compruebaObjetivoConseguido();
         // Eliminamos la variable global que indica que la sesion activa
         Usuario.$usuarioLocal.setSesionEstudioIniciada(null);
+        Usuario.$usuarioLocal.setSesionEstudioIniciadaAsignatura(null);
         // Al hacer un cambio, guardamos en LocalStorage
         FuncionesAuxiliares.guardarEstadoLocalStorage();
         // Cambiamos texto del cronometro
@@ -293,30 +302,45 @@ export default {
     },
     // Función para comprobar si se ha cumplido algún objetivo del usuario, después de cada sesión de estudio.
     compruebaObjetivoConseguido() {
-      let arraySesiones = Usuario.$usuarioLocal.getColeccionSesiones().getSesiones();
+      let arraySesiones = Usuario.$usuarioLocal
+        .getColeccionSesiones()
+        .getSesiones();
       let objetivos = Usuario.$usuarioLocal.getPlanEstudio().getObjetivos();
       objetivos.forEach(objetivo => {
-        if(objetivo.update(arraySesiones)) {
-          if(objetivo.getAsignatura === null) {
-            let message = "** ENHORABUENA, ACABAS DE CONSEGUIR UN OBJETIVO " + objetivo.getFrecuencia().toUpperText();
+        if (objetivo.update(arraySesiones)) {
+          if (objetivo.getAsignatura === null) {
+            let message =
+              "** ENHORABUENA, ACABAS DE CONSEGUIR UN OBJETIVO " +
+              objetivo.getFrecuencia().toUpperText();
             let racha = objetivo.getRacha();
-            let caption = racha > 1 ? "Llevas una racha de " + racha + " veces seguidas cumpliendo el objetivo"
-                                    : "Empiezas una nueva racha con este objetivo";
-            this.showNotifObjetivoConseguido(message,caption); // Emitimos notificación con mensaje y caption específico
+            let caption =
+              racha > 1
+                ? "Llevas una racha de " +
+                  racha +
+                  " veces seguidas cumpliendo el objetivo"
+                : "Empiezas una nueva racha con este objetivo";
+            this.showNotifObjetivoConseguido(message, caption); // Emitimos notificación con mensaje y caption específico
           } else {
             let asignatura = objetivo.getAsignatura();
-            let message = "** ENHORABUENA, ACABAS DE CONSEGUIR UN OBJETIVO " + objetivo.getFrecuencia().toUpperText();
+            let message =
+              "** ENHORABUENA, ACABAS DE CONSEGUIR UN OBJETIVO " +
+              objetivo.getFrecuencia().toUpperText();
             let racha = objetivo.getRacha();
-            let caption = (racha > 1 ? "Llevas una racha de " + racha + " veces seguidas cumpliendo el objetivo"
-                                    : "Empiezas una nueva racha con este objetivo") +
-                                    ", en la asignatura " + asignatura;
-            this.showNotifObjetivoConseguido(message,caption); // Emitimos notificación con mensaje y caption específico
+            let caption =
+              (racha > 1
+                ? "Llevas una racha de " +
+                  racha +
+                  " veces seguidas cumpliendo el objetivo"
+                : "Empiezas una nueva racha con este objetivo") +
+              ", en la asignatura " +
+              asignatura;
+            this.showNotifObjetivoConseguido(message, caption); // Emitimos notificación con mensaje y caption específico
           }
         }
       });
     },
     // Definimos una nueva función para notificar el objetivo conseguido
-    showNotifObjetivoConseguido(m,c) {
+    showNotifObjetivoConseguido(m, c) {
       this.$q.notify({
         message: m,
         caption: c,

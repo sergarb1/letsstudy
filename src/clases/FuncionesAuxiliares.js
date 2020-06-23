@@ -83,11 +83,36 @@ class FuncionesAuxiliares {
         // Establecemos la fecha de inicio  y fin
         let tempInitDate = new Date(datosDeSesiones[i].inicioSesion);
         let tempEndDate = new Date(datosDeSesiones[i].finSesion);
-        let tempAsig = new Date(datosDeSesiones[i].asignatura);
+        // Creamos el objeto asignatura de la sesion
+        let tempAsig;
+        // Comprobamos si la asignatura es nula.
+        if(datosDeSesiones[i].asignatura===null || datosDeSesiones[i].asignatura===undefined){
+          tempAsig=null;
+        } // Si no es nulo, construimos la asignatura 
+        else{
+          tempAsig = new Asignatura(datosDeSesiones[i].asignatura.nombre,null);
+          let tmpObj;
+          // Si no hay objetivo, lo ponemos a nulo
+          if(datosDeSesiones[i].asignatura.objetivo===null ||datosDeSesiones[i].asignatura.objetivo===undefined ){
+            tmpObj=null;
+          } 
+          // Si no, construimos objetivo de la asignatura
+          else{
+            tmpObj=new Objetivo(datosDeSesiones[i].asignatura.objetivo.duracion, datosDeSesiones[i].asignatura.objetivo.frecuencia);
+            tmpObj.conseguido = datosDeSesiones[i].asignatura.objetivo.conseguido;
+            tmpObj.racha = datosDeSesiones[i].asignatura.objetivo.racha;
+            tmpObj.periodoConseguido = datosDeSesiones[i].asignatura.objetivo.periodoConseguido;
+            tmpObj.tiempoRestante = datosDeSesiones[i].asignatura.objetivo.tiempoRestante;
+  
+          }
+          // Asignamos objetivo a la asignatura
+          tempAsig.objetivo=tmpObj;
+        }
         // Re-creamos la sesion
         let tempSesion = new SesionEstudio(tempInitDate, tempEndDate, tempAsig);
         // La añadimos a la coleccion
         Usuario.$usuarioLocal.getColeccionSesiones().addSesion(tempSesion);
+  
       }
 
       // Cargamos el plan de estudios
@@ -103,7 +128,7 @@ class FuncionesAuxiliares {
           tmpAsig.objetivo = null;
         } else {
           // Creamos objetivo, sin asignatura
-          tmpAsig.objetivo = new Objetivo(asig.objetivo.duracion, asig.objetivo.frecuencia, null);
+          tmpAsig.objetivo = new Objetivo(asig.objetivo.duracion, asig.objetivo.frecuencia);
           tmpAsig.objetivo.conseguido = asig.objetivo.conseguido;
           tmpAsig.objetivo.racha = asig.objetivo.racha;
           tmpAsig.objetivo.periodoConseguido = asig.objetivo.periodoConseguido;

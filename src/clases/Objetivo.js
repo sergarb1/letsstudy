@@ -3,7 +3,7 @@ import FuncionesAuxiliares from "./FuncionesAuxiliares.js"
 
 // La clase Objetivo representa un objetivo de tiempo de estudio a alcanzar.
 class Objetivo {
-  constructor(duracion = 2, frecuencia = 'diario', asignatura = null) {
+  constructor(duracion = 2, frecuencia = 'diario') {
     // Tiempo de estudio a alcanzar (minutos)
     this.duracion = duracion
     // Frecuencia del objetivo. Puede ser 'diario', 'semanal' o 'mensual'

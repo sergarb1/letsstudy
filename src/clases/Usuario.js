@@ -11,6 +11,9 @@ class Usuario {
         this.nombre = nombre;
         // Si hay una sesión de estudio iniciada contendrá un objeto Date con el inicio de la sesión. 'null' en caso contrario
         this.sesionEstudioIniciada = null;
+        // Si hay una sesión de estudio iniciada contendrá un objeto Asignatura con la asignatura asociada
+        // a la sesion o null' en caso de no tener asignatura asociada
+        this.sesionEstudioIniciadaAsignatura = null;
         // Demás objetos con los datos y configuración de estudio
         this.coleccionSesiones = new ColeccionSesiones();
         this.planEstudio = new PlanEstudio([], []);
@@ -25,6 +28,11 @@ class Usuario {
     // Devuelve el estado de la sesion de estudio
     getSesionEstudioIniciada() {
         return this.sesionEstudioIniciada;
+    }
+
+    // Devuelve el estado de la asgiantura sesion de estudio
+    getSesionEstudioIniciadASignatura() {
+        return this.sesionEstudioIniciadaAsingatura;
     }
 
     // Devuelvo el objeto coleccionSesiones
@@ -45,6 +53,10 @@ class Usuario {
     // Set sesionEstudioIniciada. Se le pasa un objeto date si está iniciada, 'null' si no
     setSesionEstudioIniciada(date) {
         this.sesionEstudioIniciada = date;
+    }
+    // Set sesionEstudioIniciadaAsignatura. Se le pasa un objeto Asignatura (puede ser null)
+    setSesionEstudioIniciadaAsignatura(asig) {
+        this.sesionEstudioIniciadaAsignatura = asig;
     }
     
 }
