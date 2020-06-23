@@ -299,16 +299,15 @@ export default {
     // Función para comprobar si se ha cumplido algún objetivo del usuario, después de cada sesión de estudio.
     compruebaObjetivoConseguido() {
       let arraySesiones = Usuario.$usuarioLocal
-        .getColeccionSesiones()
-        .getSesiones();
+        .getColeccionSesiones();
       let objetivos = Usuario.$usuarioLocal.getPlanEstudio().getObjetivos();
       objetivos.forEach(objetivo => {
-        if (objetivo.update(arraySesiones)) {
+        if (objetivo.update(arraySesiones, this.asignaturaElegida)) {
           // Si no hay asignatura elegida
           if (this.asignaturaElegida === null) {
             let message =
               "** ENHORABUENA, ACABAS DE CONSEGUIR UN OBJETIVO " +
-              objetivo.getFrecuencia().toUpperText();
+              objetivo.getFrecuencia().toUpperCase();
             let racha = objetivo.getRacha();
             let caption =
               racha > 1
@@ -321,7 +320,7 @@ export default {
             let asignatura = this.asignaturaElegida;
             let message =
               "** ENHORABUENA, ACABAS DE CONSEGUIR UN OBJETIVO " +
-              objetivo.getFrecuencia().toUpperText();
+              objetivo.getFrecuencia().toUpperCase();
             let racha = objetivo.getRacha();
             let caption =
               (racha > 1
