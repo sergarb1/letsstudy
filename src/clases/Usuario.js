@@ -31,7 +31,7 @@ class Usuario {
     }
 
     // Devuelve el estado de la asgiantura sesion de estudio
-    getSesionEstudioIniciadASignatura() {
+    getSesionEstudioIniciadAsignatura() {
         return this.sesionEstudioIniciadaAsingatura;
     }
 

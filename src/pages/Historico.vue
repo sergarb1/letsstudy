@@ -25,7 +25,7 @@
             <q-card class="my-card" v-for="(sesion, i) in sesiones.slice().reverse()" :key="i">
               <q-card-section class="text-white" :class="claseColorFondo()">
                 <!-- Se usará el moustache {{}} para llamar a sesion.asignatura -->
-                <div class="text-h4">Asignatura</div>
+                <div class="text-h6">{{ sesion.asignatura.nombre }}</div>
                 <div class="text-h6">{{ devuelveFechaFormat(sesion.inicioSesion) }}</div>
                 <div class="text-subtitle2">{{ devuelveDuracionFormat(sesion) }}</div>
               </q-card-section>

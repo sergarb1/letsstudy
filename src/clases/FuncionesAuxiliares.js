@@ -64,6 +64,8 @@ class FuncionesAuxiliares {
     // Si no existia en localStorage usuarioLocal por ser la primera vez, creamos el objeto con nuestro constructor
     if (!localStorage["usuarioLocal"]) {
       Usuario.$usuarioLocal = new Usuario("User");
+      // Meto una asignatura llamada "Estudio general" por defecto
+      Usuario.$usuarioLocal.planEstudio.addAsignatura(new Asignatura("Estudio general",null));
     }
     // Caso de que existe
     else {
@@ -122,6 +124,8 @@ class FuncionesAuxiliares {
       for (let x in datos.planEstudio.asignaturas) {
         // Obtenemos las propie asignatura
         let asig=datos.planEstudio.asignaturas[x];
+        
+        // Creamos objeto asignatura
         let tmpAsig = new Asignatura(asig.nombre,null);
         // Si no tiene objetivo, null, pero si tiene, creamos el objeto
         if (asig.objetivo === null || asig.objetivo===undefined ) {

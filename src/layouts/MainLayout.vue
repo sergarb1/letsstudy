@@ -69,7 +69,7 @@
             <q-item-label caption>Establece tus objetivos</q-item-label>
           </q-item-section>
         </q-item>
-        
+        <!--
         <q-item clickable to="ConfigurarPomodoro">
           <q-item-section avatar>
             <q-icon name="psychology" />
@@ -80,6 +80,7 @@
             <q-item-label caption>Configuralo a tu medida</q-item-label>
           </q-item-section>
         </q-item>
+        -->
         <q-item clickable to="AcercaDe">
           <q-item-section avatar>
             <q-icon name="info" />
@@ -127,7 +128,7 @@ export default {
     // Al iniciar la APP, cargamos el valor de LocalStorage en Usuario.$usuarioLocal
     FuncionesAuxiliares.restaurarEstadoLocalStorage();
   },
-  mounted(){
+  mounted() {
     FuncionesAuxiliares.pantallaCargaIniciar();
   }
 };

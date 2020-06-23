@@ -54,7 +54,7 @@ class Objetivo {
   }
 
   // Método a ejecutar después de cada sesión de estudio
-  update(coleccionDeSesiones) {
+  update(coleccionDeSesiones, asignatura) {
     this.conseguido = false  // inicializamos siempre a false
     let sesiones = null;
     let periodo = null;
@@ -77,7 +77,7 @@ class Objetivo {
     // Sumamos el tiempo y calculamos el tiempoRestante
     this.tiempoRestante = this.duracion // inicializamos siempre tiempoRestante a duracion
     let sumaTiempo = 0
-    if(this.getAsignatura() === null && sesiones != null) {  // si el objetivo no pertenece a ninguna asignatura se cogerán todas las sesiones
+    if(asignatura === null && sesiones != null) {  // si el objetivo no pertenece a ninguna asignatura se cogerán todas las sesiones
       sesiones.forEach(sesion => {
         sumaTiempo += FuncionesAuxiliares.segundosEntreFechas(
           sesion.getFinSesion(),
@@ -86,7 +86,8 @@ class Objetivo {
       })
     } else {  // si el objetivo está asignado a una asignatura, sólo se cogerán las sesiones de esa asignatura
       sesiones.forEach(sesion => {
-        sumaTiempo += sesion.getAsignatura() === this.getAsignatura() ? FuncionesAuxiliares.segundosEntreFechas(
+        // Comparamos el nombre de las asignaturas, sino comparamos referencias (no se compara el objeto)
+        sumaTiempo += sesion.getAsignatura().nombre === asignatura.nombre ? FuncionesAuxiliares.segundosEntreFechas(
           sesion.getFinSesion(),
           sesion.getInicioSesion()
         ) : 0

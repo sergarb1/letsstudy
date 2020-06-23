@@ -70,7 +70,8 @@ class PlanDeEstudio{
         let i;
         // Recorremos objetivos generales
         for(i=0;i<this.objetivos.lenght;i++){
-            this.objetivos[i].update(coleccionDeSesiones)
+            // Enviamos null, porque update requiere la asignatura y estos no tienen
+            this.objetivos[i].update(coleccionDeSesiones,null)
         }
         // Recorremos asignaturas generales
         for(i=0;i<this.asignaturas.lenght;i++){
@@ -78,7 +79,8 @@ class PlanDeEstudio{
                 continue;
             } // Caso de que la asignatura tenga objetivo, actualizamos su objetivo
             else{
-                this.asignaturas[i].objetivo.update(coleccionDeSesiones);
+                // Enviamos como segundo parametro la asignatura actual
+                this.asignaturas[i].objetivo.update(coleccionDeSesiones, this.asignaturas[i]);
             }
         }
     }

@@ -72,21 +72,7 @@ personalizaciones de estilo
         <q-btn color="light-blue" :label="textoCrono" @click="cambiarEstadoCrono()" />
 
         <q-separator vertical inset />
-        <!--Usamos el componente https://quasar.dev/vue-components/button
-        Asociamos al evento click que lleva a la pantalla de configuración de Pomodoro-->
-        <q-btn
-          align="around"
-          class="btn-fixed-width"
-          color="red-5"
-          label="Pomodoro"
-          icon="settings"
-          @click="configPomodoro=!configPomodoro"
-        />
-
-        <div class="q-pa-md q-gutter-sm">
-          <q-btn align="right" round color="blue-grey-11" icon />
-        </div>
-
+      
         <!-- Definimos dialogo a mostrar con la configuracion de pomodoro -->
         <q-dialog v-model="configPomodoro" persistent>
           <configurarPomodoro :botonListo="true" />
@@ -130,7 +116,7 @@ export default {
       estadoCrono: false, // true, crono funcionando, false, parado
       valorInterval: null, // variable utilizada para parar el "setInterval"
       frases: FrasesMotivadoras,
-      asignaturaElegida: null,
+      asignaturaElegida: Usuario.$usuarioLocal.planEstudio.asignaturas[0],
       listaAsignaturas: Usuario.$usuarioLocal.planEstudio.asignaturas,
       configPomodoro: false
     };
@@ -229,11 +215,11 @@ export default {
         this.fechaFin = new Date();
 
         //Usando la función para establecer el tiempo máximo de sesión
-        //Se pasa 4h máximo por cada sesión de estudio y las fechas de inicio y fin
+        //Se pasa 8h máximo por cada sesión de estudio y las fechas de inicio y fin
         //Si la sesión dura menos de 4h, devuelve la fecha de fin original, si no
-        //devuelve 4h después de la fecha de inicio
+        //devuelve 8h después de la fecha de inicio
         let fechaFinCorregida = FuncionesAuxiliares.tiempoMaximoSesion(
-          4,
+          8,
           this.fechaInicio,
           this.fechaFin
         );
@@ -265,8 +251,6 @@ export default {
         // Con clearInterval y la referencia al interval, cancelamos el hilo que se ejecuta a intervalos
         clearInterval(this.valorInterval);
 
-        // Como paramos, eliminamos la variable global que indica que la sesion activa
-        Usuario.$usuarioLocal.setSesionEstudioIniciada(null);
       }
     },
     // Definimos dos metodos para generar las distintas notificaciones: la de inicio de sesion y la de fin
@@ -308,7 +292,8 @@ export default {
       let objetivos = Usuario.$usuarioLocal.getPlanEstudio().getObjetivos();
       objetivos.forEach(objetivo => {
         if (objetivo.update(arraySesiones)) {
-          if (objetivo.getAsignatura === null) {
+          // Si no hay asignatura elegida
+          if (this.asignaturaElegida === null) {
             let message =
               "** ENHORABUENA, ACABAS DE CONSEGUIR UN OBJETIVO " +
               objetivo.getFrecuencia().toUpperText();
@@ -321,7 +306,7 @@ export default {
                 : "Empiezas una nueva racha con este objetivo";
             this.showNotifObjetivoConseguido(message, caption); // Emitimos notificación con mensaje y caption específico
           } else {
-            let asignatura = objetivo.getAsignatura();
+            let asignatura = this.asignaturaElegida;
             let message =
               "** ENHORABUENA, ACABAS DE CONSEGUIR UN OBJETIVO " +
               objetivo.getFrecuencia().toUpperText();

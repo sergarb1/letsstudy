@@ -8,81 +8,51 @@
     <q-list>
       <q-item>
         <q-item-section>
-          <q-item-label class="text-h6 text-weight-light">
-            Objetivo diario:
-          </q-item-label>
+          <q-item-label class="text-h6 text-weight-light">Objetivo diario:</q-item-label>
         </q-item-section>
         <q-item-section side top>
-          <q-input v-model="objetivoDiario"/>
+          <q-input v-model="objetivoDiario" />
         </q-item-section>
 
         <!-- aplicar con @click la acción necesaria dentro de estas secciones -->
         <q-item-section side top>
-          <q-icon 
-            name="settings"
-            color="gray"
-            @click="modificaObjetivo('diario')"
-          />
+          <q-icon size="xs" name="settings" color="gray" @click="modificaObjetivo('diario')" />
         </q-item-section>
         <q-item-section side top>
-          <q-icon
-            name="delete_forever"
-            color="red"
-            @click="eliminarObjetivo('diario')" 
-          />
+          <q-icon size="xs" name="delete_forever" color="red" @click="eliminarObjetivo('diario')" />
         </q-item-section>
       </q-item>
 
       <q-item>
         <q-item-section>
-          <q-item-label class="text-h6 text-weight-light">
-            Objetivo semanal:
-          </q-item-label>
+          <q-item-label class="text-h6 text-weight-light">Objetivo semanal:</q-item-label>
         </q-item-section>
         <q-item-section side top>
-          <q-input v-model="objetivoSemanal"/>
+          <q-input v-model="objetivoSemanal" />
         </q-item-section>
 
         <q-item-section side top>
-          <q-icon 
-            name="settings"
-            color="gray"
-            @click="modificaObjetivo('semanal')"
-          />
+          <q-icon size="xs" name="settings" color="gray" @click="modificaObjetivo('semanal')" />
         </q-item-section>
         <q-item-section side top>
-          <q-icon
-            name="delete_forever"
-            color="red"
-            @click="eliminarObjetivo('semanal')"
-          />
+          <q-icon size="xs" name="delete_forever" color="red" @click="eliminarObjetivo('semanal')" />
         </q-item-section>
       </q-item>
 
       <q-item>
         <q-item-section>
-          <q-item-label class="text-h6 text-weight-light">
-            Objetivo mensual:
-          </q-item-label>
+          <q-item-label class="text-h6 text-weight-light">Objetivo mensual:</q-item-label>
         </q-item-section>
 
         <q-item-section side top>
-          <q-input v-model="objetivoMensual"/>
+          <q-input v-model="objetivoMensual" />
         </q-item-section>
 
         <q-item-section side top>
-          <q-icon 
-            name="settings"
-            color="gray"
-            @click="modificaObjetivo('mensual')"
-          />
+          <q-icon size="xs" name="settings" color="gray" @click="modificaObjetivo('mensual')" />
         </q-item-section>
         <q-item-section side top>
-          <q-icon
-            name="delete_forever"
-            color="red"
-            @click="eliminarObjetivo('mensual')"
-          />
+          <q-icon size="xs" name="delete_forever" color="red" @click="eliminarObjetivo('mensual')" />
         </q-item-section>
       </q-item>
     </q-list>
@@ -90,19 +60,27 @@
     <div class="flex flex-center q-mt-md">
       <h4 class="doc-heading doc-h4 q-ma-xs text-weight-light">Asignaturas</h4>
     </div>
-    <!-- Lista de asignaturas, habría que hacer un bucle for con el q-item -->
+    <!-- Lista de asignaturas, 
+    Usamos planEstudio.asignaturas.slice(1) para que no salga la primera, que es
+    Estudio general-->
     <q-list>
-      <q-item v-for="asig in planEstudio.asignaturas" :key="asig.nombre">
+      <q-item v-for="asig in planEstudio.asignaturas.slice(1)" :key="asig.nombre">
+        <!-- El v-if es para que la asignatura nula no la muestre -->
         <q-item-section>
           <q-item-label class="text-h6 text-weight-light">{{asig.nombre}}</q-item-label>
         </q-item-section>
         <!-- aplicar con @click la acción necesaria dentro de estas secciones -->
         <q-item-section side top>
-          <q-icon name="settings" color="gray" />
+          <q-icon size="xs" name="settings" color="gray" />
         </q-item-section>
-        
-        <q-item-section side top  > 
-          <q-icon size="xs" name="delete_forever" clickable color="red"  @click="eliminarAsignaturaNombre(asig.nombre)" />
+
+        <q-item-section side top>
+          <q-icon
+            size="xs"
+            name="delete_forever"
+            color="red"
+            @click="eliminarAsignaturaNombre(asig.nombre)"
+          />
         </q-item-section>
       </q-item>
     </q-list>
@@ -122,14 +100,16 @@
           <div v-if="anadirObjetivoAsignatura">
             <q-slider
               v-model="duracionAsignatura"
-              :min=1
-              :max=120
+              :min="1"
+              :max="120"
               label
               :label-value="'Objetivo: ' + duracionAsignatura + 'h'"
               label-always
               class="q-mt-md"
             />
-            <q-select v-model="frecuencia" :options="optionsFrecuencia" label="Frecuencia" />
+            <q-select v-model="frecuencia" :options="optionsFrecuencia" 
+            :option-label="etiqueta => (etiqueta.charAt(0).toUpperCase() + etiqueta.slice(1))"
+            label="Frecuencia" />
           </div>
           <q-btn
             color="primary"
@@ -156,9 +136,9 @@ export default {
   data: function() {
     return {
       planEstudio: Usuario.$usuarioLocal.planEstudio,
-      objetivoDiario: '-',
-      objetivoSemanal: '-',
-      objetivoMensual: '-',
+      objetivoDiario: "-",
+      objetivoSemanal: "-",
+      objetivoMensual: "-",
       ventanaNuevaAsignatura: false,
       anadirObjetivoAsignatura: false,
       duracionAsignatura: 1,
@@ -179,68 +159,91 @@ export default {
     // Metodo que anayade una asignatura, usnado nombre de "this.nombreAsignatura"
     // y objetivo si procede
     anyadirAsignatura() {
-      //Comprueba que exista un nombre en el textfield
-      if (this.nombreAsignatura === "") {
+      // En primer lugar comprobamos si esta duplicado el nombre (no se permiten duplicados)
+      let nombreDuplicado = false;
+      // Recorremos la lista de asignaturas
+      for (let x in Usuario.$usuarioLocal.planEstudio.asignaturas) {
+        // Duplicado detectado
+        if (
+          this.nombreAsignatura ===
+          Usuario.$usuarioLocal.planEstudio.asignatura[x].nombre
+        ) {
+          nombreDuplicado = true;
+          break;
+        }
+      }
+
+      //Comprueba que exista un nombre en el textfield (en teoria Vue evita pulsar el boton vacio)
+      // O si esta duplicado
+      if (nombreDuplicado === true || this.nombreAsignatura === "") {
         //Si es '', muestra el error y sale del método
         this.errorAsignatura = true;
+        // Notificamos error duplicado
+        this.$q.notify({
+          type: "negative",
+          message: "Nombre de asignatura duplicado"
+        });
         return;
       } else {
         //Si es correcto, elimina el mensaje de error
         this.errorAsignatura = false;
         //Crea objeto asignatura
-        let asignatura = new Asignatura(this.nombreAsignatura,null);
+        let asignatura = new Asignatura(this.nombreAsignatura, null);
         //Si se ha marcado el toggle de objetivo para la asignatura
         if (this.anadirObjetivoAsignatura) {
           //Crear el objeto Objetivo con la duración y la frecuencia elegida
           let objetivo = new Objetivo(this.duracionAsignatura, this.frecuencia);
           //Se asigna el objetivo a la asignatura
-          asignatura.setObjetivo(objetivo); 
+          asignatura.setObjetivo(objetivo);
         }
-        
+
         //Se guarda en la variable Usuario y en localStorage
         Usuario.$usuarioLocal.getPlanEstudio().addAsignatura(asignatura);
         // Guardamos en el LocalStorage
         FuncionesAuxiliares.guardarEstadoLocalStorage();
         // Vaciamos el nombre de la asignatura
-        this.nombreAsignatura="";
+        this.nombreAsignatura = "";
       }
     },
-    modificaObjetivo(obj){
+    modificaObjetivo(obj) {
       let encontrado = false;
-      let duracion = null
+      let duracion = null;
 
       switch (obj) {
-        case 'diario':
+        case "diario":
           duracion = this.objetivoDiario;
           break;
-        case 'semanal':
+        case "semanal":
           duracion = this.objetivoSemanal;
           break;
-        case 'mensual':
+        case "mensual":
           duracion = this.objetivoMensual;
           break;
       }
 
-      if(!Number.isInteger(Number.parseInt(duracion))){
-        return
-      }else{
+      if (!Number.isInteger(Number.parseInt(duracion))) {
+        return;
+      } else {
         duracion = Number.parseInt(duracion);
       }
 
       this.planEstudio.objetivos.forEach(objetivo => {
-        if(objetivo.frecuencia === obj){
+        if (objetivo.frecuencia === obj) {
           encontrado = true;
           objetivo.duracion = duracion;
 
-          Usuario.$usuarioLocal.getPlanEstudio().getObjetivos().forEach(o => {
-            if(o.getFrecuencia() === obj){
-              o.setDuracion(duracion)
-            }
-          });
+          Usuario.$usuarioLocal
+            .getPlanEstudio()
+            .getObjetivos()
+            .forEach(o => {
+              if (o.getFrecuencia() === obj) {
+                o.setDuracion(duracion);
+              }
+            });
         }
       });
 
-      if(!encontrado){
+      if (!encontrado) {
         let objetivo = new Objetivo(duracion, obj);
         this.planEstudio.objetivos.push(objetivo);
         Usuario.$usuarioLocal.getPlanEstudio().addObjetivos(objetivo);
@@ -249,22 +252,21 @@ export default {
       FuncionesAuxiliares.guardarEstadoLocalStorage();
     },
     // Funcion que recibe el nombre de una asignatura y la elimina del Plan de estudios
-    eliminarAsignaturaNombre(nombreAsig){
-      for(let x in this.planEstudio.asignaturas){
-        if(this.planEstudio.asignaturas[x].nombre===nombreAsig){
-          this.planEstudio.asignaturas.splice(x,1);
+    eliminarAsignaturaNombre(nombreAsig) {
+      for (let x in this.planEstudio.asignaturas) {
+        if (this.planEstudio.asignaturas[x].nombre === nombreAsig) {
+          this.planEstudio.asignaturas.splice(x, 1);
         }
       }
       // Guardamos el estado de LocalStorage
       FuncionesAuxiliares.guardarEstadoLocalStorage();
     },
 
-
     eliminarObjetivo(obj) {
       //Recorre los objetivos
       this.planEstudio.objetivos.forEach(objetivo => {
         //Comprobación si es el objetivo que estamos buscando, y no tiene asignatura asignada
-        if(objetivo.frecuencia === obj && objetivo.asignatura === null){
+        if (objetivo.frecuencia === obj && objetivo.asignatura === null) {
           //Se elimina la frecuencia de ese objetivo en el objeto
           objetivo.frecuencia = null;
 
@@ -290,7 +292,10 @@ export default {
     getObjetivoSemanal() {
       if (this.planEstudio != null) {
         this.planEstudio.objetivos.forEach(objetivo => {
-          if (objetivo.frecuencia === "semanal" && objetivo.asignatura === null) {
+          if (
+            objetivo.frecuencia === "semanal" &&
+            objetivo.asignatura === null
+          ) {
             this.objetivoSemanal = objetivo.duracion;
           }
         });
@@ -300,7 +305,10 @@ export default {
     getObjetivoMensual() {
       if (this.planEstudio != null) {
         this.planEstudio.objetivos.forEach(objetivo => {
-          if (objetivo.frecuencia === "mensual" && objetivo.asignatura === null) {
+          if (
+            objetivo.frecuencia === "mensual" &&
+            objetivo.asignatura === null
+          ) {
             this.objetivoMensual = objetivo.duracion;
           }
         });
@@ -308,9 +316,7 @@ export default {
       this.objetivoMensual = "-";
     }
   },
-  computed: {
-    
-  }
+  computed: {}
 };
 </script>
 
