@@ -6,7 +6,7 @@ import {
 } from 'quasar';
 import FrasesMotivadoras from './FrasesMotivadoras.js';
 import Pomodoro from './Pomodoro.js';
-import PlanDeEstudio from './PlanEstudio.js';
+import PlanEstudio from './PlanEstudio.js';
 import Asignatura from './Asignatura.js';
 import Objetivo from './Objetivo.js';
 
