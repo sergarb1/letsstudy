@@ -40,7 +40,7 @@ estadísticas de tiempo de estudio del usuario -->
     barra segun el porcenaje de objetivo conseguido-->
     <!--Se añade una sutil animacion al entrar en la pagina -->
     <q-intersection transition="fade">
-      <div class="q-mb-sm">
+      <div class="q-my-md">
           <div class="text-h6">Estudiado hoy</div>
           <div class="text-body1 text-right text-grey-7">Objetivo: 2 horas</div>
           <div>
@@ -53,7 +53,7 @@ estadísticas de tiempo de estudio del usuario -->
             </q-linear-progress>
           </div>
       </div>
-      <div class="q-mb-sm">
+      <div class="q-my-md">
           <div class="text-h6">Semana</div>
           <div class="text-body1 text-right text-grey-7">Objetivo: 15 horas</div>
           <div>
@@ -69,7 +69,7 @@ estadísticas de tiempo de estudio del usuario -->
             </q-linear-progress>
           </div>
       </div>
-      <div class="q-mb-sm">
+      <div class="q-my-md">
           <div class="text-h6">Mes</div>
           <div class="text-body1 text-right text-grey-7">Objetivo: 80 horas</div>
           <div>
@@ -186,4 +186,5 @@ export default {
     text-align: right
     margin-right: 50px
     margin-top: 5px
+
 </style>
