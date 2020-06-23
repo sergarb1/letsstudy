@@ -21,12 +21,12 @@ class PlanDeEstudio{
     }
 
     // Anyade una nueva asignatura
-    addAsignaturas(nuevaAsig){
+    addAsignatura(nuevaAsig){
         this.asignaturas.push(nuevaAsig);
     }
 
     // Anyade un nuevo objetivo
-    addObjetivos(nuevoObj){
+    addObjetivo(nuevoObj){
         this.objetivos.push(nuevoObj);
     }
 

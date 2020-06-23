@@ -92,16 +92,17 @@
     </div>
     <!-- Lista de asignaturas, habría que hacer un bucle for con el q-item -->
     <q-list>
-      <q-item>
+      <q-item v-for="asig in planEstudio.asignaturas" :key="asig.nombre">
         <q-item-section>
-          <q-item-label class="text-h6 text-weight-light">Sistemas informáticos</q-item-label>
+          <q-item-label class="text-h6 text-weight-light">{{asig.nombre}}</q-item-label>
         </q-item-section>
         <!-- aplicar con @click la acción necesaria dentro de estas secciones -->
         <q-item-section side top>
           <q-icon name="settings" color="gray" />
         </q-item-section>
-        <q-item-section side top>
-          <q-icon name="delete_forever" color="red" />
+        
+        <q-item-section side top  > 
+          <q-icon size="xs" name="delete_forever" clickable color="red"  @click="eliminarAsignaturaNombre(asig.nombre)" />
         </q-item-section>
       </q-item>
     </q-list>
@@ -121,8 +122,8 @@
           <div v-if="anadirObjetivoAsignatura">
             <q-slider
               v-model="duracionAsignatura"
-              :min="1"
-              :max="120"
+              :min=1
+              :max=120
               label
               :label-value="'Objetivo: ' + duracionAsignatura + 'h'"
               label-always
@@ -130,15 +131,13 @@
             />
             <q-select v-model="frecuencia" :options="optionsFrecuencia" label="Frecuencia" />
           </div>
-          <div
-            v-if="errorAsignatura"
-            class="text-weight-light"
-          >Por favor, rellena los campo asignatura</div>
           <q-btn
             color="primary"
             label="Añadir asignatura"
-            @click="anadirAsignatura"
+            @click="anyadirAsignatura"
             class="q-mt-md"
+            :disable="nombreAsignatura.length===0"
+            v-close-popup
           />
         </q-card-section>
       </q-card>
@@ -156,30 +155,30 @@ export default {
   name: "PlanEstudio",
   data: function() {
     return {
-      planEstudio: null,
+      planEstudio: Usuario.$usuarioLocal.planEstudio,
       objetivoDiario: '-',
       objetivoSemanal: '-',
       objetivoMensual: '-',
       ventanaNuevaAsignatura: false,
       anadirObjetivoAsignatura: false,
-      duracionAsignatura: 0,
+      duracionAsignatura: 1,
       nombreAsignatura: "",
       frecuencia: "diario",
       optionsFrecuencia: ["diario", "semanal", "mensual"],
       errorAsignatura: false
     };
   },
-  mounted: function() {
-    //Rellenammos el objeto planEstudio
-    console.log(Usuario.$usuarioLocal)
-    this.planEstudio = Usuario.$usuarioLocal.getPlanEstudio();
+  // Usamos created, porque si usamos mounted se monta con el plan de estudios nulo
+  created: function() {
     // Llamadas a los métodos para mostrar los objetivos creados
     this.getObjetivoDiario();
     this.getObjetivoSemanal();
     this.getObjetivoMensual();
   },
   methods: {
-    anadirAsignatura() {
+    // Metodo que anayade una asignatura, usnado nombre de "this.nombreAsignatura"
+    // y objetivo si procede
+    anyadirAsignatura() {
       //Comprueba que exista un nombre en el textfield
       if (this.nombreAsignatura === "") {
         //Si es '', muestra el error y sale del método
@@ -189,18 +188,22 @@ export default {
         //Si es correcto, elimina el mensaje de error
         this.errorAsignatura = false;
         //Crea objeto asignatura
-        let asignatura = new Asignatura(this.nombreAsignatura);
+        let asignatura = new Asignatura(this.nombreAsignatura,null);
         //Si se ha marcado el toggle de objetivo para la asignatura
         if (this.anadirObjetivoAsignatura) {
           //Crear el objeto Objetivo con la duración y la frecuencia elegida
           let objetivo = new Objetivo(this.duracionAsignatura, this.frecuencia);
           //Se asigna la asignatura al objetivo y el objetivo a la asignatura
           objetivo.setAsignatura(asignatura);
-          asignatura.setObjetivo(objetivo);
+          asignatura.setObjetivo(objetivo); 
         }
+        
         //Se guarda en la variable Usuario y en localStorage
-        Usuario.$usuarioLocal.getPlanEstudio().addAsignaturas(asignatura);
+        Usuario.$usuarioLocal.getPlanEstudio().addAsignatura(asignatura);
+        // Guardamos en el LocalStorage
         FuncionesAuxiliares.guardarEstadoLocalStorage();
+        // Vaciamos el nombre de la asignatura
+        this.nombreAsignatura="";
       }
     },
     modificaObjetivo(obj){
@@ -246,6 +249,18 @@ export default {
 
       FuncionesAuxiliares.guardarEstadoLocalStorage();
     },
+    // Funcion que recibe el nombre de una asignatura y la elimina del Plan de estudios
+    eliminarAsignaturaNombre(nombreAsig){
+      for(let x in this.planEstudio.asignaturas){
+        if(this.planEstudio.asignaturas[x].nombre===nombreAsig){
+          this.planEstudio.asignaturas.splice(x,1);
+        }
+      }
+      // Guardamos el estado de LocalStorage
+      FuncionesAuxiliares.guardarEstadoLocalStorage();
+    },
+
+
     eliminarObjetivo(obj) {
       //Recorre los objetivos
       this.planEstudio.objetivos.forEach(objetivo => {

@@ -60,7 +60,6 @@ export default {
       this.text = JSON.stringify(Usuario.$usuarioLocal);
     },
     creaDatos() {
-      alert(this.$usuarioLocal);
       // Creación del usuario con nombre Usuario prueba
       //let user = new Usuario('Usuario prueba');
       Usuario.$usuarioLocal = new Usuario("Usuario test");

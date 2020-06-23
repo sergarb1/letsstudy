@@ -94,10 +94,12 @@ class FuncionesAuxiliares {
       Usuario.$usuarioLocal.planEstudio = new PlanEstudio([], []);
 
       // Para cada asignatura, creamos su objetivo y lo rellenamos
-      for (let asig in datos.planEstudio.asignaturas) {
+      for (let x in datos.planEstudio.asignaturas) {
+        // Obtenemos las propie asignatura
+        let asig=datos.planEstudio.asignaturas[x];
         let tmpAsig = new Asignatura(asig.nombre,null);
         // Si no tiene objetivo, null, pero si tiene, creamos el objeto
-        if (asig.objetivo === null) {
+        if (asig.objetivo === null || asig.objetivo===undefined ) {
           tmpAsig.objetivo = null;
         } else {
           // Creamos objetivo, sin asignatura
@@ -110,13 +112,16 @@ class FuncionesAuxiliares {
           // Anyadimos la propia asignatura
           tmpAsig.objetivo.setAsignatura(tmpAsig);
 
-          // Preparada la asignatura, la ponemos en el plan de estudios
-          Usuario.$usuarioLocal.planEstudio.addAsignatura(tmpAsig);
         }
+        // Preparada la asignatura, la ponemos en el plan de estudios
+        Usuario.$usuarioLocal.planEstudio.addAsignatura(tmpAsig);
       }
 
       // Para cada objetivo, creamos su objetivo y lo rellenamos
-      for (let obj in datos.planEstudio.objetivos) {
+      for (let x in datos.planEstudio.objetivos) {
+        // Obtenemos las propiedades del objetivo
+        let obj=datos.planEstudio.objetivos[x];
+        // Creamos el objeto Objetivo a rellenar
         let tmpObj = new objetivo(obj.duracion, obj.frecuencia,null);
         tmpObj.conseguido = obj.conseguido;
         tmpObj.racha = obj.racha;
@@ -124,7 +129,7 @@ class FuncionesAuxiliares {
         tmpObj.tiempoRestante = obj.tiempoRestante;
 
         // Si no tiene asignatura, null, pero si tiene, creamos el objeto
-        if (obj.asignatura === null) {
+        if (obj.asignatura === null || obj.asignatura===undefined ) {
           tmpObj.asignatura = null;
         } else {
           // Creamos asignatura, sin objetivo
@@ -132,10 +137,10 @@ class FuncionesAuxiliares {
 
           // Anyadimos el propio objetivo a la asignatura
           tmpObj.asignatura.setObjetivo(tmpObj);
-
-          // Preparado el objetivo, la ponemos en el plan de estudios
-          Usuario.$usuarioLocal.planEstudio.addObjetivo(tmpObj);
         }
+        
+        // Preparado el objetivo, la ponemos en el plan de estudios
+        Usuario.$usuarioLocal.planEstudio.addObjetivo(tmpObj);
       }
 
 
