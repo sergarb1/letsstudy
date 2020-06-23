@@ -16,10 +16,10 @@
 
         <!-- aplicar con @click la acción necesaria dentro de estas secciones -->
         <q-item-section side top>
-          <q-icon size="xs" name="settings" color="gray" @click="modificaObjetivo('diario')" />
+          <q-icon size="xs" name="settings" color="gray" @click="modificaObjetivo('diario')" class="cursor-pointer"/>
         </q-item-section>
         <q-item-section side top>
-          <q-icon size="xs" name="delete_forever" color="red" @click="eliminarObjetivo('diario')" />
+          <q-icon size="xs" name="delete_forever" color="red" @click="eliminarObjetivo('diario')" class="cursor-pointer"/>
         </q-item-section>
       </q-item>
 
@@ -32,10 +32,10 @@
         </q-item-section>
 
         <q-item-section side top>
-          <q-icon size="xs" name="settings" color="gray" @click="modificaObjetivo('semanal')" />
+          <q-icon size="xs" name="settings" color="gray" @click="modificaObjetivo('semanal')" class="cursor-pointer"/>
         </q-item-section>
         <q-item-section side top>
-          <q-icon size="xs" name="delete_forever" color="red" @click="eliminarObjetivo('semanal')" />
+          <q-icon size="xs" name="delete_forever" color="red" @click="eliminarObjetivo('semanal')" class="cursor-pointer"/>
         </q-item-section>
       </q-item>
 
@@ -49,12 +49,15 @@
         </q-item-section>
 
         <q-item-section side top>
-          <q-icon size="xs" name="settings" color="gray" @click="modificaObjetivo('mensual')" />
+          <q-icon size="xs" name="settings" color="gray" @click="modificaObjetivo('mensual')" class="cursor-pointer"/>
         </q-item-section>
         <q-item-section side top>
-          <q-icon size="xs" name="delete_forever" color="red" @click="eliminarObjetivo('mensual')" />
+          <q-icon size="xs" name="delete_forever" color="red" @click="eliminarObjetivo('mensual')" class="cursor-pointer"/>
         </q-item-section>
       </q-item>
+      <div v-if="errorObjetivo">
+        Introduce un valor numérico
+      </div>
     </q-list>
 
     <div class="flex flex-center q-mt-md">
@@ -71,7 +74,7 @@
         </q-item-section>
         <!-- aplicar con @click la acción necesaria dentro de estas secciones -->
         <q-item-section side top>
-          <q-icon size="xs" name="settings" color="gray" />
+          <q-icon size="xs" name="settings" color="gray" class="cursor-pointer"/>
         </q-item-section>
 
         <q-item-section side top>
@@ -107,9 +110,12 @@
               label-always
               class="q-mt-md"
             />
-            <q-select v-model="frecuencia" :options="optionsFrecuencia" 
-            :option-label="etiqueta => (etiqueta.charAt(0).toUpperCase() + etiqueta.slice(1))"
-            label="Frecuencia" />
+            <q-select
+              v-model="frecuencia"
+              :options="optionsFrecuencia"
+              :option-label="etiqueta => (etiqueta.charAt(0).toUpperCase() + etiqueta.slice(1))"
+              label="Frecuencia"
+            />
           </div>
           <q-btn
             color="primary"
@@ -145,6 +151,7 @@ export default {
       nombreAsignatura: "",
       frecuencia: "diario",
       optionsFrecuencia: ["diario", "semanal", "mensual"],
+      errorObjetivo: false,
       errorAsignatura: false
     };
   },
@@ -166,7 +173,7 @@ export default {
         // Duplicado detectado
         if (
           this.nombreAsignatura ===
-          Usuario.$usuarioLocal.planEstudio.asignatura[x].nombre
+          Usuario.$usuarioLocal.planEstudio.asignaturas[x].nombre
         ) {
           nombreDuplicado = true;
           break;
@@ -222,16 +229,27 @@ export default {
       }
 
       if (!Number.isInteger(Number.parseInt(duracion))) {
+        this.errorObjetivo = true;
+        switch (obj) {
+          case "diario":
+            this.objetivoDiario = '-';
+            break;
+          case "semanal":
+            this.objetivoSemanal = '-';
+            break;
+          case "mensual":
+            this.objetivoMensual = '-';
+            break;
+        }
         return;
       } else {
         duracion = Number.parseInt(duracion);
+        this.errorObjetivo = false;
       }
 
       this.planEstudio.objetivos.forEach(objetivo => {
         if (objetivo.frecuencia === obj) {
           encontrado = true;
-          objetivo.duracion = duracion;
-
           Usuario.$usuarioLocal
             .getPlanEstudio()
             .getObjetivos()
@@ -245,10 +263,8 @@ export default {
 
       if (!encontrado) {
         let objetivo = new Objetivo(duracion, obj);
-        this.planEstudio.objetivos.push(objetivo);
-        Usuario.$usuarioLocal.getPlanEstudio().addObjetivos(objetivo);
+        Usuario.$usuarioLocal.getPlanEstudio().addObjetivo(objetivo);
       }
-
       FuncionesAuxiliares.guardarEstadoLocalStorage();
     },
     // Funcion que recibe el nombre de una asignatura y la elimina del Plan de estudios
@@ -280,40 +296,28 @@ export default {
 
     //Métodos que recogen el objetivo correspondiente
     getObjetivoDiario() {
-      if (this.planEstudio != null) {
-        this.planEstudio.objetivos.forEach(objetivo => {
-          if (objetivo.frecuencia === "diario" && objetivo.asignatura == null) {
-            this.objetivoDiario = objetivo.duracion;
-          }
-        });
-      }
-      this.objetivoDiario = "-";
+      this.planEstudio.objetivos.forEach(objetivo => {
+        if (objetivo.frecuencia === "diario") {
+          this.objetivoDiario = objetivo.duracion;
+          return;
+        }
+      });
     },
     getObjetivoSemanal() {
-      if (this.planEstudio != null) {
-        this.planEstudio.objetivos.forEach(objetivo => {
-          if (
-            objetivo.frecuencia === "semanal" &&
-            objetivo.asignatura === null
-          ) {
-            this.objetivoSemanal = objetivo.duracion;
-          }
-        });
-      }
-      this.objetivoSemanal = "-";
+      this.planEstudio.objetivos.forEach(objetivo => {
+        if (objetivo.frecuencia === "semanal") {
+          this.objetivoSemanal = objetivo.duracion;
+          return;
+        }
+      });
     },
     getObjetivoMensual() {
-      if (this.planEstudio != null) {
-        this.planEstudio.objetivos.forEach(objetivo => {
-          if (
-            objetivo.frecuencia === "mensual" &&
-            objetivo.asignatura === null
-          ) {
-            this.objetivoMensual = objetivo.duracion;
-          }
-        });
-      }
-      this.objetivoMensual = "-";
+      this.planEstudio.objetivos.forEach(objetivo => {
+        if (objetivo.frecuencia === "mensual") {
+          this.objetivoMensual = objetivo.duracion;
+          return;
+        }
+      });
     }
   },
   computed: {}
