@@ -142,13 +142,12 @@ class FuncionesAuxiliares {
         // Preparada la asignatura, la ponemos en el plan de estudios
         Usuario.$usuarioLocal.planEstudio.addAsignatura(tmpAsig);
       }
-
       // Para cada objetivo, creamos su objetivo y lo rellenamos
       for (let x in datos.planEstudio.objetivos) {
         // Obtenemos las propiedades del objetivo
         let obj=datos.planEstudio.objetivos[x];
         // Creamos el objeto Objetivo a rellenar
-        let tmpObj = new objetivo(obj.duracion, obj.frecuencia,null);
+        let tmpObj = new Objetivo(obj.duracion, obj.frecuencia);
         tmpObj.conseguido = obj.conseguido;
         tmpObj.racha = obj.racha;
         tmpObj.periodoConseguido = obj.periodoConseguido;
