@@ -56,25 +56,28 @@ class Objetivo {
   // Método a ejecutar después de cada sesión de estudio
   update(coleccionDeSesiones) {
     this.conseguido = false  // inicializamos siempre a false
-    const sesiones = null;
-    const periodo = null;
+    let sesiones = null;
+    let periodo = null;
     const ahora = new Date()  // indicamos la fecha de hoy
     // Según la frecuencia calculamos las sesiones a tener en cuenta y el periodo que estamos tratando
     switch (this.frecuencia) {
       case 'diario':
         sesiones = coleccionDeSesiones.getSesionesDia(ahora)
         periodo = ahora.getDate()  // número del día
+        break
       case 'semanal':
         sesiones = coleccionDeSesiones.getSesionesSemana(ahora)
         periodo = this.getNumSemana(ahora)  // número de la semana (año)
+        break
       case 'mensual':
         sesiones = coleccionDeSesiones.getSesionesMes(ahora)
         periodo = ahora.getMonth()  // número del mes
+        break
     }
     // Sumamos el tiempo y calculamos el tiempoRestante
     this.tiempoRestante = this.duracion // inicializamos siempre tiempoRestante a duracion
     let sumaTiempo = 0
-    if(this.getAsignatura() === null) {  // si el objetivo no pertenece a ninguna asignatura se cogerán todas las sesiones
+    if(this.getAsignatura() === null && sesiones != null) {  // si el objetivo no pertenece a ninguna asignatura se cogerán todas las sesiones
       sesiones.forEach(sesion => {
         sumaTiempo += FuncionesAuxiliares.segundosEntreFechas(
           sesion.getFinSesion(),
