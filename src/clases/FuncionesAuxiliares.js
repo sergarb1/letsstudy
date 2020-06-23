@@ -109,9 +109,6 @@ class FuncionesAuxiliares {
           tmpAsig.objetivo.periodoConseguido = asig.objetivo.periodoConseguido;
           tmpAsig.objetivo.tiempoRestante = asig.objetivo.tiempoRestante;
 
-          // Anyadimos la propia asignatura
-          tmpAsig.objetivo.setAsignatura(tmpAsig);
-
         }
         // Preparada la asignatura, la ponemos en el plan de estudios
         Usuario.$usuarioLocal.planEstudio.addAsignatura(tmpAsig);
