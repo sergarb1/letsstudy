@@ -8,8 +8,6 @@ class Objetivo {
     this.duracion = duracion
     // Frecuencia del objetivo. Puede ser 'diario', 'semanal' o 'mensual'
     this.frecuencia = frecuencia
-    // Nombre de la asignatura
-    this.asignatura = asignatura
     // Si se ha conseguido el objetivo (true/false)
     this.conseguido = false
     // Cuantas veces seguidas se ha conseguido (nº entero)
@@ -32,13 +30,6 @@ class Objetivo {
   }
   setFrecuencia(tiempo) {
     this.frecuencia = tiempo
-  }
-
-  getAsignatura() {
-    return this.asignatura
-  }
-  setAsignatura(asignatura) {
-    this.asignatura = asignatura
   }
 
   getIsConseguido() {
@@ -103,7 +94,7 @@ class Objetivo {
     // si se cumple el objetivo
     if (this.tiempoRestante <= 0) {
         // si NO se había conseguido antes o se consiguió el periodo justo anterior
-      if (this.periodoConseguido == null || (periodo - this.periodoConseguido == 1)) {
+      if (this.periodoConseguido === null || (periodo - this.periodoConseguido === 1)) {
         this.conseguido = true  // conseguido!
         this.periodoConseguido = periodo  // registramos periodo de consecución
         this.racha += 1  // aumentamos la racha en uno

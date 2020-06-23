@@ -193,8 +193,7 @@ export default {
         if (this.anadirObjetivoAsignatura) {
           //Crear el objeto Objetivo con la duración y la frecuencia elegida
           let objetivo = new Objetivo(this.duracionAsignatura, this.frecuencia);
-          //Se asigna la asignatura al objetivo y el objetivo a la asignatura
-          objetivo.setAsignatura(asignatura);
+          //Se asigna el objetivo a la asignatura
           asignatura.setObjetivo(objetivo); 
         }
         

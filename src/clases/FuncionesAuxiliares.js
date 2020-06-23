@@ -128,17 +128,6 @@ class FuncionesAuxiliares {
         tmpObj.periodoConseguido = obj.periodoConseguido;
         tmpObj.tiempoRestante = obj.tiempoRestante;
 
-        // Si no tiene asignatura, null, pero si tiene, creamos el objeto
-        if (obj.asignatura === null || obj.asignatura===undefined ) {
-          tmpObj.asignatura = null;
-        } else {
-          // Creamos asignatura, sin objetivo
-          tmpObj.asignatura = new Asignatura(obj.asignatura.nombre, null);
-
-          // Anyadimos el propio objetivo a la asignatura
-          tmpObj.asignatura.setObjetivo(tmpObj);
-        }
-        
         // Preparado el objetivo, la ponemos en el plan de estudios
         Usuario.$usuarioLocal.planEstudio.addObjetivo(tmpObj);
       }
