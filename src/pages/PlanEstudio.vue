@@ -1,14 +1,14 @@
 <template>
   <q-page class="flex column q-pa-md col-8 q-a-md">
-    <h3 class="Oswald doc-heading doc-h3 q-ma-xs">Plan de estudio</h3>
+    <h4 class="Oswald doc-heading doc-h4 q-ma-xs">Plan de estudio</h4>
     <div class="flex flex-center q-mt-md">
-      <h4 class="Oswald doc-heading doc-h4 q-ma-xs text-weight-light">Objetivos</h4>
+      <h5 class="Oswald doc-heading doc-h5 q-ma-xs text-weight-light">Objetivos</h5>
     </div>
     <!-- Lista de objetivos, cada q-item representa un objetivo -->
     <q-list>
       <q-item>
         <q-item-section>
-          <q-item-label class="Oswald text-h6 text-weight-light">
+          <q-item-label class="Oswald text-body2 text-weight-light">
             Objetivo diario:
             <!-- Muestra la variable objetivoDiario -->
             <span class="text-weight-bold">{{ objetivoDiario }}</span>

@@ -32,9 +32,8 @@
             <q-item class="justify-start">
               <q-btn
                 push
-                rounded
                 size="sm"
-                color="primary"
+                color="white text-black"
                 icon="get_app"
                 label="Let's Study en Google Play"
                 @click="abrirURL('https://github.com/sergarb1/letsstudy-downloads')"
@@ -43,13 +42,14 @@
             <q-item class="justify-start">
               <q-btn
                 push
-                rounded
+                
                 size="sm"
                 color="primary"
                 icon="cloud"
                 label="Let's Study (Online)"
                 @click="abrirURL('https://apuntesfpinformatica.es/letsstudy')"
               />
+              <iframe src="https://marca.com" />
             </q-item>
             <q-item class="justify-start">
               <q-btn

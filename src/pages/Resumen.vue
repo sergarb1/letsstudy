@@ -4,86 +4,54 @@ estadísticas de tiempo de estudio del usuario -->
   <div class="q-pa-md col-8 q-gutter-md" v-touch-swipe.mouse.horizontal="userHasSwiped">
     <div class="flex column total_estudiado">
       <!--Muestra el total estudiado-->
-      <div class="text-h5 text-white horas">{{ total }}</div>
+      <div class="text-h5 text-white horas Oswald">{{ tiempoTotal }}</div>
     </div>
-    <!--Botones para ir cambiando a las vistas: por totales o por asignaturas
-    y botón de plan de estudio-->
-    <div class="flex flex-center q-gutter-md">
-      <!--falta configurar el q-dialog para las asignaturas-->
-      <q-btn 
-        align="between" 
-        class="btn-fixed-width" 
-        color="yellow-14" 
-        label="ASIGNATURAS" 
-        icon="fact_check"
-        @click="ventanaAsignaturas=!ventanaAsignaturas"
-      />
-      <!--boton que lleva a plan de estudio, para 
-      poder cambiar objetivos...etc-->
-      <q-btn 
-        align="between" 
-        class="btn-fixed-width" 
-        color="teal-14" 
-        icon="emoji_events" 
-        label="Plan de Estudio" 
-        clickable to="PlanEstudio"
+
+    <div class="q-gutter-y-md">
+      <q-tabs
+        inline-label
+        v-model="tabObjetivos"
+        active-color="white"
+        indicator-color="blue"
+        dense
+        class="text-white"
+        align="justify"
+      >
+        <q-tab
+          name="general"
+          label="General"
+          align="between"
+          class="bg-yellow-14"
+          icon="track_changes"
         />
+        <q-tab
+          name="asignaturas"
+          label="Por asignaturas"
+          align="between"
+          class="bg-teal-14"
+          icon="fact_check"
+        />
+      </q-tabs>
+
+      <q-tab-panels v-model="tabObjetivos" animated class="text-white">
+        <q-tab-panel name="general">
+          <ResumenGeneral />
+        </q-tab-panel>
+
+        <q-tab-panel name="asignaturas">
+          <ResumenAsignaturas />
+        </q-tab-panel>
+
+        <q-tab-panel name="movies">
+          <div class="text-h6">Movies</div>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </q-tab-panel>
+      </q-tab-panels>
     </div>
     <!-- Faltaría enlazar los objetivos. De momento he enlazado dia, 
     semana y mes. También faltaría configurar el avance de la 
     barra segun el porcenaje de objetivo conseguido-->
     <!--Se añade una sutil animacion al entrar en la pagina -->
-    <q-intersection transition="fade">
-      <div class="q-my-md">
-          <div class="text-h6">Estudiado hoy</div>
-          <div class="text-body1 text-right text-grey-7">Objetivo: 2 horas</div>
-          <div>
-            <q-linear-progress size="20px" :value="progress" color="light-blue-3">
-              <div class="absolute-full flex flex-center">
-                <q-badge color="light-blue-3" text-color="blue-grey-10">
-                  {{hoy}}h
-                </q-badge>
-              </div>
-            </q-linear-progress>
-          </div>
-      </div>
-      <div class="q-my-md">
-          <div class="text-h6">Semana</div>
-          <div class="text-body1 text-right text-grey-7">Objetivo: 15 horas</div>
-          <div>
-            <q-linear-progress size="20px" :value="progress1" color="cyan-3">
-              <div class="absolute-full flex flex-center">
-                <!--He dejado el fondo blanco por si os parece que se ve más 
-                claro, pero se puede dejar como el de arriba, cambiando el atributo
-                color de q-badge de white a cyan-3-->
-                <q-badge color="white" text-color="blue-grey-9">
-                  {{semana}}
-                </q-badge>
-              </div>
-            </q-linear-progress>
-          </div>
-      </div>
-      <div class="q-my-md">
-          <div class="text-h6">Mes</div>
-          <div class="text-body1 text-right text-grey-7">Objetivo: 80 horas</div>
-          <div>
-            <q-linear-progress size="20px" :value="progress2" color="teal-3">
-              <div class="absolute-full flex flex-center">
-                <q-badge color="white" text-color="blue-grey-9">
-                  {{mes}}h
-                </q-badge>
-              </div>
-            </q-linear-progress>
-          </div>
-      </div>
-    </q-intersection>
-    <!-- Dialogo donde se cargara cuando se haga click en asignaturas el componente
-    con el resumen de asignaturas -->
-    <q-dialog v-model="ventanaAsignaturas">
-      <ResumenAsignaturas/>
-    </q-dialog>
   </div>
-
 </template>
 
 <script>
@@ -91,24 +59,22 @@ estadísticas de tiempo de estudio del usuario -->
 import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
 import Usuario from "../clases/Usuario.js";
 import ResumenAsignaturas from "../componentes/ResumenAsignaturas.vue";
+import ResumenGeneral from "../componentes/ResumenGeneral.vue";
 
 export default {
   name: "Resumen",
   // Para incluir el componente Resumen asignaturas
-  components:{
-    ResumenAsignaturas  
+  components: {
+    ResumenAsignaturas,
+    ResumenGeneral
   },
   /* Creamos la función 'data' */
   data: function() {
-    return { 
-      //progreso de las barras de dia, semana, mes
-      progress: 0.65,
-      progress1: 0.75,
-      progress2: 0.20,
-      // Valor que indica si vemos o no la ventana
-      ventanaAsignaturas:false 
-      
-      };
+    return {
+      // Pestaña
+      tabObjetivos: "general",
+      tiempoTotal: this.total()
+    };
   },
   methods: {
     userHasSwiped(obj) {
@@ -120,52 +86,6 @@ export default {
       if (obj.direction === "left") {
         this.$router.push("/Cronometro");
       }
-    }
-  },
-  /* Creamos variables 'computadas' que hacen un cálculo cada vez que entramos en el
-  componente, dándonos los datos de tiempos de estudios siempre actualizados */
-  computed: {
-    hoy: function() {
-      const ahora = new Date();
-      const arraySesiones = Usuario.$usuarioLocal
-        .getColeccionSesiones()
-        .getSesionesDia(ahora);
-      let sumaSegundos = 0;
-      arraySesiones.forEach(sesion => {
-        sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(
-          sesion.getFinSesion(),
-          sesion.getInicioSesion()
-        );
-      });
-      return FuncionesAuxiliares.segundosToText(sumaSegundos);
-    },
-    semana: function() {
-      const ahora = new Date();
-      const arraySesiones = Usuario.$usuarioLocal
-        .getColeccionSesiones()
-        .getSesionesSemana(ahora);
-      let sumaSegundos = 0;
-      arraySesiones.forEach(sesion => {
-        sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(
-          sesion.getFinSesion(),
-          sesion.getInicioSesion()
-        );
-      });
-      return FuncionesAuxiliares.segundosToText(sumaSegundos);
-    },
-    mes: function() {
-      const ahora = new Date();
-      const arraySesiones = Usuario.$usuarioLocal
-        .getColeccionSesiones()
-        .getSesionesMes(ahora);
-      let sumaSegundos = 0;
-      arraySesiones.forEach(sesion => {
-        sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(
-          sesion.getFinSesion(),
-          sesion.getInicioSesion()
-        );
-      });
-      return FuncionesAuxiliares.segundosToText(sumaSegundos);
     },
     total: function() {
       const calculoTotal = Usuario.$usuarioLocal
@@ -173,6 +93,12 @@ export default {
         .tiempoTotalEstudio();
       return FuncionesAuxiliares.segundosToText(calculoTotal);
     }
+  },
+  /* Creamos variables 'computadas' que hacen un cálculo cada vez que entramos en el
+  componente, dándonos los datos de tiempos de estudios siempre actualizados */
+  computed: {
+
+    
   }
 };
 </script>
