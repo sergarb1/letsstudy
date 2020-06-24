@@ -5,33 +5,26 @@ estadísticas de tiempo de estudio del usuario -->
     <div class="flex column total_estudiado">
       <!--Muestra el total estudiado-->
       <div class="text-h5 text-white horas">{{ total }}</div>
-      <!-- falta enlazar objetivo,
-      de momento está con texto para ver como queda-->
-      <div class="text-subtitle2 objetivo text-grey-8">120H</div>
     </div>
     <!--Botones para ir cambiando a las vistas: por totales o por asignaturas
-    y botón de settings que lleva al plan de estudio-->
+    y botón de plan de estudio-->
     <div class="flex flex-center q-gutter-md">
+      <!--falta configurar el q-dialog para las asignaturas-->
       <q-btn 
         align="between" 
         class="btn-fixed-width" 
         color="yellow-14" 
-        label="TOTALES" 
-        clickable to="PlanEstudio"
-      />
-      <!--falta configurar totales por asignaturas-->
-      <q-btn 
-        align="between" 
-        class="btn-fixed-width" 
-        color="teal-9" 
         label="ASIGNATURAS" 
+        icon="fact_check"
       />
-      <!--boton de settings que lleva a plan de estudio-->
+      <!--boton que lleva a plan de estudio, para 
+      poder cambiar objetivos...etc-->
       <q-btn 
         align="between" 
         class="btn-fixed-width" 
-        color="grey-8" 
-        icon="settings" 
+        color="teal-14" 
+        icon="emoji_events" 
+        label="Plan de Estudio" 
         clickable to="PlanEstudio"
         />
     </div>
@@ -175,16 +168,12 @@ export default {
 .total_estudiado
   height: 200px
   width: 250px
-  background-image: url("~assets/logo_totales.png")
+  background-image: url("~assets/logo_totales2.png")
   background-repeat: no-repeat
   margin: 0 auto
   .horas
     margin-top: 67px
     text-align: right
     margin-right: 55px
-  .objetivo
-    text-align: right
-    margin-right: 50px
-    margin-top: 5px
 
 </style>
