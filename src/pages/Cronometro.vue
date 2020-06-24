@@ -271,7 +271,7 @@ export default {
         message: "** Iniciada nueva sesión de estudio **",
         caption: this.frases.getFraseMotivadoraAleatoria(), // Con cada inicio de sesión nos pasará aleatoriamente, una frase de la lista
         color: "light-blue-4",
-        position: "center"
+        position: "bottom"
       });
     },
     // Mostramos la notificacion de fin de sesion
@@ -280,7 +280,7 @@ export default {
         message: "** Sesión de estudio registrada **",
         caption: "Ahora puedes consultarla en el histórico...",
         color: "blue-grey-3",
-        position: "center"
+        position: "bottom"
       });
     },
     // Manejador para gestionar el swipe de la pagina (lo que nos mueve de seccion al arrastrar)
