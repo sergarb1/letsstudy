@@ -14,11 +14,10 @@
             Por unos cuantos alumnos y alumnas entregados al lado luminoso de
             la programación y unos profesores armados de paciencia infinita.
           </div>
-          
         </q-card-section>
-        
+
         <q-card-section>
-          <q-list >
+          <q-list>
             <q-item class="justify-start">
               <q-btn
                 push
@@ -32,7 +31,6 @@
             </q-item>
             <q-item class="justify-start">
               <q-btn
-             
                 push
                 rounded
                 size="sm"
@@ -44,7 +42,6 @@
             </q-item>
             <q-item class="justify-start">
               <q-btn
-             
                 push
                 rounded
                 size="sm"
@@ -56,7 +53,6 @@
             </q-item>
             <q-item class="justify-start">
               <q-btn
-             
                 push
                 rounded
                 size="sm"
@@ -64,6 +60,19 @@
                 icon="desktop_windows"
                 label="Let's Study para Escritorio"
                 @click="abrirURL('https://github.com/sergarb1/letsstudy-downloads')"
+              />
+            </q-item>
+
+            <q-item class="justify-start">
+              <!-- Este botón borra el LocalStorage-->
+              <q-btn
+                push
+                rounded
+                size="sm"
+                color="primary"
+                icon="restore"
+                label="Restaurar aplicación"
+                @click="borrarLocalStorage"
               />
             </q-item>
           </q-list>
@@ -76,7 +85,7 @@
 <script>
 // Para poder usar OpenURl que gestione el abrir enlaces en cada contexto
 import { openURL } from "quasar";
-
+import { Dialog } from "quasar";
 export default {
   name: "AcercaDe",
   // Metodos accesibles desde Vue
@@ -84,6 +93,26 @@ export default {
     // Funcion que recibe un URL y la abre
     abrirURL(url) {
       openURL(url);
+    },
+    //funcion que borra el localStorage
+    borrarLocalStorage() {
+      this.$q.dialog({
+          title: "Restaurar",
+          message:
+            "¿Quieres restaurar los valores por defecto? Se perderán todos los datos.",
+          cancel: true,
+          persistent: true
+        })
+        .onOk(() => {
+          localStorage.clear();
+          // Para que el objeto este bien, recuperamos del LocalStorage y asi se re-construye el objeto
+          FuncionesAuxiliares.restaurarEstadoLocalStorage();
+          this.$q.notify({
+            message: "Aplicación restaurada a valores por defecto.",
+            color: "light-blue-4",
+            position: "bottom"
+          });
+        });
     }
   }
 };
