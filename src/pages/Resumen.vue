@@ -16,6 +16,7 @@ estadísticas de tiempo de estudio del usuario -->
         color="yellow-14" 
         label="ASIGNATURAS" 
         icon="fact_check"
+        @click="ventanaAsignaturas=!ventanaAsignaturas"
       />
       <!--boton que lleva a plan de estudio, para 
       poder cambiar objetivos...etc-->
@@ -76,23 +77,38 @@ estadísticas de tiempo de estudio del usuario -->
           </div>
       </div>
     </q-intersection>
+    <!-- Dialogo donde se cargara cuando se haga click en asignaturas el componente
+    con el resumen de asignaturas -->
+    <q-dialog v-model="ventanaAsignaturas">
+      <ResumenAsignaturas/>
+    </q-dialog>
   </div>
+
 </template>
 
 <script>
 // Importo la clase FuncionesAuxiliares
 import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
 import Usuario from "../clases/Usuario.js";
+import ResumenAsignaturas from "../componentes/ResumenAsignaturas.vue";
 
 export default {
   name: "Resumen",
+  // Para incluir el componente Resumen asignaturas
+  components:{
+    ResumenAsignaturas  
+  },
   /* Creamos la función 'data' */
   data: function() {
     return { 
       //progreso de las barras de dia, semana, mes
       progress: 0.65,
       progress1: 0.75,
-      progress2: 0.20 };
+      progress2: 0.20,
+      // Valor que indica si vemos o no la ventana
+      ventanaAsignaturas:false 
+      
+      };
   },
   methods: {
     userHasSwiped(obj) {

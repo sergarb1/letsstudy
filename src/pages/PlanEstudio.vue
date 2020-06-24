@@ -473,7 +473,7 @@ export default {
           .getPlanEstudio()
           .getAsignaturas()
           .forEach(asig => {
-            if (asig.nombre == this.asignaturaAModificar) {
+            if (asig.nombre === this.asignaturaAModificar) {
               // Se ajusta al nuevo nombre
               asig.setNombre(this.nombreAsignatura);
 
