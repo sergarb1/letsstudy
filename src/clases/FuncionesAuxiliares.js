@@ -78,7 +78,33 @@ class FuncionesAuxiliares {
       Usuario.$usuarioLocal = new Usuario(datos.nombre);
       // Le asignamos el estado de sesion, si no es null lo asignamos como fecha.
       Usuario.$usuarioLocal.sesionEstudioIniciada = (datos.sesionEstudioIniciada != null) ? new Date(datos.sesionEstudioIniciada) : null;
+      
+      // Creamos la asignatura de la sesion de estudio iniciada
+      if(datos.sesionEstudioIniciadaAsignatura===null){
+        Usuario.$usuarioLocal.sesionEstudioIniciadaAsignatura=null;
+      } // Caso que si que exista 
+      else{
+        let tempAsig = new Asignatura(datos.sesionEstudioIniciadaAsignatura.nombre,null);
+        let tmpObj;
+        // Si no hay objetivo, lo ponemos a nulo
+        if(datos.sesionEstudioIniciadaAsignatura.objetivo===null || datos.sesionEstudioIniciadaAsignatura.objetivo===undefined ){
+          tmpObj=null;
+        } 
+        // Si no, construimos objetivo de la asignatura
+        else{
+          tmpObj=new Objetivo(datos.sesionEstudioIniciadaAsignatura.objetivo.duracion, datos.sesionEstudioIniciadaAsignatura.objetivo.frecuencia);
+          tmpObj.conseguido =datos.sesionEstudioIniciadaAsignatura.objetivo.conseguido;
+          tmpObj.racha = datos.sesionEstudioIniciadaAsignatura.objetivo.racha;
+          tmpObj.periodoConseguido = datos.sesionEstudioIniciadaAsignatura.objetivo.periodoConseguido;
+          tmpObj.tiempoRestante = datos.sesionEstudioIniciadaAsignatura.objetivo.tiempoRestante;
+        }
+        
+        // Asignamos objetivo a la asignatura
+        tempAsig.objetivo=tmpObj;
+        Usuario.$usuarioLocal.sesionEstudioIniciadaAsignatura=tempAsig;
 
+      }
+      
       // Le asignamos sus sesiones
       let datosDeSesiones = datos.coleccionSesiones.arraySesionesEstudio;
       for (let i = 0; i < datosDeSesiones.length; i++) {
@@ -142,13 +168,12 @@ class FuncionesAuxiliares {
         // Preparada la asignatura, la ponemos en el plan de estudios
         Usuario.$usuarioLocal.planEstudio.addAsignatura(tmpAsig);
       }
-
       // Para cada objetivo, creamos su objetivo y lo rellenamos
       for (let x in datos.planEstudio.objetivos) {
         // Obtenemos las propiedades del objetivo
         let obj=datos.planEstudio.objetivos[x];
         // Creamos el objeto Objetivo a rellenar
-        let tmpObj = new objetivo(obj.duracion, obj.frecuencia,null);
+        let tmpObj = new Objetivo(obj.duracion, obj.frecuencia);
         tmpObj.conseguido = obj.conseguido;
         tmpObj.racha = obj.racha;
         tmpObj.periodoConseguido = obj.periodoConseguido;

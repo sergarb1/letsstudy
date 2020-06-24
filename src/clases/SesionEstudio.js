@@ -55,7 +55,7 @@ class SesionEstudio {
         let ahora = new Date().getTime();
         let antes = ahora - 31536000000; // 365*24*60*60*1000
         // Por ahora las aleatorias, simplemente no tienen asignatura
-        let asig = null;
+        let asig = 'Estudio general';
         // Obtenemos fecha de inicio aleatoria
         let inicio = FuncionesAuxiliares.numeroAleatorio(antes, ahora);
         // Tiempo estudiado entre 20 y 120 minutos
@@ -71,7 +71,7 @@ class SesionEstudio {
         // Milisegundos estudiados entre mMin y mMax
         let estudiado = FuncionesAuxiliares.numeroAleatorio(mMin*60000, mMax*60000);
         // Por ahora las aleatorias, simplemente no tienen asignatura
-        let asig = null;
+        let asig = 'Estudio general';
         // Devolvemos la sesión de estudio
         return new SesionEstudio(new Date(inicio), new Date(inicio + estudiado), asig);
     }
