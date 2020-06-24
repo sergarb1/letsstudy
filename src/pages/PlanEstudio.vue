@@ -1,14 +1,14 @@
 <template>
   <q-page class="flex column q-pa-md col-8 q-a-md">
-    <h3 class="doc-heading doc-h3 q-ma-xs">Plan de estudio</h3>
+    <h3 class="Oswald doc-heading doc-h3 q-ma-xs">Plan de estudio</h3>
     <div class="flex flex-center q-mt-md">
-      <h4 class="doc-heading doc-h4 q-ma-xs text-weight-light">Objetivos</h4>
+      <h4 class="Oswald doc-heading doc-h4 q-ma-xs text-weight-light">Objetivos</h4>
     </div>
     <!-- Lista de objetivos, cada q-item representa un objetivo -->
     <q-list>
       <q-item>
         <q-item-section>
-          <q-item-label class="text-h6 text-weight-light">
+          <q-item-label class="Oswald text-h6 text-weight-light">
             Objetivo diario:
             <!-- Muestra la variable objetivoDiario -->
             <span class="text-weight-bold">{{ objetivoDiario }}</span>
@@ -37,7 +37,7 @@
 
       <q-item>
         <q-item-section>
-          <q-item-label class="text-h6 text-weight-light">
+          <q-item-label class="Oswald text-h6 text-weight-light">
             Objetivo semanal:
             <span class="text-weight-bold">{{ objetivoSemanal }}</span>
           </q-item-label>
@@ -48,7 +48,7 @@
             size="xs"
             name="settings"
             color="gray"
-            @click="mostrarVentanaModificaObjetivo('semanal')"
+            @click=" mostrarVentanaModificaObjetivo('semanal')"
             class="cursor-pointer"
           />
         </q-item-section>
@@ -65,7 +65,7 @@
 
       <q-item>
         <q-item-section>
-          <q-item-label class="text-h6 text-weight-light">
+          <q-item-label class="Oswald text-h6 text-weight-light">
             Objetivo mensual:
             <span class="text-weight-bold">{{ objetivoMensual }}</span>
           </q-item-label>
@@ -98,17 +98,17 @@
       <q-card>
         <!-- Título de la tarjeta y botón cerrar -->
         <q-card-section class="row items-center q-pb-none">
-          <div class="text-h6 text-weight-light">Objetivo {{ objetivoAModificar }}</div>
+          <div class="Oswald text-h6 text-weight-light">Objetivo {{ objetivoAModificar }}</div>
           <q-space />
           <q-btn icon="close" flat round dense v-close-popup />
         </q-card-section>
 
         <!-- Hace un if, según el objetivoAModificar, para mostrar un slider u otro -->
         <q-card-section>
-          <div v-if="objetivoAModificar == 'diario'">
+          <div class="Oswald" v-if="objetivoAModificar == 'diario'">
             <q-slider
               v-model="horasObjetivoNuevo"
-              :min="1"
+              :min="0"
               :max="24"
               label
               :label-value="'Objetivo: ' + horasObjetivoNuevo + 'h'"
@@ -119,7 +119,7 @@
           <div v-else-if="objetivoAModificar == 'semanal'">
             <q-slider
               v-model="horasObjetivoNuevo"
-              :min="1"
+              :min="0"
               :max="168"
               label
               :label-value="'Objetivo: ' + horasObjetivoNuevo + 'h'"
@@ -130,7 +130,7 @@
           <div v-else-if="objetivoAModificar == 'mensual'">
             <q-slider
               v-model="horasObjetivoNuevo"
-              :min="1"
+              :min="0"
               :max="720"
               label
               :label-value="'Objetivo: ' + horasObjetivoNuevo + 'h'"
@@ -150,13 +150,13 @@
     </q-dialog>
 
     <div class="flex flex-center q-mt-md">
-      <h4 class="doc-heading doc-h4 q-ma-xs text-weight-light">Asignaturas</h4>
+      <h4 class="Oswald doc-heading doc-h4 q-ma-xs text-weight-light">Asignaturas</h4>
     </div>
     <!-- Lista de asignaturas, 
     Usamos planEstudio.asignaturas.slice(1) para que no salga la primera, que es
     Estudio general-->
     <q-list>
-      <q-item v-for="asig in planEstudio.asignaturas.slice(1)" :key="asig.nombre">
+      <q-item class="Oswald" v-for="asig in planEstudio.asignaturas.slice(1)" :key="asig.nombre">
         <!-- El v-if es para que la asignatura nula no la muestre -->
         <q-item-section>
           <q-item-label class="text-h6 text-weight-light">{{asig.nombre}}</q-item-label>
@@ -192,7 +192,7 @@
     <q-dialog v-model="ventanaNuevaAsignatura" full-width>
       <q-card>
         <q-card-section class="row items-center q-pb-none">
-          <div class="text-h6 text-weight-light">Asignatura</div>
+          <div class="Oswald text-h6 text-weight-light">Asignatura</div>
           <q-space />
           <q-btn icon="close" flat round dense v-close-popup />
         </q-card-section>
@@ -206,7 +206,7 @@
             <div v-if="frecuencia == 'diario'">
               <q-slider
                 v-model="duracionAsignatura"
-                :min="1"
+                :min="0"
                 :max="24"
                 label
                 :label-value="'Objetivo: ' + duracionAsignatura + 'h'"
@@ -217,7 +217,7 @@
             <div v-else-if="frecuencia == 'semanal'">
               <q-slider
                 v-model="duracionAsignatura"
-                :min="1"
+                :min="0"
                 :max="168"
                 label
                 :label-value="'Objetivo: ' + duracionAsignatura + 'h'"
@@ -228,7 +228,7 @@
             <div v-else-if="frecuencia == 'mensual'">
               <q-slider
                 v-model="duracionAsignatura"
-                :min="1"
+                :min="0"
                 :max="720"
                 label
                 :label-value="'Objetivo: ' + duracionAsignatura + 'h'"
