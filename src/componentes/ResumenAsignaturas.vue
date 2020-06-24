@@ -15,7 +15,7 @@
       <q-badge color="secondary">Asignatura 2</q-badge>
       </q-card-section>
     
-    <q-card-actions align="right" v-if="visibleListo">
+    <q-card-actions align="right" >
       <q-btn flat label="Listo" icon="check" color="primary" v-close-popup />
     </q-card-actions>
   </q-card>
@@ -27,7 +27,6 @@ export default {
   name: "ResumenAsignaturas",
   data() {
     return {
-      visibleListo: this.botonListo,
     };
   },
   mounted: function() {
