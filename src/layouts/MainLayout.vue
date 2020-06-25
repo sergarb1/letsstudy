@@ -17,12 +17,13 @@
           <img src="~assets/logo_header.png" alt="logo" />
         </q-avatar>
       </q-toolbar>
-
-      <BarraNavegacion />
+      <div class="q-col-gutter-x-xs">
+        <BarraNavegacion />
+      </div>
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-1">
-      <q-list>
+      <q-list class="Oswald">
         <q-item-label header class="text-grey-8">Opciones</q-item-label>
 
         <!-- Item Resumen -->
@@ -91,6 +92,7 @@
             <q-item-label caption>Hackaton CEEDCV</q-item-label>
           </q-item-section>
         </q-item>
+        <!--
         <q-item clickable to="Debug">
           <q-item-section avatar>
             <q-icon name="warning" />
@@ -101,6 +103,7 @@
             <q-item-label caption>Sección para debuguear la app</q-item-label>
           </q-item-section>
         </q-item>
+        -->
       </q-list>
     </q-drawer>
 

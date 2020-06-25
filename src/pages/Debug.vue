@@ -1,11 +1,10 @@
 <template>
   <q-page class="q-pa-md">
     <div class="q-pa-md col-8 q-gutter-md">
-      <div class="flex flex-center column" style="height: 200px" >
-        <img alt="Lets Study logo" src="~assets/logo_debug_s.png" />
+      <div class="flex flex-center column" >
+        <img alt="Lets Study logo" src="~assets/debug.png"  style="height:150px;" />
       </div>
     </div>
-    <h5>Debug</h5>
     <ul>
       <li>Recuperar datos: Muestra un json de los datos almacenados en localStorage</li>
       <li>Crear datos nuevos: Genera un json aleatorio con datos de prueba</li>
@@ -16,7 +15,7 @@
     </ul>
     <div class="q-pa-md q-gutter-sm">
       <q-btn color="light-blue-4" text-color="white" label="Recupera datos" @click="recuperaDatos" />
-      <q-btn color="light-blue-4" text-color="white"  label="Crear datos nuevos" @click="creaDatos" />
+      <q-btn color="light-blue-4" text-color="white" label="Crear datos nuevos" @click="creaDatos" />
       <!-- Este botón se desabilita si no hay contenido en el campo texto 
       usando el operador ternario.
       ¿Campo texto es igual a ''? Entonces true el disable, si no false-->
