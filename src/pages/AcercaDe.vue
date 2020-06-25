@@ -1,12 +1,13 @@
 <template>
-  <q-page class="flex flex-center content-start">
-    <div class="column justify-center q-gutter-sm" style="height: 250px">
-      <img alt="Lets Study logo" src="~assets/LETSSTUDY_2.png" />
+  <div>
+    <div class="q-pa-md col-8 q-gutter-md">
+      <div class="flex flex-center column" style="height:20vh;">
+        <img alt="Lets Study logo" src="~assets/LETSSTUDY_RESUMEN.png" />
+      </div>
     </div>
-
     <q-intersection transition="scale">
       <q-card
-        class="q-mb-lg q-px-lg text-white bg-light-blue no-box-shadow text-left no-border-radius"
+        class="q-mb-lg q-px-lg text-white bg-light-blue no-box-shadow text-left no-border-radius Oswald"
       >
         <q-card-section>
           <h5>Proyecto realizado en el Hackaton 19/20 del CEEDCV</h5>
@@ -17,13 +18,13 @@
         </q-card-section>
 
         <q-card-section>
-          <q-list>
+          <q-list style="max-width:50vh">
             <q-item class="justify-start">
               <q-btn
                 push
-                rounded
+                class="full-width"
                 size="sm"
-                color="primary"
+                color="white text-black"
                 icon="code"
                 label="Proyecto Let's Study en Github"
                 @click="abrirURL('https://github.com/sergarb1/letsstudy')"
@@ -32,6 +33,7 @@
             <q-item class="justify-start">
               <q-btn
                 push
+                class="full-width"
                 size="sm"
                 color="white text-black"
                 icon="get_app"
@@ -42,21 +44,20 @@
             <q-item class="justify-start">
               <q-btn
                 push
-                
+                class="full-width"
                 size="sm"
-                color="primary"
+                color="white text-black"
                 icon="cloud"
                 label="Let's Study (Online)"
                 @click="abrirURL('https://apuntesfpinformatica.es/letsstudy')"
               />
-              <iframe src="https://marca.com" />
             </q-item>
             <q-item class="justify-start">
               <q-btn
                 push
-                rounded
+                class="full-width"
                 size="sm"
-                color="primary"
+                color="white text-black"
                 icon="desktop_windows"
                 label="Let's Study para Escritorio"
                 @click="abrirURL('https://github.com/sergarb1/letsstudy-downloads')"
@@ -67,9 +68,9 @@
               <!-- Este botón borra el LocalStorage-->
               <q-btn
                 push
-                rounded
+                class="full-width"
                 size="sm"
-                color="primary"
+                color="white text-black"
                 icon="restore"
                 label="Restaurar aplicación"
                 @click="borrarLocalStorage"
@@ -79,7 +80,7 @@
         </q-card-section>
       </q-card>
     </q-intersection>
-  </q-page>
+  </div>
 </template>
 
 <script>
@@ -96,7 +97,8 @@ export default {
     },
     //funcion que borra el localStorage
     borrarLocalStorage() {
-      this.$q.dialog({
+      this.$q
+        .dialog({
           title: "Restaurar",
           message:
             "¿Quieres restaurar los valores por defecto? Se perderán todos los datos.",

@@ -74,7 +74,7 @@ personalizaciones de estilo
         <q-btn color="light-blue" :label="textoCrono" @click="cambiarEstadoCrono()" />
 
         <q-separator vertical inset />
-      
+
         <!-- Definimos dialogo a mostrar con la configuracion de pomodoro -->
         <q-dialog v-model="configPomodoro" persistent>
           <configurarPomodoro :botonListo="true" />
@@ -125,10 +125,10 @@ export default {
   },
   created: function() {
     // Si esta la sesion abierta, actualizamos las variables
-    
+
     // Obtenemos tanto la sesion guardarda como su asignaturas
     let sesionIniciada = Usuario.$usuarioLocal.getSesionEstudioIniciada();
-    let sesionIniciadaAsignatura=Usuario.$usuarioLocal.getSesionEstudioIniciadaAsignatura();
+    let sesionIniciadaAsignatura = Usuario.$usuarioLocal.getSesionEstudioIniciadaAsignatura();
 
     // Si habia sesion iniciada
     if (sesionIniciada != null) {
@@ -147,10 +147,9 @@ export default {
       this.cambiarEstadoCrono();
 
       // Comprobamos si ademas habia asignatura
-      if(sesionIniciadaAsignatura != null){
-        this.asignaturaElegida=sesionIniciadaAsignatura;
+      if (sesionIniciadaAsignatura != null) {
+        this.asignaturaElegida = sesionIniciadaAsignatura;
       }
-
     }
   },
   // Definimos metodos del componente
@@ -178,14 +177,16 @@ export default {
             Usuario.$usuarioLocal.getSesionEstudioIniciada()
           );
           // Recuperamos la asignatura elegida
-          this.asignaturaElegida=Usuario.$usuarioLocal.getSesionEstudioIniciadaAsignatura()
+          this.asignaturaElegida = Usuario.$usuarioLocal.getSesionEstudioIniciadaAsignatura();
         } else {
           this.fechaInicio = new Date();
         }
 
         // Como iniciamos, guardamos la sesion activa como variable local y la asignatura
         Usuario.$usuarioLocal.setSesionEstudioIniciada(this.fechaInicio);
-        Usuario.$usuarioLocal.setSesionEstudioIniciadaAsignatura(this.asignaturaElegida);
+        Usuario.$usuarioLocal.setSesionEstudioIniciadaAsignatura(
+          this.asignaturaElegida
+        );
 
         // Una vez modificado la sesionEstudioIniciada, guardamos en LocalStorage
         FuncionesAuxiliares.guardarEstadoLocalStorage();
@@ -262,7 +263,6 @@ export default {
         this.fechaFin = null;
         // Con clearInterval y la referencia al interval, cancelamos el hilo que se ejecuta a intervalos
         clearInterval(this.valorInterval);
-
       }
     },
     // Definimos dos metodos para generar las distintas notificaciones: la de inicio de sesion y la de fin
@@ -298,8 +298,7 @@ export default {
     },
     // Función para comprobar si se ha cumplido algún objetivo del usuario, después de cada sesión de estudio.
     compruebaObjetivoConseguido() {
-      let arraySesiones = Usuario.$usuarioLocal
-        .getColeccionSesiones();
+      let arraySesiones = Usuario.$usuarioLocal.getColeccionSesiones();
       let objetivos = Usuario.$usuarioLocal.getPlanEstudio().getObjetivos();
       objetivos.forEach(objetivo => {
         if (objetivo.update(arraySesiones, this.asignaturaElegida)) {

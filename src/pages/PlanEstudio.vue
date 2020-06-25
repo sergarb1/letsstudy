@@ -1,6 +1,10 @@
 <template>
   <q-page class="flex column q-pa-md col-8 q-a-md" v-touch-swipe.mouse.horizontal="userHasSwiped">
-    <h4 class="Oswald doc-heading doc-h4 q-ma-xs">Plan de estudio</h4>
+    <div class="q-pa-md col-8 q-gutter-md">
+      <div class="flex flex-center column" style="height:20vh;">
+        <img alt="Lets Study logo" src="~assets/planEstudio.png" />
+      </div>
+    </div>
     <div class="flex flex-center q-mt-md">
       <h5 class="Oswald doc-heading doc-h5 q-ma-xs text-weight-light">Objetivos</h5>
     </div>
@@ -37,7 +41,7 @@
 
       <q-item>
         <q-item-section>
-          <q-item-label class="Oswald text-h6 text-weight-light">
+          <q-item-label class="Oswald text-body2 text-weight-light">
             Objetivo semanal:
             <span class="text-weight-bold">{{ objetivoSemanal }}</span>
           </q-item-label>
@@ -65,7 +69,7 @@
 
       <q-item>
         <q-item-section>
-          <q-item-label class="Oswald text-h6 text-weight-light">
+          <q-item-label class="Oswald text-body2 text-weight-light">
             Objetivo mensual:
             <span class="text-weight-bold">{{ objetivoMensual }}</span>
           </q-item-label>
@@ -150,7 +154,7 @@
     </q-dialog>
 
     <div class="flex flex-center q-mt-md">
-      <h4 class="Oswald doc-heading doc-h4 q-ma-xs text-weight-light">Asignaturas</h4>
+      <h4 class="Oswald doc-heading text-h5 q-ma-xs text-weight-light">Asignaturas</h4>
     </div>
     <!-- Lista de asignaturas, 
     Usamos planEstudio.asignaturas.slice(1) para que no salga la primera, que es
@@ -159,11 +163,13 @@
       <q-item class="Oswald" v-for="asig in planEstudio.asignaturas.slice(1)" :key="asig.nombre">
         <!-- El v-if es para que la asignatura nula no la muestre -->
         <q-item-section>
-          <q-item-label class="text-h6 text-weight-light">{{asig.nombre}}</q-item-label>
+          <q-item-label class="text-body2 text-weight-light">{{asig.nombre}}</q-item-label>
         </q-item-section>
         <!-- Si existe objetivo en esa asignatura, lo mostramos -->
         <q-item-section v-if="asig.objetivo != null">
-          <q-item-label class="text-weight-light">Objetivo {{asig.objetivo.frecuencia}} de {{asig.objetivo.duracion}}h</q-item-label>
+          <q-item-label
+            class="text-left text-weight-light text-body2"
+          >Objetivo {{asig.objetivo.frecuencia}} de {{asig.objetivo.duracion}}h</q-item-label>
         </q-item-section>
         <!-- aplicar con @click la acción necesaria dentro de estas secciones -->
         <q-item-section side top>
@@ -244,7 +250,7 @@
             />
           </div>
           <!-- Si no hay asignatura a modificar, es porque estamos añadiendo,
-          mostramos ese botón con la llamada a añadir -->
+          mostramos ese botón con la llamada a añadir-->
           <div v-if="asignaturaAModificar == ''">
             <q-btn
               color="primary"
@@ -321,7 +327,7 @@ export default {
       // Guardamos el objetivo a modificar
       this.objetivoAModificar = objetivo;
 
-      // Se establece las horasObjetivoNuevo como el objetivo actual, para que 
+      // Se establece las horasObjetivoNuevo como el objetivo actual, para que
       // salgan las horas que ya habían en el objetivo
       switch (objetivo) {
         case "diario":
@@ -427,7 +433,7 @@ export default {
         // es el mismo que ya había (no pondrá nombreDuplicado = true)
         if (
           this.nombreAsignatura ===
-          Usuario.$usuarioLocal.planEstudio.asignaturas[x].nombre &&
+            Usuario.$usuarioLocal.planEstudio.asignaturas[x].nombre &&
           this.nombreAsignatura !== this.asignaturaAModificar
         ) {
           nombreDuplicado = true;
@@ -451,16 +457,16 @@ export default {
         switch (this.frecuencia) {
           case "diario":
             // Si hemos puesto más de 24h, asigna 24
-            if(this.duracionAsignatura > 24){
+            if (this.duracionAsignatura > 24) {
               duracion = 24;
-            }else{
+            } else {
               duracion = this.duracionAsignatura;
             }
             break;
           case "semanal":
-            if(this.duracionAsignatura > 168){
+            if (this.duracionAsignatura > 168) {
               duracion = 168;
-            }else{
+            } else {
               duracion = this.duracionAsignatura;
             }
             break;
@@ -479,10 +485,7 @@ export default {
 
               //Si tiene objetivo, se crea y se añade
               if (this.anadirObjetivoAsignatura) {
-                let obj = new Objetivo(
-                  duracion,
-                  this.frecuencia
-                );
+                let obj = new Objetivo(duracion, this.frecuencia);
                 asig.setObjetivo(obj);
               } else {
                 // Si no tiene objetivo o se elimina, se establece a null para eliminarlo
@@ -596,7 +599,7 @@ export default {
 
       // Si no lo encuentra, pone un 0h
       if (!encontrado) {
-        return (this.objetivoDiario = 0 + 'h');
+        return (this.objetivoDiario = 0 + "h");
       }
     },
     getObjetivoSemanal() {
@@ -610,7 +613,7 @@ export default {
       });
 
       if (!encontrado) {
-        return (this.objetivoSemanal = 0 + 'h');
+        return (this.objetivoSemanal = 0 + "h");
       }
     },
     getObjetivoMensual() {
@@ -624,12 +627,12 @@ export default {
       });
 
       if (!encontrado) {
-        return (this.objetivoMensual = 0 + 'h');
+        return (this.objetivoMensual = 0 + "h");
       }
     },
     userHasSwiped(obj) {
       // Si el gesto no dura un minimo, lo quitamos
-      if(obj.duration<100){
+      if (obj.duration < 100) {
         return;
       }
       // Comprobamos direccion del gesto y actuamos

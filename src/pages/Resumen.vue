@@ -1,22 +1,20 @@
 <!-- Otro componente Vue, que mostrará la página de las
 estadísticas de tiempo de estudio del usuario -->
 <template>
-  <div class="q-pa-md col-8 q-gutter-md" v-touch-swipe.mouse.horizontal="userHasSwiped">
-    
+  <div v-touch-swipe.mouse.horizontal="userHasSwiped">
     <div class="q-pa-md col-8 q-gutter-md">
       <div class="flex flex-center column" style="height:20vh;">
         <img alt="Lets Study logo" src="~assets/Tus_metas.png" />
       </div>
-      
     </div>
-    <div class="q-gutter-y-md">
+    <div>
       <q-tabs
         inline-label
         v-model="tabObjetivos"
         active-color="white"
         indicator-color="blue"
         dense
-        class="text-white"
+        class="text-white shadow-2"
         align="justify"
       >
         <q-tab
@@ -98,10 +96,7 @@ export default {
   },
   /* Creamos variables 'computadas' que hacen un cálculo cada vez que entramos en el
   componente, dándonos los datos de tiempos de estudios siempre actualizados */
-  computed: {
-
-    
-  }
+  computed: {}
 };
 </script>
 
@@ -109,9 +104,9 @@ export default {
  para dar algún formato más al html de arriba. Al indicar 'scoped'
  nos aseguramos que sólo afectará a este componente y ninguno más. -->
 <style lang="sass" scoped>
-  .horas
-    margin-top: 67px
-    text-align: right
-    margin-right: 55px
+.horas
+  margin-top: 67px
+  text-align: right
+  margin-right: 55px
 
 </style>

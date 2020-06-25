@@ -6,9 +6,13 @@
         <div class="text-body1 text-left text-black Oswald">Estudiado hoy</div>
         <div class="text-body1 text-right text-grey-7 Oswald">Objetivo: {{objetivoHoy}} horas</div>
         <div>
-            <q-linear-progress size="20px" :value="progressDia" color="light-blue-3">
+          <q-linear-progress size="20px" :value="progressDia" color="light-blue-3">
             <div class="absolute-full flex flex-center">
-              <q-badge color="light-blue-3" class="Oswald" text-color="blue-grey-10">{{ tiempoHoy }}h</q-badge>
+              <q-badge
+                color="light-blue-3"
+                class="Oswald"
+                text-color="blue-grey-10"
+              >{{ tiempoHoy }}h</q-badge>
             </div>
           </q-linear-progress>
         </div>
@@ -27,7 +31,7 @@
           </q-linear-progress>
         </div>
       </div>
-      <div class="q-my-md">       
+      <div class="q-my-md">
         <div class="text-body1 text-left text-black Oswald">Mes</div>
         <div class="text-body1 text-right text-grey-7 Oswald">Objetivo: {{objetivoMes}} horas</div>
 
@@ -50,26 +54,27 @@ export default {
   data() {
     return {
       //progreso de las barras de dia, semana, mes
-      progressDia: this.hoy()/(this.getObjetivoDiario()*3600),
-      progressSemana: this.semana()/(this.getObjetivoSemanal()*3600),
-      progressMes: this.mes()/(this.getObjetivoMensual()*3600),
+      progressDia: this.hoy() / (this.getObjetivoDiario() * 3600),
+      progressSemana: this.semana() / (this.getObjetivoSemanal() * 3600),
+      progressMes: this.mes() / (this.getObjetivoMensual() * 3600),
 
       tiempoHoy: FuncionesAuxiliares.segundosToText(this.hoy()),
       tiempoSemana: FuncionesAuxiliares.segundosToText(this.semana()),
       tiempoMes: FuncionesAuxiliares.segundosToText(this.mes()),
-      
+
       objetivoHoy: this.getObjetivoDiario(),
-      objetivoSemana:  this.getObjetivoSemanal(),
-      objetivoMes: this.getObjetivoMensual(),
+      objetivoSemana: this.getObjetivoSemanal(),
+      objetivoMes: this.getObjetivoMensual()
     };
   },
   mounted: function() {},
-  methods: {//Métodos que recogen el objetivo correspondiente
+  methods: {
+    //Métodos que recogen el objetivo correspondiente
     //Si lo encuentra, establece la variable como el tiempo + h
     getObjetivoDiario() {
-      let listaObjetivos=Usuario.$usuarioLocal.planEstudio.objetivos;
-      for (let x in listaObjetivos){
-        let objetivo=listaObjetivos[x];
+      let listaObjetivos = Usuario.$usuarioLocal.planEstudio.objetivos;
+      for (let x in listaObjetivos) {
+        let objetivo = listaObjetivos[x];
         if (objetivo.frecuencia === "diario") {
           return objetivo.duracion;
         }
@@ -78,23 +83,22 @@ export default {
       return 0;
     },
     getObjetivoSemanal() {
-      let listaObjetivos=Usuario.$usuarioLocal.planEstudio.objetivos;
+      let listaObjetivos = Usuario.$usuarioLocal.planEstudio.objetivos;
 
-      for (let x in listaObjetivos){
-        let objetivo=listaObjetivos[x];
+      for (let x in listaObjetivos) {
+        let objetivo = listaObjetivos[x];
         if (objetivo.frecuencia === "semanal") {
           return objetivo.duracion;
         }
-    }
+      }
 
       // Si no lo encuentra, pone un 0h
       return 0;
     },
     getObjetivoMensual() {
- 
-      let listaObjetivos=Usuario.$usuarioLocal.planEstudio.objetivos;
-      for (let x in listaObjetivos){
-        let objetivo=listaObjetivos[x];
+      let listaObjetivos = Usuario.$usuarioLocal.planEstudio.objetivos;
+      for (let x in listaObjetivos) {
+        let objetivo = listaObjetivos[x];
         if (objetivo.frecuencia === "mensual") {
           return objetivo.duracion;
         }
