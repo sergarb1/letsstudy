@@ -61,7 +61,7 @@ personalizaciones de estilo
           Este texto se asocia a la variable reactica "tiempoMostrar" // Cambiado el color original (text-blue-grey-13) al del botón
           -->
           
-            <p class="Oswald text-center text-weight-bolder text-h3 text-blue-grey-10">{{ tiempoMostrar }}</p>
+            <p class="Oswald text-center text-weight-bolder text-h4 text-blue-grey-10">{{ tiempoMostrar }}</p>
 
         <div class="q-gutter-md">
           <!-- Cuando inicie el cronometro habría que ponerlo disabled -->
