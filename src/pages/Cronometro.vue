@@ -28,24 +28,41 @@ personalizaciones de estilo
        Ademas, ponemos text-center, ya que flex nos centra el "elemento",
         pero el texto si no indicamos nada dentro del elemento se alinea a la izquierda-->
         <h4 class="text-center Oswald">¡Hora de estudiar!</h4>
+
         <!-- Usamos el componente https://quasar.dev/vue-components/circular-progress
-       Indicamos distintos valores, entre ellos que su dibujo represente los rangos de 1 a 60 y que
-       el valor para calcular en donde se esta, utilize la variable reactiva "tiempo" y obtenga
-        su modulo 61 (operacion %)-->
+       Indicamos distintos valores, entre ellos que su dibujo represente los rangos de 1 a 60 segundos y que
+       el valor para calcular en donde se está, utilize la variable reactiva "tiempo" y obtenga
+        su modulo 60 (operacion %)-->
         <q-circular-progress
           show-value
           class="text-light-blue justify-center"
           :value="tiempo%60"
           :min="0"
           :max="59"
+          :thickness="0.4"
           size="250px"
-          color="light-blue-3"
+          color="light-blue-2"
           track-color="grey-3"
         >
-          <!-- Dentro de la etiqueta q-circular-progress metemos el texto que se mostrara.
-          Este texto se asocia a la variable reactica "tiempoMostrar"-->
-          <p class="Oswald justify-center text-h4 text-blue-grey-13">{{ tiempoMostrar }}</p>
+          <!-- Dentro de la etiqueta q-circular-progress metemos otro circulod eprograso que mostrará los minutos pasados.
+          -->
+        <q-circular-progress
+          :value="Math.floor((tiempo/60)%60)"
+          :min="0"
+          :max="59"
+          size="145px"
+          :thickness="1"
+          color="light-blue-5"
+          track-color="grey-3"
+          class="q-ma-md"
+        />        
         </q-circular-progress>
+           <!-- Despues sacamos el texto que se mostrará.
+          Este texto se asocia a la variable reactica "tiempoMostrar" // Cambiado el color original (text-blue-grey-13) al del botón
+          -->
+          
+            <p class="Oswald text-center text-weight-bolder text-h3 text-blue-grey-10">{{ tiempoMostrar }}</p>
+
         <div class="q-gutter-md">
           <!-- Cuando inicie el cronometro habría que ponerlo disabled -->
           <q-select
