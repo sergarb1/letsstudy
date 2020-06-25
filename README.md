@@ -2,13 +2,11 @@
 Aplicación para facilitar el estudio. En este repositorio tenemos el código del proyecto.
 
 # Descargas y enlaces
-
-- Google Play: proximamente
+- Google Play: https://play.google.com/store/apps/details?id=org.ceedcv.letsstudy
 - Acceso web: https://apuntesfpinformatica.es/letsstudy/#/
 - Descarga versión Web, Móvil y Escritorio: https://github.com/sergarb1/letsstudy-downloads
 
 # Autores originales de la aplicación (Orden alfabético)
-
 - Carlos Aparicio
 - Vicente Bataller García
 - Ximo Catalá
@@ -19,8 +17,3 @@ Aplicación para facilitar el estudio. En este repositorio tenemos el código de
 - Loli González Campos
 - César Meliá Herráiz
 - Lionel Tarazón Alcocer
-
-
-
-
-
