@@ -91,6 +91,7 @@
             <q-item-label caption>Hackaton CEEDCV</q-item-label>
           </q-item-section>
         </q-item>
+        <!--
         <q-item clickable to="Debug">
           <q-item-section avatar>
             <q-icon name="warning" />
@@ -101,6 +102,7 @@
             <q-item-label caption>Sección para debuguear la app</q-item-label>
           </q-item-section>
         </q-item>
+        -->
       </q-list>
     </q-drawer>
 

@@ -1,8 +1,8 @@
 <template>
   <q-page class="flex column q-pa-md col-8 q-a-md" v-touch-swipe.mouse.horizontal="userHasSwiped">
     <div class="q-pa-md col-8 q-gutter-md">
-      <div class="flex flex-center column" style="height:20vh;">
-        <img alt="Lets Study logo" src="~assets/planEstudio.png" />
+      <div class="flex flex-center column">
+        <img alt="Lets Study logo" src="~assets/planEstudio.png" style="height:150px;" />
       </div>
     </div>
     <div class="flex flex-center q-mt-md">

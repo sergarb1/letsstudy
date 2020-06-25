@@ -3,8 +3,8 @@ estadísticas de tiempo de estudio del usuario -->
 <template>
   <div v-touch-swipe.mouse.horizontal="userHasSwiped">
     <div class="q-pa-md col-8 q-gutter-md">
-      <div class="flex flex-center column" style="height:20vh;">
-        <img alt="Lets Study logo" src="~assets/Tus_metas.png" />
+      <div class="flex flex-center column" >
+        <img alt="Lets Study logo" src="~assets/Tus_metas.png" style="height:150px;" />
       </div>
     </div>
     <div>

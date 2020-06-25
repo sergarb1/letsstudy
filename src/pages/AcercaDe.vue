@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="q-pa-md col-8 q-gutter-md">
-      <div class="flex flex-center column" style="height:20vh;">
-        <img alt="Lets Study logo" src="~assets/LETSSTUDY_RESUMEN.png" />
+      <div class="flex flex-center column">
+        <img alt="Lets Study logo" src="~assets/LETSSTUDY_RESUMEN.png"  style="height:150px;" />
       </div>
     </div>
     <q-intersection transition="scale">

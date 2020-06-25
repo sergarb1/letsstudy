@@ -1,8 +1,8 @@
 <template>
   <q-page class="q-pa-md">
     <div class="q-pa-md col-8 q-gutter-md">
-      <div class="flex flex-center column" style="height: 20vh">
-        <img alt="Lets Study logo" src="~assets/debug.png" />
+      <div class="flex flex-center column" >
+        <img alt="Lets Study logo" src="~assets/debug.png"  style="height:150px;" />
       </div>
     </div>
     <ul>
