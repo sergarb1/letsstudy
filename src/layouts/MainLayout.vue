@@ -17,8 +17,9 @@
           <img src="~assets/logo_header.png" alt="logo" />
         </q-avatar>
       </q-toolbar>
-
-      <BarraNavegacion />
+      <div class="q-col-gutter-x-xs">
+        <BarraNavegacion />
+      </div>
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-1">

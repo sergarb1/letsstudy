@@ -38,7 +38,7 @@
         <div>
           <q-linear-progress size="20px" :value="progressMes" color="teal-3">
             <div class="absolute-full flex flex-center">
-              <q-badge color="teal-3" text-color="blue-grey-9 Oswald">{{tiempoMes}}h</q-badge>
+              <q-badge color="cyan-3" text-color="blue-grey-9 Oswald">{{tiempoMes}}h</q-badge>
             </div>
           </q-linear-progress>
         </div>
