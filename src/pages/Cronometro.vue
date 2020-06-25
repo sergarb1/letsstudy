@@ -328,7 +328,7 @@ export default {
                   " veces seguidas cumpliendo el objetivo"
                 : "Empiezas una nueva racha con este objetivo") +
               ", en la asignatura " +
-              asignatura;
+              asignatura.nombre;
             this.showNotifObjetivoConseguido(message, caption); // Emitimos notificación con mensaje y caption específico
           }
         }

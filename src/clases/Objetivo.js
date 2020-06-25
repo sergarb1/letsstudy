@@ -92,7 +92,6 @@ class Objetivo {
         ) : 0
       })
     }
-    alert(this.duracion+ " - "+ (sumaTiempo/3600));
 
     // si se cumple el objetivo (la suma del tiempo es minutos es mayor o igual que duracion)
     if (this.duracion <= (sumaTiempo / 3600)) {
@@ -111,7 +110,6 @@ class Objetivo {
     } else if (this.duracion > (sumaTiempo / 3600 ) && (periodo - this.periodoConseguido > 1)) {
       this.racha = 0  // anulamos la racha
     }
-    alert(this.conseguido)
     return this.conseguido; // si true notificar CONSEGUIDO! YA LLEVAS racha VECES SEGUIDAS CONSEGUIDO
   }
 }
