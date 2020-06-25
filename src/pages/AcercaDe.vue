@@ -18,7 +18,7 @@
         </q-card-section>
 
         <q-card-section>
-          <q-list style="max-width:50vh">
+          <q-list style="max-width:70vh">
             <q-item class="justify-start">
               <q-btn
                 push
