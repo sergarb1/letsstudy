@@ -33,12 +33,12 @@
           </div>
         </div>
         <div>
-          <q-linear-progress size="20px" :value="progressSemana" color="cyan-3">
+          <q-linear-progress size="20px" :value="progressSemana" color="light-blue-3">
             <div class="absolute-full flex flex-center">
               <!--He dejado el fondo blanco por si os parece que se ve más 
                 claro, pero se puede dejar como el de arriba, cambiando el atributo
               color de q-badge de white a cyan-3-->
-              <q-badge color="cyan-3" text-color="blue-grey-9 Oswald">{{tiempoSemana}}</q-badge>
+              <q-badge color="light-blue-3" text-color="blue-grey-10 Oswald">{{tiempoSemana}}</q-badge>
             </div>
           </q-linear-progress>
         </div>
@@ -53,9 +53,9 @@
           </div>
         </div>
         <div>
-          <q-linear-progress size="20px" :value="progressMes" color="teal-3">
+          <q-linear-progress size="20px" :value="progressMes" color="light-blue-3">
             <div class="absolute-full flex flex-center">
-              <q-badge color="cyan-3" text-color="blue-grey-9 Oswald">{{tiempoMes}}h</q-badge>
+              <q-badge color="light-blue-3" text-color="blue-grey-10 Oswald">{{tiempoMes}}h</q-badge>
             </div>
           </q-linear-progress>
         </div>
