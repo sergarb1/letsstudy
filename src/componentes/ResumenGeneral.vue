@@ -3,8 +3,14 @@
   <q-card flat>
     <q-intersection transition="fade">
       <div class="q-my-md">
-        <div class="text-body1 text-left text-black Oswald">Estudiado hoy</div>
-        <div class="text-body1 text-right text-grey-7 Oswald">Objetivo: {{objetivoHoy}} horas</div>
+        <div class="row justify-between">
+          <div class="col-3 text-body1 text-left text-black Oswald">
+            Día
+          </div>
+          <div class="col-5 text-body1 text-right text-grey-7 Oswald">
+            Objetivo: {{objetivoHoy}} horas
+          </div>
+        </div>
         <div>
           <q-linear-progress size="20px" :value="progressDia" color="light-blue-3">
             <div class="absolute-full flex flex-center">
@@ -18,8 +24,14 @@
         </div>
       </div>
       <div class="q-my-md">
-        <div class="text-body1 text-left text-black Oswald">Semana</div>
-        <div class="text-body1 text-right text-grey-7 Oswald">Objetivo: {{objetivoSemana}} horas</div>
+        <div class="row justify-between">
+          <div class="col-3 text-body1 text-left text-black Oswald">
+            Semana
+          </div>
+          <div class="col-5 text-body1 text-right text-grey-7 Oswald">
+            Objetivo: {{objetivoSemana}} horas
+          </div>
+        </div>
         <div>
           <q-linear-progress size="20px" :value="progressSemana" color="cyan-3">
             <div class="absolute-full flex flex-center">
@@ -32,9 +44,14 @@
         </div>
       </div>
       <div class="q-my-md">
-        <div class="text-body1 text-left text-black Oswald">Mes</div>
-        <div class="text-body1 text-right text-grey-7 Oswald">Objetivo: {{objetivoMes}} horas</div>
-
+        <div class="row justify-between">
+          <div class="col-3 text-body1 text-left text-black Oswald">
+            Mes
+          </div>
+          <div class="col-5 text-body1 text-right text-grey-7 Oswald">
+            Objetivo: {{objetivoMes}} horas
+          </div>
+        </div>
         <div>
           <q-linear-progress size="20px" :value="progressMes" color="teal-3">
             <div class="absolute-full flex flex-center">
