@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex column q-pa-md col-8 q-a-md">
+  <q-page class="flex column q-pa-md col-8 q-a-md" v-touch-swipe.mouse.horizontal="userHasSwiped">
     <h4 class="Oswald doc-heading doc-h4 q-ma-xs">Plan de estudio</h4>
     <div class="flex flex-center q-mt-md">
       <h5 class="Oswald doc-heading doc-h5 q-ma-xs text-weight-light">Objetivos</h5>
@@ -625,6 +625,16 @@ export default {
 
       if (!encontrado) {
         return (this.objetivoMensual = 0 + 'h');
+      }
+    },
+    userHasSwiped(obj) {
+      // Si el gesto no dura un minimo, lo quitamos
+      if(obj.duration<100){
+        return;
+      }
+      // Comprobamos direccion del gesto y actuamos
+      if (obj.direction === "right") {
+        this.$router.push("/Historico");
       }
     }
   }

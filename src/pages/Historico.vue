@@ -3,8 +3,8 @@
 <template>
   <div v-touch-swipe.mouse.horizontal="userHasSwiped">
     <div class="q-pa-md col-8 q-gutter-md">
-      <div class="flex flex-center column" style="height: 250px">
-        <img alt="Lets Study logo" src="~assets/logo_historico_s.png" />
+      <div class="flex flex-center column" style="height:20vh;">
+        <img alt="Lets Study logo" src="~assets/Sesiones.png" />
       </div>
     </div>
     <div v-if="sesiones != null">
@@ -104,6 +104,10 @@ export default {
       // Comprobamos direccion del gesto y actuamos
       if (obj.direction === "right") {
         this.$router.push("/Cronometro");
+      }
+      // Comprobamos direccion del gesto y actuamos
+      if (obj.direction === "left") {
+        this.$router.push("/PlanEstudio");
       }
     }
   }

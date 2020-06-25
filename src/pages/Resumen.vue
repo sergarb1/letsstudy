@@ -2,11 +2,13 @@
 estadísticas de tiempo de estudio del usuario -->
 <template>
   <div class="q-pa-md col-8 q-gutter-md" v-touch-swipe.mouse.horizontal="userHasSwiped">
-    <div class="flex column total_estudiado">
-      <!--Muestra el total estudiado-->
-      <div class="text-h5 text-white horas Oswald">{{ tiempoTotal }}</div>
+    
+    <div class="q-pa-md col-8 q-gutter-md">
+      <div class="flex flex-center column" style="height:20vh;">
+        <img alt="Lets Study logo" src="~assets/Tus_metas.png" />
+      </div>
+      
     </div>
-
     <div class="q-gutter-y-md">
       <q-tabs
         inline-label
@@ -107,12 +109,6 @@ export default {
  para dar algún formato más al html de arriba. Al indicar 'scoped'
  nos aseguramos que sólo afectará a este componente y ninguno más. -->
 <style lang="sass" scoped>
-.total_estudiado
-  height: 200px
-  width: 250px
-  background-image: url("~assets/logo_totales2.png")
-  background-repeat: no-repeat
-  margin: 0 auto
   .horas
     margin-top: 67px
     text-align: right

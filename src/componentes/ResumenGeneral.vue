@@ -53,9 +53,11 @@ export default {
       progressDia: this.hoy()/(this.getObjetivoDiario()*3600),
       progressSemana: this.semana()/(this.getObjetivoSemanal()*3600),
       progressMes: this.mes()/(this.getObjetivoMensual()*3600),
+
       tiempoHoy: FuncionesAuxiliares.segundosToText(this.hoy()),
       tiempoSemana: FuncionesAuxiliares.segundosToText(this.semana()),
       tiempoMes: FuncionesAuxiliares.segundosToText(this.mes()),
+      
       objetivoHoy: this.getObjetivoDiario(),
       objetivoSemana:  this.getObjetivoSemanal(),
       objetivoMes: this.getObjetivoMensual(),
