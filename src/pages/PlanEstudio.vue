@@ -1,12 +1,12 @@
 <template>
   <q-page class="flex column q-pa-md col-8 q-a-md" v-touch-swipe.mouse.horizontal="userHasSwiped">
-    <div class="q-pa-md col-8 q-gutter-md">
+    <div class="q-px-md col-8 q-mx-auto">
       <div class="flex flex-center column">
         <img alt="Lets Study logo" src="~assets/planEstudio.png" style="height:150px;" />
       </div>
     </div>
-    <div class="flex flex-center q-mt-md">
-      <h5 class="Oswald doc-heading doc-h5 q-ma-xs text-weight-light">Objetivos</h5>
+    <div class="flex flex-center q-mt-md q-mt-xs">
+      <h5 class="Oswald doc-heading doc-h5 q-ma-none text-weight-light">Objetivos</h5>
     </div>
     <!-- Lista de objetivos, cada q-item representa un objetivo -->
     <q-list>
@@ -19,18 +19,18 @@
           </q-item-label>
         </q-item-section>
 
-        <q-item-section side top>
+        <q-item-section side top class="self-center">
           <q-icon
-            size="xs"
+            size="sm"
             name="settings"
             color="gray"
             @click="mostrarVentanaModificaObjetivo('diario')"
             class="cursor-pointer"
           />
         </q-item-section>
-        <q-item-section side top>
+        <q-item-section side top class="self-center">
           <q-icon
-            size="xs"
+            size="sm"
             name="delete_forever"
             color="red"
             @click="eliminarObjetivo('diario')"
@@ -47,18 +47,18 @@
           </q-item-label>
         </q-item-section>
 
-        <q-item-section side top>
+        <q-item-section side top class="self-center">
           <q-icon
-            size="xs"
+            size="sm"
             name="settings"
             color="gray"
             @click=" mostrarVentanaModificaObjetivo('semanal')"
             class="cursor-pointer"
           />
         </q-item-section>
-        <q-item-section side top>
+        <q-item-section side top class="self-center">
           <q-icon
-            size="xs"
+            size="sm"
             name="delete_forever"
             color="red"
             @click="eliminarObjetivo('semanal')"
@@ -75,18 +75,18 @@
           </q-item-label>
         </q-item-section>
 
-        <q-item-section side top>
+        <q-item-section side top class="self-center">
           <q-icon
-            size="xs"
+            size="sm"
             name="settings"
             color="gray"
             @click="mostrarVentanaModificaObjetivo('mensual')"
             class="cursor-pointer"
           />
         </q-item-section>
-        <q-item-section side top>
+        <q-item-section side top class="self-center">
           <q-icon
-            size="xs"
+            size="sm"
             name="delete_forever"
             color="red"
             @click="eliminarObjetivo('mensual')"
@@ -172,9 +172,9 @@
           >Objetivo {{asig.objetivo.frecuencia}} de {{asig.objetivo.duracion}}h</q-item-label>
         </q-item-section>
         <!-- aplicar con @click la acción necesaria dentro de estas secciones -->
-        <q-item-section side top>
+        <q-item-section side top class="self-center">
           <q-icon
-            size="xs"
+            size="sm"
             name="settings"
             color="gray"
             class="cursor-pointer"
@@ -182,9 +182,9 @@
           />
         </q-item-section>
 
-        <q-item-section side top>
+        <q-item-section side top class="self-center">
           <q-icon
-            size="xs"
+            size="sm"
             name="delete_forever"
             color="red"
             @click="eliminarAsignaturaNombre(asig.nombre)"

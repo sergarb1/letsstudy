@@ -1,14 +1,14 @@
 <!-- Componente que mostrará el Histórico de un usuario -->
 <template>
   <div v-touch-swipe.mouse.horizontal="userHasSwiped">
-    <div class="q-pa-md col-8 q-gutter-md">
+    <div class="col-8 q-mx-auto q-my-md">
       <div class="flex flex-center column" >
         <img alt="Lets Study logo" src="~assets/Sesiones.png"  style="height:150px;" />
       </div>
     </div>
     <div v-if="sesiones != null">
-      <div v-if="sesiones.length == 0" :class="Noinfo()">
-        <h2 class="doc-heading doc-h2">Sin datos</h2>
+      <div v-if="sesiones.length == 0">
+        <div class="text-h6 text-center text-black Oswald">No hay datos,<br> ¡Hora de ponserse a estudiar!</div>
         <!--comprobamos que no existan registros y llamamos el metodo Noinfo() el cual salta una notificación con un mensaje-->
       </div>
       <div v-else>
@@ -106,5 +106,5 @@ export default {
 .my-card.q-card
   margin-bottom: 1.5rem
   width: 95%
-  margin: 1.5rem auto
+  margin: 0.8rem auto
 </style>
