@@ -14,8 +14,6 @@ class Objetivo {
     this.racha = 0
     // ?????
     this.periodoConseguido = null
-    // Tiempo restante hasta alcanzar objetivo (minutos)
-    this.tiempoRestante = this.duracion
   }
 
   getDuracion() {
@@ -55,9 +53,10 @@ class Objetivo {
 
   // Método a ejecutar después de cada sesión de estudio
   update(coleccionDeSesiones, asignatura) {
-    this.conseguido = false  // inicializamos siempre a false
+    this.conseguido = false;  // inicializamos siempre a false
     let sesiones = null;
     let periodo = null;
+    
     const ahora = new Date()  // indicamos la fecha de hoy
     // Según la frecuencia calculamos las sesiones a tener en cuenta y el periodo que estamos tratando
     switch (this.frecuencia) {
@@ -93,10 +92,10 @@ class Objetivo {
         ) : 0
       })
     }
-    this.tiempoRestante -= sumaTiempo / 60 // pasamos sumatiempo a minutos y restamos de tiempoRestante
+    alert(this.duracion+ " - "+ (sumaTiempo/3600));
 
-    // si se cumple el objetivo
-    if (this.tiempoRestante <= 0) {
+    // si se cumple el objetivo (la suma del tiempo es minutos es mayor o igual que duracion)
+    if (this.duracion <= (sumaTiempo / 3600)) {
         // si NO se había conseguido antes o se consiguió el periodo justo anterior
       if (this.periodoConseguido === null || (periodo - this.periodoConseguido === 1)) {
         this.conseguido = true  // conseguido!
@@ -109,11 +108,11 @@ class Objetivo {
         this.racha = 1  // la racha queda en uno
       }
     // si NO se cumple el objetivo y ha pasado más de un periodo desde que se cumplió
-    } else if (this.tiempoRestante > 0 && (periodo - this.periodoConseguido > 1)) {
+    } else if (this.duracion > (sumaTiempo / 3600 ) && (periodo - this.periodoConseguido > 1)) {
       this.racha = 0  // anulamos la racha
     }
-
-    return this.getIsConseguido // si true notificar CONSEGUIDO! YA LLEVAS racha VECES SEGUIDAS CONSEGUIDO
+    alert(this.conseguido)
+    return this.conseguido; // si true notificar CONSEGUIDO! YA LLEVAS racha VECES SEGUIDAS CONSEGUIDO
   }
 }
 
