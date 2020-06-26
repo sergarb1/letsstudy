@@ -4,7 +4,7 @@
     <q-intersection transition="fade">
       <div v-if="hayObjetivos == false">
         <div class="q-my-md">
-          <div class="text-h6 text-center text-black Oswald">No hay objetivos para las asignaturas,<br>¡Crea uno desde la pestaña de Plan</div>
+          <div class="text-h6 text-center text-black Oswald">No hay objetivos para las asignaturas,<br>¡Crea uno desde la pestaña de Plan!</div>
         </div>
       </div>
       <div v-else>
