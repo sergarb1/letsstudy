@@ -2,7 +2,7 @@
   <div>
     <div class="q-pa-md col-8 q-gutter-md">
       <div class="flex flex-center column">
-        <img alt="Lets Study logo" src="~assets/LETSSTUDY_RESUMEN.png"  style="height:150px;" />
+        <img alt="Lets Study logo" src="~assets/LETSSTUDY_RESUMEN.png" style="height:150px;" />
       </div>
     </div>
     <q-intersection transition="scale">
@@ -63,19 +63,6 @@
                 @click="abrirURL('https://github.com/sergarb1/letsstudy-downloads')"
               />
             </q-item>
-
-            <q-item class="justify-start">
-              <!-- Este botón borra el LocalStorage-->
-              <q-btn
-                push
-                class="full-width"
-                size="sm"
-                color="white text-black"
-                icon="restore"
-                label="Restaurar aplicación"
-                @click="borrarLocalStorage"
-              />
-            </q-item>
           </q-list>
         </q-card-section>
       </q-card>
@@ -86,7 +73,6 @@
 <script>
 // Para poder usar OpenURl que gestione el abrir enlaces en cada contexto
 import { openURL } from "quasar";
-import { Dialog } from "quasar";
 export default {
   name: "AcercaDe",
   // Metodos accesibles desde Vue
@@ -94,27 +80,6 @@ export default {
     // Funcion que recibe un URL y la abre
     abrirURL(url) {
       openURL(url);
-    },
-    //funcion que borra el localStorage
-    borrarLocalStorage() {
-      this.$q
-        .dialog({
-          title: "Restaurar",
-          message:
-            "¿Quieres restaurar los valores por defecto? Se perderán todos los datos.",
-          cancel: true,
-          persistent: true
-        })
-        .onOk(() => {
-          localStorage.clear();
-          // Para que el objeto este bien, recuperamos del LocalStorage y asi se re-construye el objeto
-          FuncionesAuxiliares.restaurarEstadoLocalStorage();
-          this.$q.notify({
-            message: "Aplicación restaurada a valores por defecto.",
-            color: "light-blue-4",
-            position: "bottom"
-          });
-        });
     }
   }
 };

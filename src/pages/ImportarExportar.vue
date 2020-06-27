@@ -56,6 +56,17 @@
                 </template>
               </q-file>
             </q-item>
+            <q-item class="justify-center">
+              <q-btn
+                push
+                class="full-width"
+                size="sm"
+                color="white text-black"
+                icon="delete_forever"
+                label="Borrar LocalStorage"
+                @click="borrarLocalStorage()"
+              />
+            </q-item>
           </q-list>
         </div>
       </q-card-section>
@@ -65,6 +76,8 @@
 
 <script>
 import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
+
+import { Dialog } from "quasar";
 
 export default {
   name: "ImportarExportar",
@@ -88,11 +101,11 @@ export default {
       hiddenElement.download =
         "DatosLetStudy" + new Date().toISOString().slice(0, 10) + ".json";
       hiddenElement.click();
-      
+
       // Notificamos la correcta exportacion
       this.$q.notify({
-          type: "positive",
-          message: "Exportado JSON de Let's study con éxito"
+        type: "positive",
+        message: "Exportado JSON de Let's study con éxito"
       });
     },
     exportarSesiones: function() {
@@ -124,8 +137,8 @@ export default {
 
       // Notificamos la correcta exportacion
       this.$q.notify({
-          type: "positive",
-          message: "CSV sesiones exportado con éxito"
+        type: "positive",
+        message: "CSV sesiones exportado con éxito"
       });
     },
     importar: function() {
@@ -139,21 +152,54 @@ export default {
         // Salimos de la funcion
         return;
       }
-      // Si tenemos fichero en formato https://developer.mozilla.org/es/docs/Web/API/File incluimos
-      // su información dentro del localStorage
-      this.contenidoFichero.text().then(textoFichero => {
-        // Guardamos datos en localStorage
-        localStorage.setItem("usuarioLocal", textoFichero);
-        // Recargamos localStorage
-        FuncionesAuxiliares.restaurarEstadoLocalStorage();
-        // Notificamos que se ha hecho correctamente la importacion
-        this.$q.notify({
-          type: "positive",
-          message: "Datos importados con éxito"
+
+      // Dialogo de importar
+      this.$q
+        .dialog({
+          title: "Importar datos",
+          message:
+            "¿Quieres importar estos datos? Se perderán los datos previos.",
+          cancel: true,
+          persistent: true
+        })
+        .onOk(() => {
+          // Si tenemos fichero en formato https://developer.mozilla.org/es/docs/Web/API/File incluimos
+          // su información dentro del localStorage
+          this.contenidoFichero.text().then(textoFichero => {
+            // Guardamos datos en localStorage
+            localStorage.setItem("usuarioLocal", textoFichero);
+            // Recargamos localStorage
+            FuncionesAuxiliares.restaurarEstadoLocalStorage();
+            // Notificamos que se ha hecho correctamente la importacion
+            this.$q.notify({
+              type: "positive",
+              message: "Datos importados con éxito"
+            });
+          });
         });
-      });
 
       return;
+    },
+    //funcion que borra el localStorage
+    borrarLocalStorage() {
+      this.$q
+        .dialog({
+          title: "Restaurar",
+          message:
+            "¿Quieres restaurar los valores por defecto? Se perderán todos los datos.",
+          cancel: true,
+          persistent: true
+        })
+        .onOk(() => {
+          localStorage.clear();
+          // Para que el objeto este bien, recuperamos del LocalStorage y asi se re-construye el objeto
+          FuncionesAuxiliares.restaurarEstadoLocalStorage();
+          this.$q.notify({
+            message: "Aplicación restaurada a valores por defecto.",
+            color: "light-blue-4",
+            position: "bottom"
+          });
+        });
     }
   }
 };
