@@ -51,8 +51,8 @@
             </q-item>
             <q-item class="justify-center">
               <q-file size="xs" label="Fichero a importar" outlined v-model="contenidoFichero">
-                <template  v-slot:prepend >
-                  <q-icon size="xs" name="attach_file"  />
+                <template v-slot:prepend>
+                  <q-icon size="xs" name="attach_file" />
                 </template>
               </q-file>
             </q-item>
@@ -88,6 +88,12 @@ export default {
       hiddenElement.download =
         "DatosLetStudy" + new Date().toISOString().slice(0, 10) + ".json";
       hiddenElement.click();
+      
+      // Notificamos la correcta exportacion
+      this.$q.notify({
+          type: "positive",
+          message: "Exportado JSON de Let's study con éxito"
+      });
     },
     exportarSesiones: function() {
       let miJSON = JSON.parse(localStorage.getItem("usuarioLocal"));
@@ -115,6 +121,12 @@ export default {
       hiddenElement.download =
         "SesionesLetStudy" + new Date().toISOString().slice(0, 10) + ".csv";
       hiddenElement.click();
+
+      // Notificamos la correcta exportacion
+      this.$q.notify({
+          type: "positive",
+          message: "CSV sesiones exportado con éxito"
+      });
     },
     importar: function() {
       // Si no tenemos un fichero de formato https://developer.mozilla.org/es/docs/Web/API/File
@@ -124,17 +136,24 @@ export default {
           type: "negative",
           message: "Seleccion un fichero de datos de Let's Study"
         });
+        // Salimos de la funcion
         return;
       }
       // Si tenemos fichero en formato https://developer.mozilla.org/es/docs/Web/API/File incluimos
       // su información dentro del localStorage
-      this.contenidoFichero
-        .text()
-        .then(textoFichero =>
-          localStorage.setItem("usuarioLocal", textoFichero)
-        );
-      // Recargamos localStorage
-      FuncionesAuxiliares.restaurarEstadoLocalStorage();
+      this.contenidoFichero.text().then(textoFichero => {
+        // Guardamos datos en localStorage
+        localStorage.setItem("usuarioLocal", textoFichero);
+        // Recargamos localStorage
+        FuncionesAuxiliares.restaurarEstadoLocalStorage();
+        // Notificamos que se ha hecho correctamente la importacion
+        this.$q.notify({
+          type: "positive",
+          message: "Datos importados con éxito"
+        });
+      });
+
+      return;
     }
   }
 };
