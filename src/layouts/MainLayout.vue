@@ -82,6 +82,16 @@
           </q-item-section>
         </q-item>
         -->
+        <q-item clickable to="ImportarExportar">
+          <q-item-section avatar>
+            <q-icon name="import_export" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Importar/Exportar</q-item-label>
+            <q-item-label caption>Maneja tus datos</q-item-label>
+          </q-item-section>
+        </q-item>
         <q-item clickable to="AcercaDe">
           <q-item-section avatar>
             <q-icon name="info" />

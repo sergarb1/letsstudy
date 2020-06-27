@@ -13,7 +13,8 @@ const routes = [
       { path: 'PlanEstudio', component: () => import('pages/PlanEstudio.vue') },
       { path: 'ConfigurarPomodoro', component: () => import('pages/PaginaConfigurarPomodoro.vue') },
       { path: 'Historico', component: () => import('pages/Historico.vue')},
-      { path: 'Debug', component: () => import('pages/Debug.vue')}
+      { path: 'Debug', component: () => import('pages/Debug.vue')},
+      { path: 'ImportarExportar', component: () => import('pages/ImportarExportar.vue')}
     ]
   }
 ]

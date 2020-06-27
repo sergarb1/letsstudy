@@ -74,11 +74,11 @@ export default {
       progressDia: this.hoy() / (this.getObjetivoDiario() * 3600),
       progressSemana: this.semana() / (this.getObjetivoSemanal() * 3600),
       progressMes: this.mes() / (this.getObjetivoMensual() * 3600),
-
+      // Tenemos la fecha de hoy, semana y mes
       tiempoHoy: FuncionesAuxiliares.segundosToText(this.hoy()),
       tiempoSemana: FuncionesAuxiliares.segundosToText(this.semana()),
       tiempoMes: FuncionesAuxiliares.segundosToText(this.mes()),
-
+      // Tenemos el objetivo de Hoy, Semana y Mes
       objetivoHoy: this.getObjetivoDiario(),
       objetivoSemana: this.getObjetivoSemanal(),
       objetivoMes: this.getObjetivoMensual()
@@ -86,10 +86,10 @@ export default {
   },
   mounted: function() {},
   methods: {
-    //Métodos que recogen el objetivo correspondiente
-    //Si lo encuentra, establece la variable como el tiempo + h
+    // Metodo que devuelve el objetivo general de hoy
     getObjetivoDiario() {
       let listaObjetivos = Usuario.$usuarioLocal.planEstudio.objetivos;
+      // Recorremos los objetivos generales y devolvemos el diario
       for (let x in listaObjetivos) {
         let objetivo = listaObjetivos[x];
         if (objetivo.frecuencia === "diario") {
@@ -99,9 +99,11 @@ export default {
       // Si no lo encuentra, pone un 0h
       return 0;
     },
+    // Metodo que devuelve el objetivo general de esta semana
     getObjetivoSemanal() {
       let listaObjetivos = Usuario.$usuarioLocal.planEstudio.objetivos;
 
+      // Recorremos los objetivos generales y devolvemos el semanal
       for (let x in listaObjetivos) {
         let objetivo = listaObjetivos[x];
         if (objetivo.frecuencia === "semanal") {
@@ -112,8 +114,12 @@ export default {
       // Si no lo encuentra, pone un 0h
       return 0;
     },
+    // Metodo que devuelve el objetivo general de este mes
     getObjetivoMensual() {
       let listaObjetivos = Usuario.$usuarioLocal.planEstudio.objetivos;
+
+      
+      // Recorremos los objetivos generales y devolvemos el mensual
       for (let x in listaObjetivos) {
         let objetivo = listaObjetivos[x];
         if (objetivo.frecuencia === "mensual") {
@@ -123,12 +129,15 @@ export default {
       // Si no lo encuentra, pone un 0h
       return 0;
     },
+    // Funcion que devuelve el tiempo estudiado hoy
     hoy: function() {
       const ahora = new Date();
+      // Obtenemos las sesiones de estudio de hoy
       const arraySesiones = Usuario.$usuarioLocal
         .getColeccionSesiones()
         .getSesionesDia(ahora);
       let sumaSegundos = 0;
+      // Sumamos los segundos de todas las sesiones de estudios
       arraySesiones.forEach(sesion => {
         sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(
           sesion.getFinSesion(),
@@ -137,12 +146,15 @@ export default {
       });
       return sumaSegundos;
     },
+    // Funcion que devuelve el tiempo estudiado esta semana
     semana: function() {
       const ahora = new Date();
+      // Obtenemos las sesiones de estudio de esta semana
       const arraySesiones = Usuario.$usuarioLocal
         .getColeccionSesiones()
         .getSesionesSemana(ahora);
       let sumaSegundos = 0;
+      // Sumamos los segundos de todas las sesiones de estudios
       arraySesiones.forEach(sesion => {
         sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(
           sesion.getFinSesion(),
@@ -151,12 +163,15 @@ export default {
       });
       return sumaSegundos;
     },
+    // Funcion que devuelve el tiempo estudiado esta mes
     mes: function() {
       const ahora = new Date();
+      // Obtenemos las sesiones de estudio de ese mes
       const arraySesiones = Usuario.$usuarioLocal
         .getColeccionSesiones()
         .getSesionesMes(ahora);
       let sumaSegundos = 0;
+      // Sumamos los segundos de todas las sesiones de estudios
       arraySesiones.forEach(sesion => {
         sumaSegundos += FuncionesAuxiliares.segundosEntreFechas(
           sesion.getFinSesion(),

@@ -80,11 +80,15 @@ export default {
   name: "ResumenAsignaturas",
   data() {
     return {
+      // Variable con el conjunto de asignaturas del Plan de estudio
       misAsig: Usuario.$usuarioLocal.planEstudio.asignaturas,
+      // Variable que indica si hay objetivos asociados a las asignaturas
       hayObjetivos: false
     };
   },
   mounted: function() {
+    // Al montar el componente, poblamos las variables de asignaturas con aquellas que tienen objetivos.
+    // Tambien indicamos si hay al menos alguna asignatura con objetivo
     this.misAsig.forEach(asignatura => {
       if(asignatura.objetivo != null){
         this.hayObjetivos = true;
@@ -92,12 +96,15 @@ export default {
     });
   },
   methods: {
+    // Tiempo estudiado hoy de una asignatura
     hoyAsignatura: function(nombreAsig) {
       const ahora = new Date();
+      // Obtenemos sesiones de estudio de hoy
       const arraySesiones = Usuario.$usuarioLocal
         .getColeccionSesiones()
         .getSesionesDia(ahora);
       let sumaSegundos = 0;
+      // Sumamos el tiempo de las sesiones de estudio filtradas por asignaturas
       arraySesiones.forEach(sesion => {
         if (
           sesion.asignatura != null &&
@@ -111,12 +118,15 @@ export default {
       });
       return sumaSegundos;
     },
+    
+    // Tiempo estudiado esta semana de una asignatura
     semanaAsignatura: function(nombreAsig) {
       const ahora = new Date();
       const arraySesiones = Usuario.$usuarioLocal
         .getColeccionSesiones()
         .getSesionesSemana(ahora);
       let sumaSegundos = 0;
+      // Sumamos el tiempo de las sesiones de estudio filtradas por asignaturas
       arraySesiones.forEach(sesion => {
         if (
           sesion.asignatura != null &&
@@ -130,12 +140,14 @@ export default {
       });
       return sumaSegundos;
     },
+    // Tiempo estudiado este mes de una asignatura
     mesAsignatura: function(nombreAsig) {
       const ahora = new Date();
       const arraySesiones = Usuario.$usuarioLocal
         .getColeccionSesiones()
         .getSesionesMes(ahora);
       let sumaSegundos = 0;
+      // Sumamos el tiempo de las sesiones de estudio filtradas por asignaturas
       arraySesiones.forEach(sesion => {
         if (
           sesion.asignatura != null &&
@@ -149,6 +161,7 @@ export default {
       });
       return sumaSegundos;
     },
+    // Convertirmos tiempo en segundos a texto
     secToText: function (tiempo){
       return FuncionesAuxiliares.segundosToText(tiempo);
     }
