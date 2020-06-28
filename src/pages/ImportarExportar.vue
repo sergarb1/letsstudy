@@ -2,17 +2,18 @@
   <q-page class="flex column q-pa-md col-8 q-a-md">
     <div class="q-px-md col-8 q-mx-auto">
       <div class="flex flex-center column">
-        <img alt="Lets Study logo" src="~assets/LETSSTUDY_RESUMEN.png" style="height:150px;" />
+        <img alt="Lets Study logo" src="~assets/importar_logo.png" style="height:150px;" />
       </div>
     </div>
 
-    <q-card class="q-mb-lg q-px-lg no-box-shadow no-border-radius Oswald">
+    <q-card class="q-mb-lg q-px-lg no-box-shadow Oswald">
       <q-card-section class="justify-center">
         <div class="flex flex-center q-mt-md q-mt-xs">
           <h5 class="Oswald doc-heading doc-h5 q-ma-none text-weight-light">Importar / Exportar</h5>
         </div>
       </q-card-section>
 
+      <div class="bg-light-blue rounded-borders">
       <q-card-section class="justify-center">
         <div class="flex flex-center q-mt-md q-mt-xs">
           <q-list>
@@ -50,7 +51,7 @@
               />
             </q-item>
             <q-item class="justify-center">
-              <q-file size="xs" label="Fichero a importar" outlined v-model="contenidoFichero">
+              <q-file size="xs" label="Fichero a importar" class="bg-white rounded-borders" outlined v-model="contenidoFichero">
                 <template v-slot:prepend>
                   <q-icon size="xs" name="attach_file" />
                 </template>
@@ -70,6 +71,7 @@
           </q-list>
         </div>
       </q-card-section>
+      </div>
     </q-card>
   </q-page>
 </template>
