@@ -3,7 +3,7 @@ Aplicación para facilitar el estudio. En este repositorio tenemos el código de
 
 # Descargas y enlaces
 - Google Play: https://play.google.com/store/apps/details?id=org.ceedcv.letsstudy
-- Acceso web: https://apuntesfpinformatica.es/letsstudy/#/
+- Acceso web: https://aprendeaprogramar.org/letsstudy
 - Descarga versión Web, Móvil y Escritorio: https://github.com/sergarb1/letsstudy-downloads
 
 # Autores originales de la aplicación (Orden alfabético)
