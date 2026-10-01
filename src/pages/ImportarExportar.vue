@@ -77,9 +77,19 @@
 </template>
 
 <script>
-import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
+import FuncionesAuxiliares, { datosSonValidos } from "../clases/FuncionesAuxiliares.js";
 
-import { Dialog } from "quasar";
+// Tamaño máximo razonable para un fichero de datos de la app (5 MB)
+const TAMANO_MAXIMO_FICHERO = 5 * 1024 * 1024;
+
+// Escapa un valor para que no rompa las comillas ni las columnas del CSV
+function escaparCSV(valor) {
+  const texto = valor === null || valor === undefined ? "" : String(valor);
+  if (/[",\r\n]/.test(texto)) {
+    return '"' + texto.replace(/"/g, '""') + '"';
+  }
+  return texto;
+}
 
 export default {
   name: "ImportarExportar",
@@ -92,17 +102,52 @@ export default {
   // Usamos created, porque si usamos mounted se monta con el plan de estudios nulo
   created: function() {},
   methods: {
+    // Crea una descarga dinámica con un Blob (sin data: URIs, que la CSP
+    // del build de producción puede bloquear)
+    descargarFichero: function(contenido, nombreFichero, tipoMime) {
+      const blob = new Blob([contenido], { type: tipoMime });
+      const url = URL.createObjectURL(blob);
+      const enlace = document.createElement("a");
+      enlace.href = url;
+      enlace.download = nombreFichero;
+      document.body.appendChild(enlace);
+      enlace.click();
+      enlace.remove();
+      // Se libera la URL cuando el navegador ya ha iniciado la descarga
+      setTimeout(function() {
+        URL.revokeObjectURL(url);
+      }, 1000);
+    },
     exportarTodo: function() {
-      // Obtenemos texto
-      let miJSON = localStorage.getItem("usuarioLocal");
+      let miJSON = null;
 
-      // Tecnica para crear una descarga dinámica de un fichero de texto
-      let hiddenElement = document.createElement("a");
-      hiddenElement.href = "data:text/csv;charset=utf-8," + encodeURI(miJSON);
-      hiddenElement.target = "_blank";
-      hiddenElement.download =
-        "DatosLetStudy" + new Date().toISOString().slice(0, 10) + ".json";
-      hiddenElement.click();
+      try {
+        miJSON = localStorage.getItem("usuarioLocal");
+        if (miJSON !== null) {
+          JSON.parse(miJSON);
+        }
+      } catch (error) {
+        console.error("No se ha podido exportar los datos:", error);
+        this.$q.notify({
+          type: "negative",
+          message: "No se han podido exportar los datos: están dañados"
+        });
+        return;
+      }
+
+      if (miJSON === null || miJSON === "") {
+        this.$q.notify({
+          type: "negative",
+          message: "No hay datos que exportar"
+        });
+        return;
+      }
+
+      this.descargarFichero(
+        miJSON,
+        "DatosLetStudy" + new Date().toISOString().slice(0, 10) + ".json",
+        "application/json;charset=utf-8"
+      );
 
       // Notificamos la correcta exportacion
       this.$q.notify({
@@ -111,31 +156,53 @@ export default {
       });
     },
     exportarSesiones: function() {
-      let miJSON = JSON.parse(localStorage.getItem("usuarioLocal"));
+      let miJSON = null;
 
-      let csv = ""; // Aqui creamos el CSV (Comma Separated Values) que esportaremos
-      //Creamos cabecera
-      csv = "FechaInicio,FechaFin,Asignatura\n";
-      // Por cada sesion de estudio, generamos una linea CSV
-      for (let x in miJSON.coleccionSesiones.arraySesionesEstudio) {
-        let sesion = miJSON.coleccionSesiones.arraySesionesEstudio[x];
-        // Anyadimos una linea
-        csv +=
-          sesion.inicioSesion +
-          "," +
-          sesion.finSesion +
-          "," +
-          sesion.asignatura.nombre +
-          "\n";
+      try {
+        miJSON = JSON.parse(localStorage.getItem("usuarioLocal"));
+      } catch (error) {
+        console.error("No se ha podido exportar las sesiones:", error);
+        this.$q.notify({
+          type: "negative",
+          message: "No se han podido exportar las sesiones: los datos están dañados"
+        });
+        return;
       }
 
-      // Tecnica para crear una descarga dinámica de un fichero de texto
-      let hiddenElement = document.createElement("a");
-      hiddenElement.href = "data:text/csv;charset=utf-8," + encodeURI(csv);
-      hiddenElement.target = "_blank";
-      hiddenElement.download =
-        "SesionesLetStudy" + new Date().toISOString().slice(0, 10) + ".csv";
-      hiddenElement.click();
+      const sesiones =
+        miJSON && miJSON.coleccionSesiones
+          ? miJSON.coleccionSesiones.arraySesionesEstudio
+          : null;
+
+      if (!Array.isArray(sesiones)) {
+        this.$q.notify({
+          type: "negative",
+          message: "No hay sesiones de estudio que exportar"
+        });
+        return;
+      }
+
+      // Aqui creamos el CSV (Comma Separated Values) que exportaremos
+      // \r\n y el BOM inicial hacen que Excel abra bien los acentos
+      let csv = "FechaInicio,FechaFin,Asignatura\r\n";
+      // Por cada sesion de estudio, generamos una linea CSV
+      for (let x in sesiones) {
+        const sesion = sesiones[x];
+        const asignatura =
+          sesion.asignatura && sesion.asignatura.nombre
+            ? sesion.asignatura.nombre
+            : "";
+        csv +=
+          [sesion.inicioSesion, sesion.finSesion, asignatura]
+            .map(escaparCSV)
+            .join(",") + "\r\n";
+      }
+
+      this.descargarFichero(
+        "\uFEFF" + csv,
+        "SesionesLetStudy" + new Date().toISOString().slice(0, 10) + ".csv",
+        "text/csv;charset=utf-8"
+      );
 
       // Notificamos la correcta exportacion
       this.$q.notify({
@@ -155,6 +222,14 @@ export default {
         return;
       }
 
+      if (this.contenidoFichero.size > TAMANO_MAXIMO_FICHERO) {
+        this.$q.notify({
+          type: "negative",
+          message: "El fichero es demasiado grande para ser de Let's Study"
+        });
+        return;
+      }
+
       // Dialogo de importar
       this.$q
         .dialog({
@@ -167,17 +242,56 @@ export default {
         .onOk(() => {
           // Si tenemos fichero en formato https://developer.mozilla.org/es/docs/Web/API/File incluimos
           // su información dentro del localStorage
-          this.contenidoFichero.text().then(textoFichero => {
-            // Guardamos datos en localStorage
-            localStorage.setItem("usuarioLocal", textoFichero);
-            // Recargamos localStorage
-            FuncionesAuxiliares.restaurarEstadoLocalStorage();
-            // Notificamos que se ha hecho correctamente la importacion
-            this.$q.notify({
-              type: "positive",
-              message: "Datos importados con éxito"
+          this.contenidoFichero
+            .text()
+            .then(textoFichero => {
+              let datos = null;
+
+              // El fichero se valida antes de sobreescribir nada: un JSON
+              // inválido o de otra app no debe perder los datos actuales
+              try {
+                datos = JSON.parse(textoFichero);
+              } catch {
+                this.$q.notify({
+                  type: "negative",
+                  message: "El fichero no contiene JSON válido"
+                });
+                return;
+              }
+
+              if (!datosSonValidos(datos)) {
+                this.$q.notify({
+                  type: "negative",
+                  message: "El fichero no tiene el formato de datos de Let's Study"
+                });
+                return;
+              }
+
+              // Guardamos datos en localStorage
+              localStorage.setItem("usuarioLocal", JSON.stringify(datos));
+              // Recargamos localStorage
+              const restaurado =
+                FuncionesAuxiliares.restaurarEstadoLocalStorage();
+              // Notificamos que se ha hecho correctamente la importacion
+              this.$q.notify(
+                restaurado
+                  ? {
+                      type: "positive",
+                      message: "Datos importados con éxito"
+                    }
+                  : {
+                      type: "negative",
+                      message: "Los datos del fichero no se han podido importar"
+                    }
+              );
+            })
+            .catch(error => {
+              console.error("No se ha podido leer el fichero:", error);
+              this.$q.notify({
+                type: "negative",
+                message: "No se ha podido leer el fichero seleccionado"
+              });
             });
-          });
         });
 
       return;
@@ -193,7 +307,10 @@ export default {
           persistent: true
         })
         .onOk(() => {
-          localStorage.clear();
+          // Solo se borran las claves de la app: localStorage.clear()
+          // borraría también datos de otras aplicaciones del mismo dominio
+          localStorage.removeItem("usuarioLocal");
+          localStorage.removeItem("usuarioLocal__respaldo");
           // Para que el objeto este bien, recuperamos del LocalStorage y asi se re-construye el objeto
           FuncionesAuxiliares.restaurarEstadoLocalStorage();
           this.$q.notify({

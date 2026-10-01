@@ -1,9 +1,6 @@
-
 module.exports = {
   presets: [
-    '@quasar/babel-preset-app',
-    "@babel/preset-env" // Añadido para test, si da problemas en produccion quitar 
+    '@quasar/babel-preset-app'
   ],
-  "plugins": [
-  ]
+  plugins: []
 }

@@ -2,6 +2,7 @@ import Usuario from './Usuario.js';
 import SesionEstudio from './SesionEstudio.js';
 import {
   Loading,
+  Notify,
   QSpinnerComment
 } from 'quasar';
 import FrasesMotivadoras from './FrasesMotivadoras.js';
@@ -9,6 +10,11 @@ import Pomodoro from './Pomodoro.js';
 import PlanEstudio from './PlanEstudio.js';
 import Asignatura from './Asignatura.js';
 import Objetivo from './Objetivo.js';
+
+// Clave de localStorage donde se guarda el estado del usuario
+const CLAVE_USUARIO = "usuarioLocal";
+// Clave de respaldo del último contenido ilegible que no se pudo restaurar
+const CLAVE_RESPALDO = "usuarioLocal__respaldo";
 
 // Definición de clase para funciones auxiliares estáticas
 class FuncionesAuxiliares {
@@ -56,24 +62,49 @@ class FuncionesAuxiliares {
 
   // Guarda la variable estatica Usuario.$usuarioLocal en LocalStorage
   static guardarEstadoLocalStorage() {
-    localStorage.setItem("usuarioLocal", JSON.stringify(Usuario.$usuarioLocal));
+    try {
+      localStorage.setItem(CLAVE_USUARIO, JSON.stringify(Usuario.$usuarioLocal));
+      return true;
+    } catch (error) {
+      console.error("No se ha podido guardar el estado en localStorage:", error);
+      avisarUsuario({
+        type: "negative",
+        message: "No se han podido guardar los datos: almacenamiento lleno o no disponible"
+      });
+      return false;
+    }
   }
 
   // Restaura la variable estatica Usuario.$usuarioLocal desde LocalStorage
   static restaurarEstadoLocalStorage() {
-    // Si no existia en localStorage usuarioLocal por ser la primera vez, creamos el objeto con nuestro constructor
-    if (!localStorage["usuarioLocal"]) {
-      Usuario.$usuarioLocal = new Usuario("User");
-      // Meto una asignatura llamada "Estudio general" por defecto
-      Usuario.$usuarioLocal.planEstudio.addAsignatura(new Asignatura("Estudio general",null));
+    let bruto = null;
+
+    try {
+      bruto = localStorage.getItem(CLAVE_USUARIO);
+    } catch (error) {
+      console.error("No se ha podido leer localStorage:", error);
     }
-    // Caso de que existe
-    else {
 
-      // Traemos los datos desde localStorage y los ponemos en formato
-      // JSON para trabajar con ellos.
-      let datos = JSON.parse(localStorage.getItem("usuarioLocal"));
+    // Si no existia en localStorage usuarioLocal por ser la primera vez, creamos el objeto con nuestro constructor
+    if (bruto === null || bruto === "") {
+      crearUsuarioPorDefecto();
+      return true;
+    }
 
+    // Los datos se validan antes de tocar Usuario.$usuarioLocal: si estan
+    // dañados se respaldan y se arranca de cero en lugar de romper la app
+    let datos;
+    try {
+      datos = JSON.parse(bruto);
+      if (!datosSonValidos(datos)) {
+        throw new Error("los datos no tienen la estructura esperada");
+      }
+    } catch (error) {
+      respaldarYReiniciar(bruto, error);
+      return false;
+    }
+
+    try {
       // Creamos el usuario
       Usuario.$usuarioLocal = new Usuario(datos.nombre);
       // Le asignamos el estado de sesion, si no es null lo asignamos como fecha.
@@ -191,8 +222,12 @@ class FuncionesAuxiliares {
       Usuario.$usuarioLocal.pomodoro.setDuracionRonda(datos.pomodoro.duracionRonda);
       Usuario.$usuarioLocal.pomodoro.setDuracionDescansoLargo(datos.pomodoro.duracionDescansoLargo);
       Usuario.$usuarioLocal.pomodoro.setDuracionDescansoCorto(datos.pomodoro.duracionDescansoCorto);
+    } catch (error) {
+      respaldarYReiniciar(bruto, error);
+      return false;
     }
 
+    return true;
   }
 
   // Añade un componente Loader a la pantalla con mensaje motivador al iniciar la pagina.
@@ -272,5 +307,78 @@ class FuncionesAuxiliares {
   }
 }
 
+// Crea un usuario nuevo con la configuración inicial de la app
+function crearUsuarioPorDefecto() {
+  Usuario.$usuarioLocal = new Usuario("User");
+  // Meto una asignatura llamada "Estudio general" por defecto
+  Usuario.$usuarioLocal.planEstudio.addAsignatura(new Asignatura("Estudio general", null));
+}
+
+// Comprueba que los datos tienen la estructura que restaurarEstadoLocalStorage
+// espera reconstruir. Devuelve false si falta cualquier bloque indispensable
+function datosSonValidos(datos) {
+  if (datos === null || typeof datos !== "object" || Array.isArray(datos)) {
+    return false;
+  }
+  if (typeof datos.nombre !== "string") {
+    return false;
+  }
+  if (
+    datos.coleccionSesiones === null ||
+    typeof datos.coleccionSesiones !== "object" ||
+    !Array.isArray(datos.coleccionSesiones.arraySesionesEstudio)
+  ) {
+    return false;
+  }
+  if (
+    datos.planEstudio === null ||
+    typeof datos.planEstudio !== "object" ||
+    !Array.isArray(datos.planEstudio.asignaturas) ||
+    !Array.isArray(datos.planEstudio.objetivos)
+  ) {
+    return false;
+  }
+  if (datos.pomodoro === null || typeof datos.pomodoro !== "object") {
+    return false;
+  }
+  return true;
+}
+
+// Conserva el contenido ilegible, reinicia la app y avisa al usuario
+function respaldarYReiniciar(bruto, error) {
+  try {
+    localStorage.setItem(CLAVE_RESPALDO, bruto);
+  } catch (errorDeRespaldo) {
+    console.error("No se ha podido respaldar los datos dañados:", errorDeRespaldo);
+  }
+
+  crearUsuarioPorDefecto();
+  // Se deja el estado nuevo escrito: así la copia dañada solo vive en el respaldo
+  try {
+    localStorage.setItem(CLAVE_USUARIO, JSON.stringify(Usuario.$usuarioLocal));
+  } catch (errorDeGuardado) {
+    console.error("No se ha podido guardar el estado nuevo:", errorDeGuardado);
+  }
+  console.error("Los datos guardados estaban dañados:", error);
+  avisarUsuario({
+    type: "negative",
+    message:
+      "No se han podido recuperar tus datos guardados. Se han respaldado en el navegador y se ha empezado de cero."
+  });
+}
+
+// Muestra un aviso al usuario sin que un fallo del plugin rompa el guardado
+function avisarUsuario(notificacion) {
+  if (typeof Notify.create !== 'function') {
+    return;
+  }
+  try {
+    Notify.create(notificacion);
+  } catch (error) {
+    console.warn("No se ha podido mostrar la notificación:", error);
+  }
+}
+
 // Para que se posible importar la clase
+export { datosSonValidos }
 export default FuncionesAuxiliares

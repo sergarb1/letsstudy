@@ -83,7 +83,8 @@ export default {
     },
     //funcion que borra el localStorage
     borrarLocalStorage() {
-      localStorage.clear();
+      localStorage.removeItem("usuarioLocal");
+      localStorage.removeItem("usuarioLocal__respaldo");
       // Para que el objeto este bien, recuperamos del LocalStorage y asi se re-construye el objeto
       FuncionesAuxiliares.restaurarEstadoLocalStorage();
     }

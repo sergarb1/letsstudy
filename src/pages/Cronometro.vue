@@ -107,8 +107,6 @@ personalizaciones de estilo
 // Importo la clase FuncionesAuxiliares y FrasesMotivadoras
 import FuncionesAuxiliares from "../clases/FuncionesAuxiliares.js";
 import FrasesMotivadoras from "../clases/FrasesMotivadoras.js";
-// Importamos la clase SesionEstudio para poder registrar sesiones de estudio
-import SesionEstudio from "../clases/SesionEstudio.js";
 import Usuario from "../clases/Usuario.js";
 
 // Importamos componente ConfigurarPomodoro

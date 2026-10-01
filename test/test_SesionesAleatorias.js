@@ -1,9 +1,3 @@
-var assert = require('assert');
-
-import SesionEstudio from "../src/clases/SesionEstudio.js";
-import FuncionesAuxiliares from "../src/clases/FuncionesAuxiliares.js";
-import ColeccionSesiones from "../src/clases/ColeccionSesiones.js";
-
 describe('Probando Sesiones Aleatorias', function () {
 
     // TODO Formalizar test de sesiones aleatorias
