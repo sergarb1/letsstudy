@@ -30,7 +30,7 @@
     "@eslint/js": "^9.39.5",
     "@quasar/app-webpack": "^4.4.5",
     "autoprefixer": "^10.6.1",
-    "electron": "^41.10.6",
+    "electron": "^44.4.5",
     "electron-debug": "^3.2.0",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^9.39.5",
